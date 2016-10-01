@@ -7,8 +7,9 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-
+@TeleOp(name="Template: TankOp", group="Linear Opmode")
 public class TankOp extends OpMode {
 
     final static double Arm_Min_Range = 0;
