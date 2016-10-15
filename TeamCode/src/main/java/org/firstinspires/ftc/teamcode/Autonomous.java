@@ -1,0 +1,44 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+/**
+ * Created by Matthew on 10/14/2016.
+ */
+
+    @TeleOp(name="Template: AutoOpTest", group="Linear Opmode")
+    public class Autonomous extends LinearOpMode {
+        HardwareRobot robot = new HardwareRobot();
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+        robot.init(hardwareMap);
+
+        DcMotor motor_left = robot.motor_left;
+        DcMotor motor_right = robot.motor_right;
+
+        waitForStart();
+
+        motor_left.setPower(1);
+        motor_right.setPower(1);
+
+        sleep(5000);
+        sleep(1000);
+
+        motor_left.setPower(0.5);
+        motor_right.setPower(-0.5);
+
+        sleep(500);
+        sleep(1000);
+
+        motor_left.setPower(0.5);
+        motor_right.setPower(0.5);
+
+        sleep(700);
+        sleep(2500);
+
+
+    }
+}

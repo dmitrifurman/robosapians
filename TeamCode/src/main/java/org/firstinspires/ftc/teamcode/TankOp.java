@@ -51,8 +51,8 @@ public class TankOp extends OpMode {
     @Override
     public void loop() {
 
-        DcMotor motor1 = robot.motor_front_left;
-        DcMotor motor2 = robot.motor_front_right;
+        DcMotor motor1 = robot.motor_left;
+        DcMotor motor2 = robot.motor_right;
         // Color Sensor Setup
         //float hsvValues[] = {0,0,0};
         //final float values[] = hsvValues;
