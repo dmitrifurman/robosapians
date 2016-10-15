@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name="Template: TankOp", group="Linear Opmode")
 public class TankOp extends OpMode {
-
+    HardwareRobot robot = new HardwareRobot();
     final static double Arm_Min_Range = 0;
     final static double Arm_Max_Range = 1;
 
@@ -21,13 +21,9 @@ public class TankOp extends OpMode {
 
     double LEDmode = 0;
 
-    //Declares Motors
-    DcMotor motor1;
-    DcMotor motor2;
-
     // Declares Servos
-    Servo arm1;
-    Servo arm2;
+    //Servo arm1;
+    //Servo arm2;
 
     // Declares Color Sensor
     ColorSensor color1;
@@ -38,52 +34,47 @@ public class TankOp extends OpMode {
 
     @Override
     public void init() {
-        // Assigns Names to Motors
-        motor1 = hardwareMap.dcMotor.get("motor_front_left");
-        motor2 = hardwareMap.dcMotor.get("motor_front_right");
-
-        // Reverse Motors
-        motor2.setDirection(DcMotor.Direction.REVERSE);
-
-
+        robot.init(hardwareMap);
         // Assigns Names to Servos
-        arm1 = hardwareMap.servo.get("servo_arm_right");
-        arm2 = hardwareMap.servo.get("servo_arm_left");
+        //arm1 = hardwareMap.servo.get("servo_arm_right");
+       // arm2 = hardwareMap.servo.get("servo_arm_left");
 
         // Servo Default Position
-        armPosition = 0;
+       // armPosition = 0;
 
 
         // Assigns Names to Sensors
-        color1 = hardwareMap.colorSensor.get("color_sensor");
+        //color1 = hardwareMap.colorSensor.get("color_sensor");
 
     }
 
     @Override
     public void loop() {
 
+        DcMotor motor1 = robot.motor_front_left;
+        DcMotor motor2 = robot.motor_front_right;
         // Color Sensor Setup
-        float hsvValues[] = {0,0,0};
-        final float values[] = hsvValues;
-        LEDmode = 0;
+        //float hsvValues[] = {0,0,0};
+        //final float values[] = hsvValues;
+        //LEDmode = 0;
 
-        if(LEDmode == 0){
-            color1.enableLed(false);
-        } else if(LEDmode == 1){
-            color1.enableLed(true);
-        }
-        Color.RGBToHSV(color1.red()*8, color1.green()*8, color1.blue()*8, hsvValues);
+        //if(LEDmode == 0){
+        //    color1.enableLed(false);
+        //} else if(LEDmode == 1){
+         //   color1.enableLed(true);
+        //}
+        //Color.RGBToHSV(color1.red()*8, color1.green()*8, color1.blue()*8, hsvValues);
 
         // Feedback Data
         telemetry.addData("Feedback Data for", "TankOp");
         telemetry.addData("Left Wheels", motor1.getPower());
-        telemetry.addData("Right Wheels", motor2.getPower());
-        telemetry.addData("Servos 1 and 2", arm1.getPosition());
-        telemetry.addData("Color Sensor: Clear", color1.alpha());
-        telemetry.addData("Color Sensor: Red", color1.red());
-        telemetry.addData("Color Sensor: Green", color1.green());
-        telemetry.addData("Color Sensor: Blue", color1.blue());
-        telemetry.addData("Color Sensor: Hue", hsvValues[0]);
+        //telemetry.addData("Right Wheels", motor2.getPower());
+        //telemetry.addData("Servos 1 and 2", arm1.getPosition());
+        //telemetry.addData("Color Sensor: Clear", color1.alpha());
+        //telemetry.addData("Color Sensor: Red", color1.red());
+        //telemetry.addData("Color Sensor: Green", color1.green());
+       // telemetry.addData("Color Sensor: Blue", color1.blue());
+       // telemetry.addData("Color Sensor: Hue", hsvValues[0]);
 
 
         //Assigns Joystick Values
@@ -108,29 +99,29 @@ public class TankOp extends OpMode {
 
 
         //Servo Position Updater
-        if (gamepad1.a){
-            armPosition += armChange;
-        }
-        if (gamepad1.b){
-            armPosition -= armChange;
-        }
+        //if (gamepad1.a){
+          //  armPosition += armChange;
+        //}
+        //if (gamepad1.b){
+          //  armPosition -= armChange;
+        //}
 
         //Limits Servo Movement
-        armPosition = Range.clip(armPosition, Arm_Min_Range, Arm_Max_Range);
+        //armPosition = Range.clip(armPosition, Arm_Min_Range, Arm_Max_Range);
 
         // Updates Servoes
-        arm1.setPosition(armPosition);
-        arm2.setPosition(armPosition);
+        //arm1.setPosition(armPosition);
+        //arm2.setPosition(armPosition);
 
 
         // LED Mode Updater
-        if(gamepad1.x) {
-            if(LEDmode == 0){
-                LEDmode = 1;
-            } else if(LEDmode == 1){
-                LEDmode = 0;
-            }
-        }
+        //if(gamepad1.x) {
+          //  if(LEDmode == 0){
+            //    LEDmode = 1;
+            //} else if(LEDmode == 1){
+              //  LEDmode = 0;
+            //}
+        //}
 
     }
 

@@ -2,59 +2,57 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 /**
  * Created by Matthew on 10/7/2016.
  */
-
+@TeleOp(name="Template: AutoOpTest", group="Linear Opmode")
 public class AutoOpTest extends LinearOpMode {
-    DcMotor motor_front_left;
-    DcMotor motor_front_right;
+    HardwareRobot robot = new HardwareRobot();
 
     @Override
     public void runOpMode() throws InterruptedException {
-        motor_front_left = hardwareMap.dcMotor.get("motor_left");
-        motor_front_right = hardwareMap.dcMotor.get("motor_right");
-        motor_front_right.setDirection(DcMotor.Direction.REVERSE);
+        robot.init(hardwareMap);
+
+        DcMotor motor_front_left = robot.motor_front_left;
+        DcMotor motor_front_right = robot.motor_front_right;
 
         waitForStart();
         //Drive forward at half power for 1/2 a second
         motor_front_left.setPower(0.5);
         motor_front_right.setPower(0.5);
 
-        sleep(5000);
+        sleep(1000);
 
         //Stop motors for 1 second
         motor_front_left.setPower(0);
         motor_front_right.setPower(0);
 
-        sleep(10000);
+        sleep(1000);
 
         //Turn right at half power for 1/2 a second
         motor_front_left.setPower(0.5);
         motor_front_right.setPower(-0.5);
 
-        sleep(5000);
+        sleep(1000);
 
         //Stop Motors for 1/2 a second
         motor_front_left.setPower(0);
         motor_front_right.setPower(0);
 
-        sleep(5000);
+        sleep(1000);
 
         //Drive forward at half power for 1/2 a second
         motor_front_left.setPower(0.5);
         motor_front_right.setPower(0.5);
 
-        sleep(5000);
+        sleep(1000);
 
         //Stop Motors for rest of program
         motor_front_left.setPower(0);
         motor_front_right.setPower(0);
 
-        sleep(5000);
-
-
-
+        sleep(1000);
     }
 }
