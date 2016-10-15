@@ -24,20 +24,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
         motor_left.setPower(1);
         motor_right.setPower(1);
 
-        sleep(2000);
+        sleep(3000);
         sleep(1000);
 
-        motor_left.setPower(0.5);
-        motor_right.setPower(-0.5);
-
-        sleep(400);
-        sleep(1000);
-
-        motor_left.setPower(0.5);
-        motor_right.setPower(0.5);
-
-        sleep(700);
-        sleep(2500);
 
 
     }
