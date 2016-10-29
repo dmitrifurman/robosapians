@@ -4,9 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-/**
- * Created by Matthew on 10/7/2016.
- */
 @TeleOp(name="Template: AutoOpTest", group="Linear Opmode")
 public class AutoOpTest extends LinearOpMode {
     HardwareRobot robot = new HardwareRobot();

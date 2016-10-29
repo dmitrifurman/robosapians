@@ -5,10 +5,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-/**
- * Created by Matthew on 10/7/2016.
- */
-
 public class HardwareRobot {
     public DcMotor motor1 = null;
     public DcMotor motor2 = null;

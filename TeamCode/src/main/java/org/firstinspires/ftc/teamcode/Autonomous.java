@@ -4,10 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-/**
- * Created by Matthew on 10/14/2016.
- */
-
     @TeleOp(name="Template: Autonomous", group="Linear Opmode")
     public class Autonomous extends LinearOpMode {
         HardwareRobot robot = new HardwareRobot();
