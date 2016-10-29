@@ -47,37 +47,17 @@ public class TankOp extends OpMode {
     @Override
     public void loop() {
 
-        // Color Sensor Mode Changer
-        if (LEDmode == 0) {
-            robot.colorS1.enableLed(false);
-        } else if (LEDmode == 1) {
-            robot.colorS1.enableLed(true);
-        }
+        feedBack();
+        colorSensor();
+        drive();
+        particleLaunch();
+        particleCollecter();
+        servos();
+        extender();
 
-        // Belt Code
-        if (beltMode == 0) {
-            robot.motor5.setPower(0);
-        } else if (beltMode == 1) {
-            robot.motor5.setPower(gamepad2.left_stick_y);
-        }
+    }
 
-        // Collect Code
-        if (collectMode == 0) {
-            robot.motor6.setPower(0);
-        } else if (collectMode == 1) {
-            robot.motor6.setPower(1);
-        } else if (collectMode == 2) {
-            robot.motor6.setPower(-1);
-        }
-
-        // Extend Code
-        if (extendMode == 0) {
-            robot.motor7.setPower(0);
-        } else if (extendMode == 1) {
-            robot.motor7.setPower(0.5);
-        } else if (extendMode == 2) {
-            robot.motor7.setPower(-0.5);
-        }
+    private void feedBack() {
 
         // Feedback Data
         telemetry.addData("Feedback Data for", "TankOp");
@@ -85,6 +65,7 @@ public class TankOp extends OpMode {
         telemetry.addData("Right Wheels", robot.motor2.getPower());
         telemetry.addData("Left Launching Power", robot.motor3.getPower() * -1);
         telemetry.addData("Right Launching Power", robot.motor4.getPower() * -1);
+        telemetry.addData("Belt Mode", beltMode);
         telemetry.addData("Belt Speed", robot.motor5.getPower());
         telemetry.addData("Collector Speed", robot.motor6.getPower());
         telemetry.addData("Extend Speed", robot.motor7.getPower());
@@ -93,58 +74,16 @@ public class TankOp extends OpMode {
         telemetry.addData("Color Sensor: Green", robot.colorS1.green());
         telemetry.addData("Color Sensor: Blue", robot.colorS1.blue());
 
-        //Assigns Joystick Values
-        float Left_Motor = Range.clip(gamepad1.left_stick_y, -1, 1);
-        float Right_Motor = Range.clip(gamepad1.right_stick_y, -1, 1);
-        float Left_Launch = Range.clip(gamepad2.left_stick_y, -1, 1);
-        float Right_Launch = Range.clip(gamepad2.right_stick_y, -1, 1);
+    }
 
-        // Drive Code
-        if (Left_Motor != 0) {
-            robot.motor1.setPower(gamepad1.left_stick_y);
-        }
-        if (Right_Motor != 0) {
-            robot.motor2.setPower(gamepad1.right_stick_y);
-        }
+    private void colorSensor() {
 
-        // Stops The Motors if Joypads Aren't Used
-        if (Left_Motor == 0) {
-            robot.motor1.setPower(0);
+        // Color Sensor Mode Changer
+        if (LEDmode == 0) {
+            robot.colorS1.enableLed(false);
+        } else if (LEDmode == 1) {
+            robot.colorS1.enableLed(true);
         }
-        if (Right_Motor == 0) {
-            robot.motor2.setPower(0);
-        }
-
-        // Launching Code
-        if (Left_Launch != 0) {
-            robot.motor3.setPower(gamepad2.left_stick_y);
-        }
-        if (Right_Launch != 0) {
-            robot.motor4.setPower(gamepad2.right_stick_y);
-        }
-
-        // Stops The Motors if Joypads Aren't Used
-        if (Left_Launch >= 0) {
-            robot.motor3.setPower(0);
-        }
-        if (Right_Launch >= 0) {
-            robot.motor4.setPower(0);
-        }
-
-        //Servo Position Updater
-        if (gamepad1.a) {
-            armPosition += armChange;
-        }
-        if (gamepad1.b) {
-            armPosition -= armChange;
-        }
-
-        //Limits Servo Movement
-        armPosition = Range.clip(armPosition, Arm_Min_Range, Arm_Max_Range);
-
-        // Updates Servoes
-        robot.arm1.setPosition(armPosition);
-        robot.arm2.setPosition(armPosition);
 
         // LED Mode Updater
         if (gamepad2.left_bumper) {
@@ -162,6 +101,63 @@ public class TankOp extends OpMode {
             }
         }
 
+    }
+
+    private void  drive() {
+
+        //Assign Joystick Values
+        float Left_Motor = Range.clip(gamepad1.left_stick_y, -1, 1);
+        float Right_Motor = Range.clip(gamepad1.right_stick_y, -1, 1);
+
+        // Drive Code
+        if (Left_Motor != 0) {
+            robot.motor1.setPower(gamepad1.left_stick_y);
+        }
+        if (Right_Motor != 0) {
+            robot.motor2.setPower(gamepad1.right_stick_y);
+        }
+
+        // Stops The Motors if Joypads Aren't Used
+        if (Left_Motor == 0) {
+            robot.motor1.setPower(0);
+        }
+        if (Right_Motor == 0) {
+            robot.motor2.setPower(0);
+        }
+
+    }
+
+    private void  particleLaunch() {
+
+        //Assigns Joystick Values
+        float Left_Launch = Range.clip(gamepad2.left_stick_y, -1, 1);
+        float Right_Launch = Range.clip(gamepad2.right_stick_y, -1, 1);
+
+        // Launching Code
+        if (Left_Launch != 0) {
+            robot.motor3.setPower(gamepad2.left_stick_y);
+        }
+        if (Right_Launch != 0) {
+            robot.motor4.setPower(gamepad2.right_stick_y);
+        }
+
+        //Belt Code
+        if(Left_Launch > 0 && Right_Launch > 0 && beltMode == 1){
+            robot.motor5.setPower(1);
+        }else if(Left_Launch < 0 && Right_Launch < 0 && beltMode == 1){
+            robot.motor5.setPower(-1);
+        }else if(beltMode == 0){
+            robot.motor5.setPower(0);
+        }
+
+        // Stops The Motors if Joypads Aren't Used
+        if (Left_Launch == 0) {
+            robot.motor3.setPower(0);
+        }
+        if (Right_Launch == 0) {
+            robot.motor4.setPower(0);
+        }
+
         // Belt Mode Update
         if (gamepad2.a) {
             if (beltMode == 0) {
@@ -176,6 +172,38 @@ public class TankOp extends OpMode {
             } else if (beltMode == 3) {
                 beltMode = 0;
             }
+        }
+
+    }
+
+    private void  servos() {
+
+        //Servo Position Updater
+        if (gamepad1.a) {
+            armPosition += armChange;
+        }
+        if (gamepad1.b) {
+            armPosition -= armChange;
+        }
+
+        //Limits Servo Movement
+        armPosition = Range.clip(armPosition, Arm_Min_Range, Arm_Max_Range);
+
+        // Updates Servoes
+        robot.arm1.setPosition(armPosition);
+        robot.arm2.setPosition(armPosition);
+
+    }
+
+    private void  particleCollecter() {
+
+        // Collect Code
+        if (collectMode == 0) {
+            robot.motor6.setPower(0);
+        } else if (collectMode == 1) {
+            robot.motor6.setPower(1);
+        } else if (collectMode == 2) {
+            robot.motor6.setPower(-1);
         }
 
         // Collector Mode Updater
@@ -196,6 +224,19 @@ public class TankOp extends OpMode {
             } else if (collectMode == 5) {
                 collectMode = 0;
             }
+        }
+
+    }
+
+    private void  extender() {
+
+        // Extend Code
+        if (extendMode == 0) {
+            robot.motor7.setPower(0);
+        } else if (extendMode == 1) {
+            robot.motor7.setPower(0.5);
+        } else if (extendMode == 2) {
+            robot.motor7.setPower(-0.5);
         }
 
         // Extender Mode Updater
