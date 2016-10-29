@@ -15,8 +15,8 @@ public class AutoOpTest extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
 
-        DcMotor motor_front_left = robot.motor_left;
-        DcMotor motor_front_right = robot.motor_right;
+        DcMotor motor_front_left = robot.motor1;
+        DcMotor motor_front_right = robot.motor2;
 
         waitForStart();
         //Drive forward at half power for 1/2 a second

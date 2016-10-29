@@ -16,13 +16,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
 
-        DcMotor motor_left = robot.motor_left;
-        DcMotor motor_right = robot.motor_right;
+        DcMotor motor_left = robot.motor1;
+        DcMotor motor_right = robot.motor2;
 
         waitForStart();
 
-        motor_left.setPower(1);
-        motor_right.setPower(1);
+        robot.motor1.setPower(1);
+        robot.motor2.setPower(1);
 
         sleep(3000);
         sleep(1000);
