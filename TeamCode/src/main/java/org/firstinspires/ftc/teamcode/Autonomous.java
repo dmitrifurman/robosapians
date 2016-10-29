@@ -17,8 +17,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
         waitForStart();
 
-        robot.motor1.setPower(1);
-        robot.motor2.setPower(1);
+        motor_left.setPower(1);
+        motor_right.setPower(1);
 
         sleep(3000);
         sleep(1000);
