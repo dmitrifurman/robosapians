@@ -1,24 +1,23 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name = "Template: TankOp", group = "Linear Opmode")
+@TeleOp(name = "TankOp", group = "Linear Opmode")
 public class TankOp extends OpMode {
-    HardwareRobot robot = new HardwareRobot();
+    private HardwareRobot robot = new HardwareRobot();
 
-    final static double Arm_Min_Range = 0;
-    final static double Arm_Max_Range = 1;
+    private final static double Arm_Min_Range = 0;
+    private final static double Arm_Max_Range = 1;
 
-    double armPosition = 0;
-    double armChange = 0.025;
-    double LEDmode = 0;
-    double beltMode = 0;
-    double collectMode = 0;
-    double extendMode = 0;
+    private double armPosition = 0;
+    private double armChange = 0.025;
+    private double LEDmode = 0;
+    private double beltMode = 0;
+    private double collectMode = 0;
+    private double extendMode = 0;
 
 
     public TankOp() {
