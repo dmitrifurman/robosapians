@@ -4,11 +4,11 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name = "TankOp", group = "Linear Opmode")
 public class TankOp extends OpMode {
     private HardwareRobot robot = new HardwareRobot();
-
     private final static double Arm_Min_Range = 0;
     private final static double Arm_Max_Range = 1;
 
@@ -26,6 +26,7 @@ public class TankOp extends OpMode {
 
     @Override
     public void init() {
+        robot.init(hardwareMap);
         // Servo Default Position
         armPosition = 0;
 
@@ -62,8 +63,8 @@ public class TankOp extends OpMode {
         telemetry.addData("Feedback Data for", "TankOp");
         telemetry.addData("Left Wheels", robot.motor1.getPower());
         telemetry.addData("Right Wheels", robot.motor2.getPower());
-        telemetry.addData("Left Launching Power", robot.motor3.getPower() * -1);
-        telemetry.addData("Right Launching Power", robot.motor4.getPower() * -1);
+        telemetry.addData("Left Launching Power", (robot.motor3.getPower() * -1));
+        telemetry.addData("Right Launching Power", (robot.motor4.getPower() * -1));
         telemetry.addData("Belt Mode", beltMode);
         telemetry.addData("Belt Speed", robot.motor5.getPower());
         telemetry.addData("Collector Speed", robot.motor6.getPower());
@@ -128,33 +129,32 @@ public class TankOp extends OpMode {
 
     private void  particleLaunch() {
 
-        //Assigns Joystick Values
-        float Left_Launch = Range.clip(gamepad2.left_stick_y, -1, 1);
-        float Right_Launch = Range.clip(gamepad2.right_stick_y, -1, 1);
-
         // Launching Code
-        if (Left_Launch != 0) {
+        if (gamepad2.left_stick_y != 0) {
             robot.motor3.setPower(gamepad2.left_stick_y);
         }
-        if (Right_Launch != 0) {
+        if (gamepad2.right_stick_y != 0) {
             robot.motor4.setPower(gamepad2.right_stick_y);
         }
 
         //Belt Code
-        if(Left_Launch > 0 && Right_Launch > 0 && beltMode == 1){
+        if(gamepad2.left_stick_y > 0 && gamepad2.right_stick_y > 0 && beltMode == 1){
             robot.motor5.setPower(1);
-        }else if(Left_Launch < 0 && Right_Launch < 0 && beltMode == 1){
+        }else if(gamepad2.left_stick_y < 0 && gamepad2.right_stick_y < 0 && beltMode == 1){
             robot.motor5.setPower(-1);
         }else if(beltMode == 0){
             robot.motor5.setPower(0);
         }
 
         // Stops The Motors if Joypads Aren't Used
-        if (Left_Launch == 0) {
+        if (gamepad2.left_stick_y == 0) {
             robot.motor3.setPower(0);
         }
-        if (Right_Launch == 0) {
+        if (gamepad2.right_stick_y == 0) {
             robot.motor4.setPower(0);
+        }
+        if(gamepad2.left_stick_y == 0 || gamepad2.right_stick_y == 0){
+            robot.motor5.setPower(0);
         }
 
         // Belt Mode Update
