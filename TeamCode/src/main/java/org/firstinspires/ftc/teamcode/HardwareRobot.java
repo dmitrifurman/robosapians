@@ -29,24 +29,24 @@ public class HardwareRobot {
             // Assigns Names to Motors
             motor1 = hwMap.dcMotor.get("motor_left");
             motor2 = hwMap.dcMotor.get("motor_right");
-            motor3 = hwMap.dcMotor.get("launch_left");
-            motor4 = hwMap.dcMotor.get("launch_right");
-            motor5 = hwMap.dcMotor.get("Belt");
-            motor6 = hwMap.dcMotor.get("Collect");
-            motor7 = hwMap.dcMotor.get("Winch");
+            //motor3 = hwMap.dcMotor.get("launch_left");
+            //motor4 = hwMap.dcMotor.get("launch_right");
+            //motor5 = hwMap.dcMotor.get("Belt");
+            //motor6 = hwMap.dcMotor.get("Collect");
+            //motor7 = hwMap.dcMotor.get("Winch");
 
             // Reverse Motors
             motor2.setDirection(DcMotor.Direction.REVERSE);
-            motor3.setDirection(DcMotor.Direction.REVERSE);
-            motor5.setDirection(DcMotor.Direction.REVERSE);
+            //motor3.setDirection(DcMotor.Direction.REVERSE);
+            //motor5.setDirection(DcMotor.Direction.REVERSE);
 
 
             // Assigns Names to Servos
-            arm1 = hwMap.servo.get("servo_arm_right");
-            arm2 = hwMap.servo.get("servo_arm_left");
+            //arm1 = hwMap.servo.get("servo_arm_right");
+            //arm2 = hwMap.servo.get("servo_arm_left");
 
             // Assigns Names to Sensors
-            colorS1 = hwMap.colorSensor.get("color_sensor");
+            //colorS1 = hwMap.colorSensor.get("color_sensor");
 
     }
 
