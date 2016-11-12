@@ -50,7 +50,7 @@ public class TankOp extends OpMode {
         colorSensor();
         drive();
         particleLaunch();
-        particleCollecter();
+        particleCollector();
         servos();
         extender();
 
@@ -194,7 +194,7 @@ public class TankOp extends OpMode {
 
     }
 
-    private void  particleCollecter() {
+    private void  particleCollector() {
 
         // Collect Code
         if (collectMode == 0) {
