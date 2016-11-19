@@ -14,9 +14,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static android.content.Context.SENSOR_SERVICE;
 
-@Autonomous(name="Template: 29Oct", group="Templates")
+@Autonomous(name="AutoRishi: 29Oct", group="Autonomous")
 
-public class autoTest29Oct extends LinearOpMode{
+public class BasicAutonomous extends LinearOpMode{
 
     HardwareRobot robot = new HardwareRobot();
 
@@ -34,7 +34,7 @@ public class autoTest29Oct extends LinearOpMode{
     DcMotor motorRight, motorLeft;
 
     @Override
-    public void runOpMode throws InterruptedException () {
+    public void runOpMode() throws InterruptedException {
 
         robot.init(hardwareMap);
 
