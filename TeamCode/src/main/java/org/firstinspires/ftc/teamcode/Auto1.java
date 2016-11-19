@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
-@Autonomous(name="Auto1", group="Autonomous")
+@Autonomous(name="Auto1", group="Linear OpModes")
 public class Auto1 extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();

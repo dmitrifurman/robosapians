@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static android.content.Context.SENSOR_SERVICE;
 
-@Autonomous(name="AutoRishi: 29Oct", group="Autonomous")
+@Autonomous(name="AutoRishi: 29Oct", group="Linear OpModes")
 
 public class BasicAutonomous extends LinearOpMode{
 
