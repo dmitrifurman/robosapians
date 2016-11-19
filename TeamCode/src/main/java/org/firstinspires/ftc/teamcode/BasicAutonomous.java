@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+/*package org.firstinspires.ftc.teamcode;
 
 import android.content.Context;
 import android.hardware.*;
@@ -21,7 +21,7 @@ public class autoTest29Oct extends LinearOpMode{
     HardwareRobot robot = new HardwareRobot();
 
     /* Declare OpMode members. */
-    private ElapsedTime     runtime = new ElapsedTime();
+/*    private ElapsedTime     runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 0.75 ;     // This is < 1.0 if geared UP
@@ -45,7 +45,7 @@ public class autoTest29Oct extends LinearOpMode{
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
-        motorLeft = hardwareMap.dcMotor.get("motorLeft");
+ /*       motorLeft = hardwareMap.dcMotor.get("motorLeft");
         motorRight = hardwareMap.dcMotor.get("motorRight");
 
         motorRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -91,7 +91,7 @@ public class autoTest29Oct extends LinearOpMode{
      *  2) Move runs out of time
      *  3) Driver stops the opmode running.
      */
-    public void encoderDrive(double speed,
+/*   public void encoderDrive(double speed,
                              double leftInches, double rightInches,
                              double timeoutS) {
         int newLeftTarget;
@@ -139,3 +139,4 @@ public class autoTest29Oct extends LinearOpMode{
         }
     }
 }
+*/
