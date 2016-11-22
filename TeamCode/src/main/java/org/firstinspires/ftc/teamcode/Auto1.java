@@ -124,4 +124,25 @@ public class Auto1 extends LinearOpMode {
             //  sleep(250);   // optional pause after each move
         }
     }
+
+    public void turnRightGyroTarget(int angle, double power, int maxTimeInSec) {
+
+        robot.gyro.calibrate();
+        while (robot.gyro.isCalibrating()) {
+            //Nothing
+        }
+
+        long start = System.currentTimeMillis();
+        long end = start + maxTimeInSec; // max time in milliseconds * 1000 ms per second
+
+        while (robot.gyro.getHeading() != angle && (System.currentTimeMillis() < end)) {
+            robot.motor1.setPower(power * -1);
+            robot.motor2.setPower(power);
+            telemetry.addData("Gyro heading", robot.gyro.getHeading());
+        }
+
+
+        robot.motor1.setPower(0); //turn both motors off
+        robot.motor2.setPower(0);
+    }
 }

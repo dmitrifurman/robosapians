@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -16,6 +17,7 @@ public class HardwareRobot {
     public Servo arm1 = null;
     public Servo arm2 = null;
     public ColorSensor colorS1 = null;
+    public GyroSensor gyro = null;
     private HardwareMap hwMap = null;
 
     public HardwareRobot() {
@@ -47,6 +49,7 @@ public class HardwareRobot {
 
             // Assigns Names to Sensors
             //colorS1 = hwMap.colorSensor.get("color_sensor");
+            gyro = hwMap.gyroSensor.get("gyro_sensor");
 
     }
 
