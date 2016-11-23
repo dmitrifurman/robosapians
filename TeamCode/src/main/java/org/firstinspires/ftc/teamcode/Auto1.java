@@ -60,10 +60,9 @@ public class Auto1 extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        /*
-         * Initialize the drive system variables.
-         * The init() method of the hardware class does all the work here
-         */
+
+        // Initialize the drive system variables.
+
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
@@ -123,12 +122,12 @@ public class Auto1 extends LinearOpMode {
             robot.motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.motor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            // reset the timeout time and start motion.
+            // Reset the timeout time and start motion.
             runtime.reset();
             robot.motor1.setPower(Math.abs(speed));
             robot.motor2.setPower(Math.abs(speed));
 
-            // keep looping while we are still active, and there is time left, and both motors are running.
+            // Keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
                     (robot.motor1.isBusy() && robot.motor2.isBusy())) {
@@ -160,7 +159,7 @@ public class Auto1 extends LinearOpMode {
 
         robot.gyro.calibrate();
         while (robot.gyro.isCalibrating()) {
-            //Nothing
+            // Nothing
         }
 
         long start = System.currentTimeMillis();
@@ -171,7 +170,6 @@ public class Auto1 extends LinearOpMode {
             robot.motor2.setPower(power);
             telemetry.addData("Gyro heading", robot.gyro.getHeading());
         }
-
 
         robot.motor1.setPower(0); //turn both motors off
         robot.motor2.setPower(0);
