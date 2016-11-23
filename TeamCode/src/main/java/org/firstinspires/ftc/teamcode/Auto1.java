@@ -43,14 +43,16 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 @Autonomous(name="Auto1", group="Linear OpModes")
 public class Auto1 extends LinearOpMode {
 
+    // Either "Red" or "Blue"
+    static final java.lang.String TeamColor = "Red";
+
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-            (WHEEL_DIAMETER_INCHES * (Math.PI));
+    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * (Math.PI));
     static final double     DRIVE_SPEED             = 0.75;
     static final double     TURN_SPEED              = 0.5;
 
@@ -91,7 +93,7 @@ public class Auto1 extends LinearOpMode {
         encoderDrive(TURN_SPEED,   -19.0, 19.0, 4.0);
         encoderDrive(DRIVE_SPEED, (1.3*rtTwo)*cvtn, (1.3*rtTwo)*cvtn, 10.0);
 
-        colorTest();
+        sensorTest();
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -173,14 +175,27 @@ public class Auto1 extends LinearOpMode {
             telemetry.addData("Gyro heading", robot.gyro.getHeading());
         }
 
-        robot.motor1.setPower(0); //turn both motors off
+        robot.motor1.setPower(0);
         robot.motor2.setPower(0);
     }
 
-    public void colorTest(){
+    public void sensorTest(){
 
         if(opModeIsActive()){
-
+            robot.colorS1.enableLed(false);
+            if(robot.colorS1.red() == 2){
+                if(TeamColor == "Red"){
+                    // Pick This One
+                }else if(TeamColor == "Blue"){
+                    // Pick The Other
+                }
+            }else if(robot.colorS1.blue() == 2){
+                if(TeamColor == "Red"){
+                    // Pick The Other
+                }else if(TeamColor == "Blue"){
+                    // Pick This One
+                }
+            }
         }
 
     }
