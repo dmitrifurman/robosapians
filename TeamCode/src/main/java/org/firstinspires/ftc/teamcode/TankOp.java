@@ -100,7 +100,7 @@ public class TankOp extends OpMode {
         telemetry.addData("Belt Speed", robot.motor5.getPower());
         telemetry.addData("Collector Speed", robot.motor6.getPower());
         telemetry.addData("Extend Speed", robot.motor7.getPower());
-        telemetry.addData("Servos 1 and 2", robot.arm1.getPosition());
+        telemetry.addData("Servos 1 and 2", robot.release1.getPosition());
         telemetry.addData("Color Sensor: Red", robot.colorS1.red());
         telemetry.addData("Color Sensor: Green", robot.colorS1.green());
         telemetry.addData("Color Sensor: Blue", robot.colorS1.blue());
@@ -220,8 +220,8 @@ public class TankOp extends OpMode {
         armPosition = Range.clip(armPosition, Arm_Min_Range, Arm_Max_Range);
 
         // Updates Servoes
-        robot.arm1.setPosition(armPosition);
-        robot.arm2.setPosition(armPosition);
+        robot.release1.setPosition(armPosition);
+        robot.release2.setPosition(armPosition);
 
     }
 
