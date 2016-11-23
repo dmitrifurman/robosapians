@@ -91,6 +91,8 @@ public class Auto1 extends LinearOpMode {
         encoderDrive(TURN_SPEED,   -19.0, 19.0, 4.0);
         encoderDrive(DRIVE_SPEED, (1.3*rtTwo)*cvtn, (1.3*rtTwo)*cvtn, 10.0);
 
+        colorTest();
+
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }
@@ -173,5 +175,13 @@ public class Auto1 extends LinearOpMode {
 
         robot.motor1.setPower(0); //turn both motors off
         robot.motor2.setPower(0);
+    }
+
+    public void colorTest(){
+
+        if(opModeIsActive()){
+
+        }
+
     }
 }
