@@ -69,10 +69,9 @@ public class BasicAutonomous extends LinearOpMode{
 
         robot.init(hardwareMap);
 
-        /*mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);*/
-        /*
+        /* mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+         * mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+         * mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
          * Initialize the drive system variables.
          * The init() method of the hardware class does all the work here
          */
