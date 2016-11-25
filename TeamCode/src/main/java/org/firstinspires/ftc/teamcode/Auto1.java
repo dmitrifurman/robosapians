@@ -183,15 +183,15 @@ public class Auto1 extends LinearOpMode {
 
         if(opModeIsActive()){
             robot.colorS1.enableLed(false);
-            if(robot.colorS1.red() == 2){
+            if(robot.colorS1.red() >= 1 && robot.colorS1.blue() == 0){
                 if(TeamColor == "Red"){
                     // Pick This One
                 }else if(TeamColor == "Blue"){
-                    // Pick The Other
+                    // Pick The Other One
                 }
-            }else if(robot.colorS1.blue() == 2){
+            }else if(robot.colorS1.blue() >= 1 && robot.colorS1.red() == 0){
                 if(TeamColor == "Red"){
-                    // Pick The Other
+                    // Pick The Other One
                 }else if(TeamColor == "Blue"){
                     // Pick This One
                 }
