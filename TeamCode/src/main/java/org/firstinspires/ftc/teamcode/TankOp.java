@@ -50,6 +50,8 @@ public class TankOp extends OpMode {
     private double collectMode = 0;
     private double extendMode = 0;
 
+    private double beltTarget = 0;
+
 
     public TankOp() {
 
@@ -74,7 +76,7 @@ public class TankOp extends OpMode {
         extendMode = 0;
 
         // Sets Startng Robot Extender Position to Zero
-        //robot.motor7.setTargetPosition(0);
+        robot.motor7.setTargetPosition(0);
 
     }
 
@@ -161,19 +163,17 @@ public class TankOp extends OpMode {
         if (!gamepad2.a && !gamepad2.b) {
             if (beltMode == 1) {
                 beltMode = 0;
-                robot.motor5.setTargetPosition(robot.motor5.getCurrentPosition() + 100);
-                robot.motor5.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.motor5.setPower(1);
+                beltTarget = robot.motor5.getCurrentPosition()+1000;
             } else if (beltMode == 2) {
                 beltMode = 0;
-                robot.motor5.setTargetPosition(robot.motor5.getCurrentPosition() - 100);
-                robot.motor5.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                robot.motor5.setPower(1);
+                beltTarget = robot.motor5.getCurrentPosition()-1000;
             }
         }
 
-        if(!robot.motor5.isBusy()){
-            robot.motor5.setPower(0);
+        if(robot.motor5.getCurrentPosition() < beltTarget - 100){
+            robot.motor5.setPower(1);
+        }else if (robot.motor5.getCurrentPosition() > beltTarget + 100){
+            robot.motor5.setPower(-1);
         }
 
     }
@@ -193,7 +193,7 @@ public class TankOp extends OpMode {
 
         // Updates Servoes
         robot.release1.setPosition(armPosition);
-        robot.release2.setPosition(armPosition);
+        robot.release2.setPosition(armPosition * -1);
 
     }
 
@@ -235,9 +235,9 @@ public class TankOp extends OpMode {
         // Extend Code
         if (extendMode == 0) {
             robot.motor7.setPower(0);
-        } else if (extendMode == 1) {
+        } else if (extendMode == 1 && robot.motor7.getCurrentPosition() < 10000000) {
             robot.motor7.setPower(0.5);
-        } else if (extendMode == 2) {
+        } else if (extendMode == 2 && robot.motor7.getCurrentPosition() > 0) {
             robot.motor7.setPower(-0.5);
         }
 
@@ -270,14 +270,14 @@ public class TankOp extends OpMode {
         }
 
         // Manual Extension
-        if(robot.motor7.getCurrentPosition() > 0 && gamepad1.left_trigger > 0){
+        if(robot.motor7.getCurrentPosition() < 10000000 && gamepad1.left_trigger > 0){
             extendMode = 0;
-            robot.motor7.setPower(0.5*gamepad1.left_trigger);
+            robot.motor7.setPower(1*gamepad1.left_trigger);
         }
 
-        if(robot.motor7.getCurrentPosition() < 10000000 && gamepad1.right_trigger > 0){
+        if(robot.motor7.getCurrentPosition() > 0 && gamepad1.right_trigger > 0){
             extendMode = 0;
-            robot.motor7.setPower(-0.5*gamepad1.right_trigger);
+            robot.motor7.setPower(-1*gamepad1.right_trigger);
         }
 
     }
