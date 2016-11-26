@@ -82,19 +82,19 @@ public class TankOp extends OpMode {
     public void loop() {
 
         feedBack();
-/*        drive();
+        drive();
         particleLaunch();
         particleCollector();
         servos();
         extender();
-*/
+
     }
 
     private void feedBack() {
 
         // Feedback Data
         telemetry.addData("Feedback Data for", "TankOp");
-/*        telemetry.addData("Left Wheels", robot.motor1.getPower());
+        telemetry.addData("Left Wheels", robot.motor1.getPower());
         telemetry.addData("Right Wheels", robot.motor2.getPower());
         telemetry.addData("Left Launching Power", (robot.motor3.getPower() * -1));
         telemetry.addData("Right Launching Power", (robot.motor4.getPower() * -1));
@@ -104,10 +104,10 @@ public class TankOp extends OpMode {
         telemetry.addData("Extend Speed", robot.motor7.getPower());
         telemetry.addData("Extend Position", robot.motor7.getCurrentPosition());
         telemetry.addData("Servos 1 and 2", robot.release1.getPosition());
-        telemetry.addData("Color Sensor: Red", robot.colorS1.red());
-        telemetry.addData("Color Sensor: Green", robot.colorS1.green());
-        telemetry.addData("Color Sensor: Blue", robot.colorS1.blue());
-*/
+//        telemetry.addData("Color Sensor: Red", robot.colorS1.red());
+//        telemetry.addData("Color Sensor: Green", robot.colorS1.green());
+//        telemetry.addData("Color Sensor: Blue", robot.colorS1.blue());
+
     }
 
     private void colorSensor() {
@@ -139,72 +139,41 @@ public class TankOp extends OpMode {
 
     private void  drive() {
 
-        //Assign Joystick Values
-        float Left_Motor = Range.clip(gamepad1.left_stick_y, -1, 1);
-        float Right_Motor = Range.clip(gamepad1.right_stick_y, -1, 1);
-
         // Drive Code
-        if (Left_Motor != 0) {
-            robot.motor1.setPower(gamepad1.left_stick_y);
-        }
-        if (Right_Motor != 0) {
-            robot.motor2.setPower(gamepad1.right_stick_y);
-        }
-
-        // Stops The Motors if Joypads Aren't Used
-        if (Left_Motor == 0) {
-            robot.motor1.setPower(0);
-        }
-        if (Right_Motor == 0) {
-            robot.motor2.setPower(0);
-        }
+        robot.motor1.setPower(gamepad1.left_stick_y);
+        robot.motor2.setPower(gamepad1.right_stick_y);
 
     }
 
     private void  particleLaunch() {
 
         // Launching Code
-        if (gamepad2.left_stick_y != 0) {
-            robot.motor3.setPower(gamepad2.left_stick_y);
-        }
-        if (gamepad2.right_stick_y != 0) {
-            robot.motor4.setPower(gamepad2.right_stick_y);
-        }
-
-        //Belt Code
-        if(gamepad2.left_stick_y > 0 && gamepad2.right_stick_y > 0 && beltMode == 1){
-            robot.motor5.setPower(1);
-        }else if(gamepad2.left_stick_y < 0 && gamepad2.right_stick_y < 0 && beltMode == 1){
-            robot.motor5.setPower(-1);
-        }else if(beltMode == 0){
-            robot.motor5.setPower(0);
-        }
-
-        // Stops The Motors if Joypads Aren't Used
-        if (gamepad2.left_stick_y == 0) {
-            robot.motor3.setPower(0);
-        }
-        if (gamepad2.right_stick_y == 0) {
-            robot.motor4.setPower(0);
-        }
-        if(gamepad2.left_stick_y == 0 || gamepad2.right_stick_y == 0){
-            robot.motor5.setPower(0);
-        }
+        robot.motor3.setPower(gamepad2.left_stick_y);
+        robot.motor4.setPower(gamepad2.right_stick_y);
 
         // Belt Mode Update
         if (gamepad2.a) {
-            if (beltMode == 0) {
-                beltMode = 2;
-            } else if (beltMode == 1) {
-                beltMode = 3;
+            beltMode = 1;
+        }else if (gamepad2.b){
+            beltMode = 2;
+        }
+
+        if (!gamepad2.a && !gamepad2.b) {
+            if (beltMode == 1) {
+                beltMode = 0;
+                robot.motor5.setTargetPosition(robot.motor5.getCurrentPosition() + 100);
+                robot.motor5.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.motor5.setPower(1);
+            } else if (beltMode == 2) {
+                beltMode = 0;
+                robot.motor5.setTargetPosition(robot.motor5.getCurrentPosition() - 100);
+                robot.motor5.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.motor5.setPower(1);
             }
         }
-        if (!gamepad2.a) {
-            if (beltMode == 2) {
-                beltMode = 1;
-            } else if (beltMode == 3) {
-                beltMode = 0;
-            }
+
+        if(!robot.motor5.isBusy()){
+            robot.motor5.setPower(0);
         }
 
     }

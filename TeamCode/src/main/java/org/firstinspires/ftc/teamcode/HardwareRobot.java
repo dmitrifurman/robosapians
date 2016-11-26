@@ -60,10 +60,10 @@ public class HardwareRobot {
             this.hwMap = hwMap;
 
             // Assigns Names to Motors
-/*            motor1 = hwMap.dcMotor.get("motor_left");
-            motor2 = hwMap.dcMotor.get("motor_right");
-            motor3 = hwMap.dcMotor.get("launch_left");
-            motor4 = hwMap.dcMotor.get("launch_right");
+            motor1 = hwMap.dcMotor.get("Left motor");
+            motor2 = hwMap.dcMotor.get("Right motor");
+            motor3 = hwMap.dcMotor.get("Left launch");
+            motor4 = hwMap.dcMotor.get("Right launch");
             motor5 = hwMap.dcMotor.get("Belt");
             motor6 = hwMap.dcMotor.get("Collect");
             motor7 = hwMap.dcMotor.get("Extend");
@@ -75,13 +75,13 @@ public class HardwareRobot {
 
 
             // Assigns Names to Servos
-            release1 = hwMap.servo.get("servo_arm_right");
-            release2 = hwMap.servo.get("servo_arm_left");
+            release1 = hwMap.servo.get("Release left");
+            release2 = hwMap.servo.get("Release right");
 
             // Assigns Names to Sensors
-            colorS1 = hwMap.colorSensor.get("color_sensor");
-            gyro = hwMap.gyroSensor.get("gyro_sensor");
-*/
+//            colorS1 = hwMap.colorSensor.get("Color sensor");
+//            gyro = hwMap.gyroSensor.get("Gyro sensor");
+
     }
 
 
