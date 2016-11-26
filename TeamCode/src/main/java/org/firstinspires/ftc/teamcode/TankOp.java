@@ -73,26 +73,28 @@ public class TankOp extends OpMode {
         // Ser Extend Mode
         extendMode = 0;
 
+        // Sets Startng Robot Extender Position to Zero
+        //robot.motor7.setTargetPosition(0);
+
     }
 
     @Override
     public void loop() {
 
         feedBack();
-        colorSensor();
-        drive();
+/*        drive();
         particleLaunch();
         particleCollector();
         servos();
         extender();
-
+*/
     }
 
     private void feedBack() {
 
         // Feedback Data
         telemetry.addData("Feedback Data for", "TankOp");
-        telemetry.addData("Left Wheels", robot.motor1.getPower());
+/*        telemetry.addData("Left Wheels", robot.motor1.getPower());
         telemetry.addData("Right Wheels", robot.motor2.getPower());
         telemetry.addData("Left Launching Power", (robot.motor3.getPower() * -1));
         telemetry.addData("Right Launching Power", (robot.motor4.getPower() * -1));
@@ -100,11 +102,12 @@ public class TankOp extends OpMode {
         telemetry.addData("Belt Speed", robot.motor5.getPower());
         telemetry.addData("Collector Speed", robot.motor6.getPower());
         telemetry.addData("Extend Speed", robot.motor7.getPower());
+        telemetry.addData("Extend Position", robot.motor7.getCurrentPosition());
         telemetry.addData("Servos 1 and 2", robot.release1.getPosition());
         telemetry.addData("Color Sensor: Red", robot.colorS1.red());
         telemetry.addData("Color Sensor: Green", robot.colorS1.green());
         telemetry.addData("Color Sensor: Blue", robot.colorS1.blue());
-
+*/
     }
 
     private void colorSensor() {
@@ -269,8 +272,15 @@ public class TankOp extends OpMode {
             robot.motor7.setPower(-0.5);
         }
 
-        // Extender Mode Updater
-        // *NOTE* Add in a limit to how far motor as extend and contract so it doesn't break itself
+        // Limits The Range of the Motors
+        if(robot.motor7.getPower() < 0 && robot.motor7.getCurrentPosition() <= 0){
+            robot.motor7.setPower(0);
+        }
+        if(robot.motor7.getPower() > 0 && robot.motor7.getCurrentPosition() >= 10000000){
+            robot.motor7.setPower(0);
+        }
+
+        // Automatic Extension
         if (gamepad1.x || gamepad1.y) {
             if (extendMode == 0 && gamepad1.x) {
                 extendMode = 3;
@@ -288,6 +298,17 @@ public class TankOp extends OpMode {
             } else if (extendMode == 5) {
                 extendMode = 0;
             }
+        }
+
+        // Manual Extension
+        if(robot.motor7.getCurrentPosition() > 0 && gamepad1.left_trigger > 0){
+            extendMode = 0;
+            robot.motor7.setPower(0.5*gamepad1.left_trigger);
+        }
+
+        if(robot.motor7.getCurrentPosition() < 10000000 && gamepad1.right_trigger > 0){
+            extendMode = 0;
+            robot.motor7.setPower(-0.5*gamepad1.right_trigger);
         }
 
     }
