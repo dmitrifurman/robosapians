@@ -51,6 +51,7 @@ public class TankOp extends OpMode {
     private double extendMode = 0;
 
     private double beltTarget = 0;
+    private double beltChange = 5000;
 
 
     public TankOp() {
@@ -150,8 +151,8 @@ public class TankOp extends OpMode {
     private void  particleLaunch() {
 
         // Launching Code
-        robot.motor3.setPower(gamepad2.left_stick_y);
-        robot.motor4.setPower(gamepad2.right_stick_y);
+        robot.motor3.setPower(1);
+        robot.motor4.setPower(1);
 
         // Belt Mode Update
         if (gamepad2.a) {
@@ -163,17 +164,29 @@ public class TankOp extends OpMode {
         if (!gamepad2.a && !gamepad2.b) {
             if (beltMode == 1) {
                 beltMode = 0;
-                beltTarget = robot.motor5.getCurrentPosition()+1000;
+                beltTarget = robot.motor5.getCurrentPosition()+beltChange;
             } else if (beltMode == 2) {
                 beltMode = 0;
-                beltTarget = robot.motor5.getCurrentPosition()-1000;
+                beltTarget = robot.motor5.getCurrentPosition()-beltChange;
             }
         }
 
-        if(robot.motor5.getCurrentPosition() < beltTarget - 100){
-            robot.motor5.setPower(1);
-        }else if (robot.motor5.getCurrentPosition() > beltTarget + 100){
-            robot.motor5.setPower(-1);
+        if(robot.motor5.getCurrentPosition() < beltTarget){
+            if(robot.motor5.getCurrentPosition() > beltTarget - 100 && robot.motor5.getCurrentPosition() < beltTarget + 100){
+                robot.motor5.setPower(0);
+            }else {
+                robot.motor5.setPower(1);
+            }
+        }else if (robot.motor5.getCurrentPosition() > beltTarget){
+            if(robot.motor5.getCurrentPosition() > beltTarget - 100 && robot.motor5.getCurrentPosition() < beltTarget + 100){
+                robot.motor5.setPower(0);
+            }else {
+                robot.motor5.setPower(-1);
+            }
+        }
+
+        if(robot.motor5.getCurrentPosition() > beltTarget - 100 && robot.motor5.getCurrentPosition() < beltTarget + 100){
+            robot.motor5.setPower(0);
         }
 
     }
@@ -193,7 +206,7 @@ public class TankOp extends OpMode {
 
         // Updates Servoes
         robot.release1.setPosition(armPosition);
-        robot.release2.setPosition(armPosition * -1);
+        robot.release2.setPosition(1-armPosition);
 
     }
 
