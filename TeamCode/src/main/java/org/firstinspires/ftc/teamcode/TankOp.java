@@ -42,6 +42,9 @@ public class TankOp extends OpMode {
     private HardwareRobot robot = new HardwareRobot();
     private final static double Arm_Min_Range = 0;
     private final static double Arm_Max_Range = 1;
+    private final static double Extender_Min = -23000;
+    private final static double Extender_Max = 0;
+    private final static double BeltInterval = 600;
 
     private double armPosition = 0;
     private double armChange = 0.025;
@@ -77,7 +80,9 @@ public class TankOp extends OpMode {
         extendMode = 0;
 
         // Sets Startng Robot Extender Position to Zero
-        robot.motor7.setTargetPosition(0);
+        robot.motor5.setTargetPosition(0);
+        robot.motor7.setTargetPosition(-1);
+
 
     }
 
@@ -101,15 +106,12 @@ public class TankOp extends OpMode {
         telemetry.addData("Right Wheels", robot.motor2.getPower());
         telemetry.addData("Left Launching Power", (robot.motor3.getPower() * -1));
         telemetry.addData("Right Launching Power", (robot.motor4.getPower() * -1));
-        telemetry.addData("Belt Mode", beltMode);
         telemetry.addData("Belt Speed", robot.motor5.getPower());
+        telemetry.addData("Belt Position", robot.motor5.getCurrentPosition());
         telemetry.addData("Collector Speed", robot.motor6.getPower());
         telemetry.addData("Extend Speed", robot.motor7.getPower());
         telemetry.addData("Extend Position", robot.motor7.getCurrentPosition());
         telemetry.addData("Servos 1 and 2", robot.release1.getPosition());
-//        telemetry.addData("Color Sensor: Red", robot.colorS1.red());
-//        telemetry.addData("Color Sensor: Green", robot.colorS1.green());
-//        telemetry.addData("Color Sensor: Blue", robot.colorS1.blue());
 
     }
 
@@ -151,8 +153,8 @@ public class TankOp extends OpMode {
     private void  particleLaunch() {
 
         // Launching Code
-        robot.motor3.setPower(1);
-        robot.motor4.setPower(1);
+        robot.motor3.setPower(-1);
+        robot.motor4.setPower(-1);
 
         // Belt Mode Update
         if (gamepad2.a) {
@@ -164,30 +166,19 @@ public class TankOp extends OpMode {
         if (!gamepad2.a && !gamepad2.b) {
             if (beltMode == 1) {
                 beltMode = 0;
-                beltTarget = robot.motor5.getCurrentPosition()+beltChange;
+                robot.motor5.setPower(-0.25);
             } else if (beltMode == 2) {
                 beltMode = 0;
-                beltTarget = robot.motor5.getCurrentPosition()-beltChange;
+                robot.motor5.setPower(0.25);
             }
         }
 
-        if(robot.motor5.getCurrentPosition() < beltTarget){
-            if(robot.motor5.getCurrentPosition() > beltTarget - 100 && robot.motor5.getCurrentPosition() < beltTarget + 100){
-                robot.motor5.setPower(0);
-            }else {
-                robot.motor5.setPower(1);
-            }
-        }else if (robot.motor5.getCurrentPosition() > beltTarget){
-            if(robot.motor5.getCurrentPosition() > beltTarget - 100 && robot.motor5.getCurrentPosition() < beltTarget + 100){
-                robot.motor5.setPower(0);
-            }else {
-                robot.motor5.setPower(-1);
-            }
-        }
-
-        if(robot.motor5.getCurrentPosition() > beltTarget - 100 && robot.motor5.getCurrentPosition() < beltTarget + 100){
+        if(robot.motor5.getCurrentPosition() < BeltInterval*-1 || robot.motor5.getCurrentPosition() > BeltInterval){
             robot.motor5.setPower(0);
+            robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
+
 
     }
 
@@ -246,28 +237,32 @@ public class TankOp extends OpMode {
     private void  extender() {
 
         // Extend Code
-        if (extendMode == 0) {
+        if (extendMode == 0 && gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0) {
             robot.motor7.setPower(0);
-        } else if (extendMode == 1 && robot.motor7.getCurrentPosition() < 10000000) {
+        } else if (extendMode == 1 && robot.motor7.getCurrentPosition() <= Extender_Max) {
             robot.motor7.setPower(0.5);
-        } else if (extendMode == 2 && robot.motor7.getCurrentPosition() > 0) {
+        } else if (extendMode == 2 && robot.motor7.getCurrentPosition() >= Extender_Min) {
             robot.motor7.setPower(-0.5);
+        } else{
+            robot.motor7.setPower(0);
         }
 
         // Limits The Range of the Motors
-        if(robot.motor7.getPower() < 0 && robot.motor7.getCurrentPosition() <= 0){
-            robot.motor7.setPower(0);
+        if(robot.motor7.getPower() < 0 && robot.motor7.getCurrentPosition() <= Extender_Min){
+            robot.motor7.setPower(1);
+            extendMode = 0;
         }
-        if(robot.motor7.getPower() > 0 && robot.motor7.getCurrentPosition() >= 10000000){
-            robot.motor7.setPower(0);
+        if(robot.motor7.getPower() > 0 && robot.motor7.getCurrentPosition() >= Extender_Max){
+            robot.motor7.setPower(-1);
+            extendMode = 0;
         }
 
         // Automatic Extension
         if (gamepad1.x || gamepad1.y) {
             if (extendMode == 0 && gamepad1.x) {
-                extendMode = 3;
-            } else if (extendMode == 0 && gamepad1.y) {
                 extendMode = 4;
+            } else if (extendMode == 0 && gamepad1.y) {
+                extendMode = 3;
             } else if (extendMode == 1 || extendMode == 2) {
                 extendMode = 5;
             }
@@ -283,14 +278,14 @@ public class TankOp extends OpMode {
         }
 
         // Manual Extension
-        if(robot.motor7.getCurrentPosition() < 10000000 && gamepad1.left_trigger > 0){
+        if(robot.motor7.getCurrentPosition() <= Extender_Max && gamepad1.left_trigger > 0){
             extendMode = 0;
-            robot.motor7.setPower(1*gamepad1.left_trigger);
+            robot.motor7.setPower(-1);
         }
 
-        if(robot.motor7.getCurrentPosition() > 0 && gamepad1.right_trigger > 0){
+        if(robot.motor7.getCurrentPosition() >= Extender_Min && gamepad1.right_trigger > 0){
             extendMode = 0;
-            robot.motor7.setPower(-1*gamepad1.right_trigger);
+            robot.motor7.setPower(1);
         }
 
     }
