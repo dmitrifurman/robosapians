@@ -53,10 +53,6 @@ public class TankOp extends OpMode {
     private double collectMode = 0;
     private double extendMode = 0;
 
-    private double beltTarget = 0;
-    private double beltChange = 5000;
-
-
     public TankOp() {
 
     }
