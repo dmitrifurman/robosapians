@@ -89,7 +89,7 @@ public class Auto1 extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED + 0.1, (6.125*rtTwo)*cvtn, (6.125*rtTwo)*cvtn, 10.0);
+        encoderDrive(DRIVE_SPEED, (7.5*rtTwo)*cvtn, (7.5*rtTwo)*cvtn, 10.0);
         encoderDrive(TURN_SPEED,   -19.0, 19.0, 4.0);
         encoderDrive(DRIVE_SPEED, (1.3*rtTwo)*cvtn, (1.3*rtTwo)*cvtn, 10.0);
 
