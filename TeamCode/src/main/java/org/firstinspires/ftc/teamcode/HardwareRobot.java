@@ -34,8 +34,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class HardwareRobot {
     public DcMotor motor1 = null,
@@ -46,7 +46,8 @@ public class HardwareRobot {
                    motor6 = null,
                    motor7 = null;
     public Servo release1 = null,
-                 release2 = null;
+                 release2 = null,
+                 btnPush = null;
     public ColorSensor colorS1 = null;
     public GyroSensor gyro = null;
     private HardwareMap hwMap = null;
@@ -78,6 +79,7 @@ public class HardwareRobot {
             // Assigns Names to Servos
             release1 = hwMap.servo.get("Release left");
             release2 = hwMap.servo.get("Release right");
+            btnPush = hwMap.servo.get("Button push");
 
             // Assigns Names to Sensors
 //            colorS1 = hwMap.colorSensor.get("Color sensor");
