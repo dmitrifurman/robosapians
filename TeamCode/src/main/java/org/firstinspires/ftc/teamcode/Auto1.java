@@ -44,11 +44,6 @@ import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerA
 @Autonomous(name="Auto1", group="Linear OpModes")
 public class Auto1 extends LinearOpMode {
 
-    // Either "Red" or "Blue"
-    //static public java.lang.String TeamColor = "Red";
-
-    public Context mContext;
-
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -63,7 +58,7 @@ public class Auto1 extends LinearOpMode {
     static final double cvtn = 12;
 
     @Override
-    public void runOpMode() throws InterruptedException{
+    public void runOpMode() throws InterruptedException {
 
         // Initialize the drive system variables.
 
@@ -72,7 +67,6 @@ public class Auto1 extends LinearOpMode {
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status:", "Initializing");    //
         telemetry.update();
-
 
         robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -92,11 +86,21 @@ public class Auto1 extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED + 0.1, (6.125*rtTwo)*cvtn, (6.125*rtTwo)*cvtn, 10.0);
+        encoderDrive(DRIVE_SPEED, (7.5*rtTwo)*cvtn, (7.5*rtTwo)*cvtn, 10.0);
         encoderDrive(TURN_SPEED,   -19.0, 19.0, 4.0);
-        encoderDrive(DRIVE_SPEED, (1.3*rtTwo)*cvtn, (1.3*rtTwo)*cvtn, 10.0);
-
         sensorTest();
+        encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 10.0);
+        encoderDrive(DRIVE_SPEED, (-0.25)*cvtn, (-0.25)*cvtn, 10.0);
+        encoderDrive(TURN_SPEED,   -38.0, 38.0, 4.0);
+        encoderDrive(DRIVE_SPEED, (4)*cvtn, (4)*cvtn, 10.0);
+        encoderDrive(TURN_SPEED,   38.0, -38.0, 4.0);
+        sensorTest();
+        encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 10.0);
+        encoderDrive(DRIVE_SPEED, (-1.25)*cvtn, (-1.25)*cvtn, 10.0);
+        encoderDrive(TURN_SPEED,   -57.0, 57.0, 4.0);
+        encoderDrive(DRIVE_SPEED, (1.5*rtTwo)*cvtn, (1.5*rtTwo)*cvtn, 10.0);
+        encoderDrive(TURN_SPEED,   38.0, -38.0, 4.0);
+        encoderDrive(DRIVE_SPEED, (2.5*rtTwo)*cvtn, (2.5*rtTwo)*cvtn, 10.0);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -198,7 +202,7 @@ public class Auto1 extends LinearOpMode {
                 }else if(TeamColor == "Blue"){
                     robot.btnPush.setPosition(Servo.MIN_POSITION);
                 }
-            }
+            }else {/*Pick Neither*/}
         }
 
     }
