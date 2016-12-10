@@ -39,13 +39,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name = "TankOp", group = "Linear Opmode")
 public class TankOp extends OpMode {
-    private HardwareRobot robot = new HardwareRobot();
     private final static double Arm_Min_Range = 0;
     private final static double Arm_Max_Range = 1;
     private final static double Extender_Min = -23000;
     private final static double Extender_Max = 0;
     private final static double BeltInterval = 600;
-
+    private HardwareRobot robot = new HardwareRobot();
     private double armPosition = 0;
     private double armChange = 0.025;
     private double LEDmode = 0;
@@ -85,33 +84,33 @@ public class TankOp extends OpMode {
     @Override
     public void loop() {
 
-        feedBack();
+        feedback();
         drive();
-        particleLaunch();
-        particleCollector();
+        particlelaunch();
+        particlecollector();
         servos();
         extender();
 
     }
 
-    private void feedBack() {
+    private void feedback() {
 
         // Feedback Data
         telemetry.addData("Feedback Data for", "TankOp");
-        telemetry.addData("Left Wheels", robot.motor1.getPower());
-        telemetry.addData("Right Wheels", robot.motor2.getPower());
-        telemetry.addData("Left Launching Power", (robot.motor3.getPower() * -1));
-        telemetry.addData("Right Launching Power", (robot.motor4.getPower() * -1));
+        telemetry.addData("Left Motor", robot.motor1.getPower());
+        telemetry.addData("Right Motor", robot.motor2.getPower());
+        telemetry.addData("Left Launch Power", (robot.motor3.getPower() * -1));
+        telemetry.addData("Right Launch Power", (robot.motor4.getPower() * -1));
         telemetry.addData("Belt Speed", robot.motor5.getPower());
-        telemetry.addData("Belt Position", robot.motor5.getCurrentPosition());
+        telemetry.addData("Belt Pos", robot.motor5.getCurrentPosition());
         telemetry.addData("Collector Speed", robot.motor6.getPower());
         telemetry.addData("Extend Speed", robot.motor7.getPower());
-        telemetry.addData("Extend Position", robot.motor7.getCurrentPosition());
-        telemetry.addData("Servos 1 and 2", robot.release1.getPosition());
+        telemetry.addData("Extend Pos", robot.motor7.getCurrentPosition());
+        telemetry.addData("Servos 1/2 Pos", robot.release1.getPosition());
 
     }
 
-    private void colorSensor() {
+    private void colorsensor() {
 
         // Color Sensor Mode Changer
         if (LEDmode == 0) {
@@ -146,7 +145,7 @@ public class TankOp extends OpMode {
 
     }
 
-    private void  particleLaunch() {
+    private void  particlelaunch() {
 
         // Launching Code
         robot.motor3.setPower(-1);
@@ -197,7 +196,7 @@ public class TankOp extends OpMode {
 
     }
 
-    private void  particleCollector() {
+    private void  particlecollector() {
 
         // Collect Code
         if (collectMode == 0) {
@@ -295,7 +294,13 @@ public class TankOp extends OpMode {
 
     @Override
     public void stop() {
-
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+        robot.motor3.setPower(0);
+        robot.motor4.setPower(0);
+        robot.motor5.setPower(0);
+        robot.motor6.setPower(0);
+        robot.motor7.setPower(0);
     }
 }
 
