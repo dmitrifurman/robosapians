@@ -87,11 +87,15 @@ public class Auto1 extends LinearOpMode {
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0);
+        sleep(5000);
         encoderDrive(TURN_SPEED,   19.0, -19.0, 3.0);
+        sleep(5000);
         encoderDrive(DRIVE_SPEED, (7.5*rtTwo)*cvtn, (7.5*rtTwo)*cvtn, 8.0);
+        sleep(5000);
         encoderDrive(TURN_SPEED,   -19.0, 19.0, 3.0);
+        sleep(5000);
         sensorTest();
-        encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0);
+        /*encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0);
         encoderDrive(DRIVE_SPEED, (-0.25)*cvtn, (-0.25)*cvtn, 1.0);
         encoderDrive(TURN_SPEED,   -38.0, 38.0, 4.0);
         encoderDrive(DRIVE_SPEED, (4)*cvtn, (4)*cvtn, 5.0);
@@ -102,7 +106,7 @@ public class Auto1 extends LinearOpMode {
         encoderDrive(TURN_SPEED,   -57.0, 57.0, 4.0);
         encoderDrive(DRIVE_SPEED, (1.5*rtTwo)*cvtn, (1.5*rtTwo)*cvtn, 3.0);
         encoderDrive(TURN_SPEED,   38.0, -38.0, 4.0);
-        encoderDrive(DRIVE_SPEED, (2.5*rtTwo)*cvtn, (2.5*rtTwo)*cvtn, 4.0);
+        encoderDrive(DRIVE_SPEED, (2.5*rtTwo)*cvtn, (2.5*rtTwo)*cvtn, 4.0);*/
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -202,6 +206,9 @@ public class Auto1 extends LinearOpMode {
     }
 
     public void sensorTest(){
+
+        telemetry.addData("In Sensor", "NOW");
+        telemetry.update();
 
         if(opModeIsActive()){
             robot.colorS1.enableLed(false);
