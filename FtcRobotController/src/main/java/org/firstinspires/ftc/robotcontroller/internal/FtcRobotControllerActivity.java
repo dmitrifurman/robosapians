@@ -33,8 +33,11 @@ package org.firstinspires.ftc.robotcontroller.internal;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
@@ -133,6 +136,8 @@ public class FtcRobotControllerActivity extends Activity {
 
   protected FtcEventLoop eventLoop;
   protected Queue<UsbDevice> receivedUsbAttachmentNotifications;
+
+  public static String TeamColor = "";
 
   protected class RobotRestarter implements Restarter {
 
@@ -257,7 +262,34 @@ public class FtcRobotControllerActivity extends Activity {
     wifiLock.acquire();
     callback.networkConnectionUpdate(WifiDirectAssistant.Event.DISCONNECTED);
     bindToService();
+
+    AlertDialog.Builder builder = new AlertDialog.Builder(FtcRobotControllerActivity.this);
+    // Add the buttons
+    builder.setPositiveButton("Red", new DialogInterface.OnClickListener() {
+      public void onClick(DialogInterface dialog, int id) {
+        // User clicked Red Team button
+        setGlobalVariable("Red");
+      }
+    });
+    builder.setNegativeButton("Blue", new DialogInterface.OnClickListener() {
+      public void onClick(DialogInterface dialog, int id) {
+        // User clicked Blue Team dialog
+        setGlobalVariable("Blue");
+      }
+    });
+
+// Create the AlertDialog
+    AlertDialog dialog = builder.create();
+    dialog.show();
+
+
   }
+
+  public void setGlobalVariable(String newColor) {
+
+    this.TeamColor = newColor;
+  }
+
 
   protected UpdateUI createUpdateUI() {
     Restarter restarter = new RobotRestarter();
