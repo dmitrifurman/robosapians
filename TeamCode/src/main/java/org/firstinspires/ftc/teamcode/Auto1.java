@@ -86,21 +86,23 @@ public class Auto1 extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED, (7.5*rtTwo)*cvtn, (7.5*rtTwo)*cvtn, 10.0);
-        encoderDrive(TURN_SPEED,   -19.0, 19.0, 4.0);
+        encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0);
+        encoderDrive(TURN_SPEED,   19.0, -19.0, 3.0);
+        encoderDrive(DRIVE_SPEED, (7.5*rtTwo)*cvtn, (7.5*rtTwo)*cvtn, 8.0);
+        encoderDrive(TURN_SPEED,   -19.0, 19.0, 3.0);
         sensorTest();
-        encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 10.0);
-        encoderDrive(DRIVE_SPEED, (-0.25)*cvtn, (-0.25)*cvtn, 10.0);
+        encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0);
+        encoderDrive(DRIVE_SPEED, (-0.25)*cvtn, (-0.25)*cvtn, 1.0);
         encoderDrive(TURN_SPEED,   -38.0, 38.0, 4.0);
-        encoderDrive(DRIVE_SPEED, (4)*cvtn, (4)*cvtn, 10.0);
-        encoderDrive(TURN_SPEED,   38.0, -38.0, 4.0);
+        encoderDrive(DRIVE_SPEED, (4)*cvtn, (4)*cvtn, 5.0);
+        encoderDrive(TURN_SPEED,   38.0, -38.0, 3.0);
         sensorTest();
-        encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 10.0);
-        encoderDrive(DRIVE_SPEED, (-1.25)*cvtn, (-1.25)*cvtn, 10.0);
+        encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0);
+        encoderDrive(DRIVE_SPEED, (-1.25)*cvtn, (-1.25)*cvtn, 3.0);
         encoderDrive(TURN_SPEED,   -57.0, 57.0, 4.0);
-        encoderDrive(DRIVE_SPEED, (1.5*rtTwo)*cvtn, (1.5*rtTwo)*cvtn, 10.0);
+        encoderDrive(DRIVE_SPEED, (1.5*rtTwo)*cvtn, (1.5*rtTwo)*cvtn, 3.0);
         encoderDrive(TURN_SPEED,   38.0, -38.0, 4.0);
-        encoderDrive(DRIVE_SPEED, (2.5*rtTwo)*cvtn, (2.5*rtTwo)*cvtn, 10.0);
+        encoderDrive(DRIVE_SPEED, (2.5*rtTwo)*cvtn, (2.5*rtTwo)*cvtn, 4.0);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -149,6 +151,19 @@ public class Auto1 extends LinearOpMode {
                         robot.motor1.getCurrentPosition(),
                         robot.motor2.getCurrentPosition());
                 telemetry.update();
+
+                if(leftInches == ((7.5*rtTwo)*cvtn) && robot.motor1.getCurrentPosition() >= ((1*rtTwo)*cvtn) && robot.motor1.getCurrentPosition() <= ((5*rtTwo)*cvtn)){
+                    robot.motor3.setPower(-1);
+                    robot.motor4.setPower(-1);
+                }
+                if(leftInches == ((7.5*rtTwo)*cvtn) && robot.motor1.getCurrentPosition() >= ((1.5*rtTwo)*cvtn) && robot.motor1.getCurrentPosition() <= ((5*rtTwo)*cvtn)){
+                    robot.motor5.setPower(-0.25);
+                }
+                if(leftInches == ((7.5*rtTwo)*cvtn) && robot.motor1.getCurrentPosition() >= ((5*rtTwo)*cvtn)){
+                    robot.motor3.setPower(0);
+                    robot.motor4.setPower(0);
+                    robot.motor5.setPower(0);
+                }
 
                 // Allow time for other processes to run.
                 idle();
