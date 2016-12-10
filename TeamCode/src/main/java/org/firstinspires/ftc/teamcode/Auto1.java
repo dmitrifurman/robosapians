@@ -40,11 +40,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
+import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
+
 @Autonomous(name="Auto1", group="Linear OpModes")
 public class Auto1 extends LinearOpMode {
-
-    // Either "Red" or "Blue"
-    static final java.lang.String TeamColor = "Red";
 
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
@@ -91,9 +90,19 @@ public class Auto1 extends LinearOpMode {
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
         encoderDrive(DRIVE_SPEED, (7.5*rtTwo)*cvtn, (7.5*rtTwo)*cvtn, 10.0);
         encoderDrive(TURN_SPEED,   -19.0, 19.0, 4.0);
-        encoderDrive(DRIVE_SPEED, (1.3*rtTwo)*cvtn, (1.3*rtTwo)*cvtn, 10.0);
-
         sensorTest();
+        encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 10.0);
+        encoderDrive(DRIVE_SPEED, (-0.25)*cvtn, (-0.25)*cvtn, 10.0);
+        encoderDrive(TURN_SPEED,   -38.0, 38.0, 4.0);
+        encoderDrive(DRIVE_SPEED, (4)*cvtn, (4)*cvtn, 10.0);
+        encoderDrive(TURN_SPEED,   38.0, -38.0, 4.0);
+        sensorTest();
+        encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 10.0);
+        encoderDrive(DRIVE_SPEED, (-1.25)*cvtn, (-1.25)*cvtn, 10.0);
+        encoderDrive(TURN_SPEED,   -57.0, 57.0, 4.0);
+        encoderDrive(DRIVE_SPEED, (1.5*rtTwo)*cvtn, (1.5*rtTwo)*cvtn, 10.0);
+        encoderDrive(TURN_SPEED,   38.0, -38.0, 4.0);
+        encoderDrive(DRIVE_SPEED, (2.5*rtTwo)*cvtn, (2.5*rtTwo)*cvtn, 10.0);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -195,7 +204,7 @@ public class Auto1 extends LinearOpMode {
                 }else if(TeamColor == "Blue"){
                     // Pick This One
                 }
-            }
+            }else {/*Pick Neither*/}
         }
 
     }
