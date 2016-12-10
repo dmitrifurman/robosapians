@@ -31,6 +31,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package org.firstinspires.ftc.teamcode;
 
+import android.app.Application;
+import android.content.Context;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -39,12 +42,17 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+import org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity;
+
+import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
 @Autonomous(name="Auto1", group="Linear OpModes")
 public class Auto1 extends LinearOpMode {
 
     // Either "Red" or "Blue"
-    static final java.lang.String TeamColor = "Red";
+    //static public java.lang.String TeamColor = "Red";
+
+    public Context mContext;
 
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
@@ -60,8 +68,7 @@ public class Auto1 extends LinearOpMode {
     static final double cvtn = 12;
 
     @Override
-    public void runOpMode() throws InterruptedException {
-
+    public void runOpMode() throws InterruptedException{
 
         // Initialize the drive system variables.
 
@@ -70,6 +77,7 @@ public class Auto1 extends LinearOpMode {
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status:", "Initializing");    //
         telemetry.update();
+
 
         robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
