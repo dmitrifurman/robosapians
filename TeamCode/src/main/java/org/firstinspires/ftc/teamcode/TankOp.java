@@ -33,6 +33,7 @@ package org.firstinspires.ftc.teamcode;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -71,7 +72,7 @@ public class TankOp extends OpMode {
         // Set Collect Mode
         collectMode = 0;
 
-        // Ser Extend Mode
+        // Set Extend Mode
         extendMode = 0;
 
         // Sets Startng Robot Extender Position to Zero
@@ -186,6 +187,14 @@ public class TankOp extends OpMode {
         if (gamepad1.b) {
             armPosition -= armChange;
         }
+
+        if (gamepad1.x){
+            robot.btnPush.setPosition(Servo.MIN_POSITION);
+        }
+        else if (gamepad1.y){
+            robot.btnPush.setPosition(Servo.MAX_POSITION);
+        }
+
 
         //Limits Servo Movement
         armPosition = Range.clip(armPosition, Arm_Min_Range, Arm_Max_Range);
