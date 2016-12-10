@@ -248,27 +248,27 @@ public class TankOp extends OpMode {
         }
 
         // Extend Code
-        if (extendMode == 0 && gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0) {
+        if (extendMode == 0 && gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0) {
             robot.motor7.setPower(0);
         } else if (extendMode == 1 && robot.motor7.getCurrentPosition() <= Extender_Max) {
             robot.motor7.setPower(0.5);
         } else if (extendMode == 2 && robot.motor7.getCurrentPosition() >= Extender_Min) {
             robot.motor7.setPower(-0.5);
-        } else if(gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0){
+        } else if(gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0){
             robot.motor7.setPower(0);
         }
 
         // Automatic Extension
-        if (gamepad1.x || gamepad1.y) {
-            if (extendMode == 0 && gamepad1.x) {
+        if (gamepad2.left_bumper || gamepad2.right_bumper) {
+            if (extendMode == 0 && gamepad2.left_bumper) {
                 extendMode = 4;
-            } else if (extendMode == 0 && gamepad1.y) {
+            } else if (extendMode == 0 && gamepad2.right_bumper) {
                 extendMode = 3;
             } else if (extendMode == 1 || extendMode == 2) {
                 extendMode = 5;
             }
         }
-        if (!gamepad1.x && !gamepad1.y) {
+        if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
             if (extendMode == 3) {
                 extendMode = 1;
             } else if (extendMode == 4) {
@@ -279,12 +279,12 @@ public class TankOp extends OpMode {
         }
 
         // Manual Extension
-        if(robot.motor7.getCurrentPosition() <= Extender_Max && gamepad1.left_trigger > 0){
+        if(robot.motor7.getCurrentPosition() <= Extender_Max && gamepad2.left_trigger > 0){
             extendMode = 0;
             robot.motor7.setPower(-1);
         }
 
-        if(robot.motor7.getCurrentPosition() >= Extender_Min && gamepad1.right_trigger > 0){
+        if(robot.motor7.getCurrentPosition() >= Extender_Min && gamepad2.right_trigger > 0){
             extendMode = 0;
             robot.motor7.setPower(1);
         }
