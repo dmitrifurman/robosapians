@@ -81,7 +81,7 @@ public class HardwareRobot {
             btnPush = hwMap.servo.get("Button push");
 
             // Assigns Names to Sensors
-//            colorS1 = hwMap.colorSensor.get("Color sensor");
+            colorS1 = hwMap.colorSensor.get("Color sensor");
 //            gyro = hwMap.gyroSensor.get("Gyro sensor");
 
     }
