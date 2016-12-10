@@ -53,10 +53,6 @@ public class TankOp extends OpMode {
     private double collectMode = 0;
     private double extendMode = 0;
 
-    private double beltTarget = 0;
-    private double beltChange = 5000;
-
-
     public TankOp() {
 
     }
@@ -236,6 +232,22 @@ public class TankOp extends OpMode {
 
     private void  extender() {
 
+        // Limits The Range of the Motors
+        if(robot.motor7.getPower() < 0 && robot.motor7.getCurrentPosition() < Extender_Min){
+            robot.motor7.setPower(1);
+            extendMode = 0;
+        }
+        if(robot.motor7.getPower() == 1 && robot.motor7.getCurrentPosition() >= Extender_Min){
+            robot.motor7.setPower(0);
+        }
+        if(robot.motor7.getPower() > 0 && robot.motor7.getCurrentPosition() > Extender_Max){
+            robot.motor7.setPower(-1);
+            extendMode = 0;
+        }
+        if(robot.motor7.getPower() == -1 && robot.motor7.getCurrentPosition() <= Extender_Min){
+            robot.motor7.setPower(0);
+        }
+
         // Extend Code
         if (extendMode == 0 && gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0) {
             robot.motor7.setPower(0);
@@ -243,18 +255,8 @@ public class TankOp extends OpMode {
             robot.motor7.setPower(0.5);
         } else if (extendMode == 2 && robot.motor7.getCurrentPosition() >= Extender_Min) {
             robot.motor7.setPower(-0.5);
-        } else{
+        } else if(gamepad1.left_trigger == 0 && gamepad1.right_trigger == 0){
             robot.motor7.setPower(0);
-        }
-
-        // Limits The Range of the Motors
-        if(robot.motor7.getPower() < 0 && robot.motor7.getCurrentPosition() <= Extender_Min){
-            robot.motor7.setPower(1);
-            extendMode = 0;
-        }
-        if(robot.motor7.getPower() > 0 && robot.motor7.getCurrentPosition() >= Extender_Max){
-            robot.motor7.setPower(-1);
-            extendMode = 0;
         }
 
         // Automatic Extension
