@@ -37,7 +37,18 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "TankOp", group = "Linear Opmode")
+//@TeleOp(name = "TankOp", group = "Linear Opmode")
+/*
+
+PLEASE DO NOT USE THIS TELEOP CODE YET SINCE I MUST STILL EDIT IT FOR USABILITY.
+ THIS USES THE JOYSTIC AND TOPHAT TO DRIVE WITH SPEED ADJUSTMENTS, BUT USES LT/RT BUTTON AND RIGGER FOR THESE ADJUSTMENTS!
+
+-RISHI
+
+ */
+
+
+
 public class AlternateTankOp extends OpMode {
     private final static double Arm_Min_Range = 0;
     private final static double Arm_Max_Range = 1;
@@ -55,7 +66,7 @@ public class AlternateTankOp extends OpMode {
     private boolean speedUpBtnLastPressed = false;
     private boolean speedDnBtnLastPressed = false;
     private double driveSpeed = 0.4;
-    private double DRIVE_SPEED_INCREMENT = 0.1;
+    private double driveSpeedIncrement = 0.1;
 
     public AlternateTankOp() {
 
@@ -149,14 +160,14 @@ public class AlternateTankOp extends OpMode {
 
         if (driveSpeedUp) {
             if (!speedUpBtnLastPressed) {
-                driveSpeed = driveSpeed + DRIVE_SPEED_INCREMENT;
+                driveSpeed = driveSpeed + driveSpeedIncrement;
                 if (driveSpeed > 1.0)
                     driveSpeed = 1.0;
             }
             speedUpBtnLastPressed = true;
         } else if (driveSpeedDn > .8) {
             if (!speedDnBtnLastPressed) {
-                driveSpeed = driveSpeed - DRIVE_SPEED_INCREMENT;
+                driveSpeed = driveSpeed - driveSpeedIncrement;
                 if (driveSpeed < 0)
                     driveSpeed = 0.1;
             }
