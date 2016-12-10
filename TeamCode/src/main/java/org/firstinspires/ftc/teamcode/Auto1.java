@@ -31,18 +31,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package org.firstinspires.ftc.teamcode;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
-import org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity;
 
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
@@ -193,15 +188,15 @@ public class Auto1 extends LinearOpMode {
             robot.colorS1.enableLed(false);
             if(robot.colorS1.red() >= 1 && robot.colorS1.blue() == 0){
                 if(TeamColor == "Red"){
-                    // Pick This One
+                    robot.btnPush.setPosition(Servo.MAX_POSITION);
                 }else if(TeamColor == "Blue"){
-                    // Pick The Other One
+                    robot.btnPush.setPosition(Servo.MIN_POSITION);
                 }
             }else if(robot.colorS1.blue() >= 1 && robot.colorS1.red() == 0){
                 if(TeamColor == "Red"){
-                    // Pick The Other One
+                    robot.btnPush.setPosition(Servo.MAX_POSITION);
                 }else if(TeamColor == "Blue"){
-                    // Pick This One
+                    robot.btnPush.setPosition(Servo.MIN_POSITION);
                 }
             }
         }
