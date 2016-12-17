@@ -53,7 +53,6 @@ public class TankOp extends OpMode {
     private double beltMode = 0;
     private double collectMode = 0;
     private double extendMode = 0;
-    private boolean launchOn = true;
 
     public TankOp() {
 
@@ -185,16 +184,6 @@ public class TankOp extends OpMode {
         robot.motor3.setPower(-1);
         robot.motor4.setPower(-1);
 
-        if (gamepad1.start || gamepad2.start) {
-            if (launchOn) {
-                robot.motor3.setPower(0);
-                robot.motor4.setPower(0);
-            } else {
-                robot.motor3.setPower(-1);
-                robot.motor4.setPower(-1);
-            }
-        }
-
         // Belt Mode Update
         if (gamepad2.a) {
             beltMode = 1;
@@ -230,14 +219,6 @@ public class TankOp extends OpMode {
         if (gamepad1.b) {
             armPosition -= armChange;
         }
-
-        if (gamepad1.x){
-            robot.btnPush.setPosition(Servo.MIN_POSITION);
-        }
-        else if (gamepad1.y){
-            robot.btnPush.setPosition(Servo.MAX_POSITION);
-        }
-
 
         //Limits Servo Movement
         armPosition = Range.clip(armPosition, Arm_Min_Range, Arm_Max_Range);
