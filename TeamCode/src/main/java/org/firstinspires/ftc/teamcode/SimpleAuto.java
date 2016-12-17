@@ -84,7 +84,7 @@ public class SimpleAuto extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED, 12, 12, 100.0); // Drive forward 12 inches
+        encoderDrive(DRIVE_SPEED, 24, 24, 100.0); // Drive forward 12 inches
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -119,8 +119,8 @@ public class SimpleAuto extends LinearOpMode {
 
             // Reset the timeout time and start motion.
             runtime.reset();
-            robot.motor1.setPower(Math.abs(speed));
-            robot.motor2.setPower(Math.abs(speed));
+            robot.motor1.setPower(speed);
+            robot.motor2.setPower(speed);
 
             // Keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&
@@ -134,7 +134,7 @@ public class SimpleAuto extends LinearOpMode {
                         robot.motor2.getCurrentPosition());
                 telemetry.update();
 
-                if (leftInches == ((7.5 * rtTwo) * cvtn) && robot.motor1.getCurrentPosition() >= ((1 * rtTwo) * cvtn) && robot.motor1.getCurrentPosition() <= ((5 * rtTwo) * cvtn)) {
+                if (leftInches == ((7.5 * rtTwo) * cvtn) && robot.motor1.getCurrentPosition() >= ((1 * rtTwo) * cvtn + 23) && robot.motor1.getCurrentPosition() <= ((5 * rtTwo) * cvtn)) {
                     robot.motor3.setPower(-1);
                     robot.motor4.setPower(-1);
                 }
