@@ -31,8 +31,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package org.firstinspires.ftc.teamcode;
 
-import android.content.Context;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -41,18 +39,18 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
-@Autonomous(name="Auto1", group="Linear OpModes")
-public class Auto1 extends LinearOpMode {
+@Autonomous(name = "Auto1", group = "Linear OpModes")
+public class SimpleAuto extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
-    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * (Math.PI));
-    static final double     DRIVE_SPEED             = 0.75;
-    static final double     TURN_SPEED              = 0.5;
+    static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: TETRIX Motor Encoder
+    static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
+    static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
+    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * (Math.PI));
+    static final double DRIVE_SPEED = 0.75;
+    static final double TURN_SPEED = 0.5;
 
     static final double rtTwo = Math.sqrt(2);
     static final double cvtn = 12;
@@ -76,7 +74,7 @@ public class Auto1 extends LinearOpMode {
         robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Auto1",  "Starting at %7d :%7d",
+        telemetry.addData("Auto1", "Starting at %7d :%7d",
                 robot.motor1.getCurrentPosition(),
                 robot.motor2.getCurrentPosition());
         telemetry.update();
@@ -86,23 +84,7 @@ public class Auto1 extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0); // Drive forward 3 inches
-        encoderDrive(TURN_SPEED,   19.0, -19.0, 3.0); // turns
-        encoderDrive(DRIVE_SPEED, (7.5*rtTwo)*cvtn, (7.5*rtTwo)*cvtn, 8.0); // Drives forward
-        encoderDrive(TURN_SPEED,   -19.0, 19.0, 3.0);
-        sensorTest();
-        /*encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0);
-        encoderDrive(DRIVE_SPEED, (-0.25)*cvtn, (-0.25)*cvtn, 1.0);
-        encoderDrive(TURN_SPEED,   -38.0, 38.0, 4.0);
-        encoderDrive(DRIVE_SPEED, (4)*cvtn, (4)*cvtn, 5.0);
-        encoderDrive(TURN_SPEED,   38.0, -38.0, 3.0);
-        sensorTest();
-        encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0);
-        encoderDrive(DRIVE_SPEED, (-1.25)*cvtn, (-1.25)*cvtn, 3.0);
-        encoderDrive(TURN_SPEED,   -57.0, 57.0, 4.0);
-        encoderDrive(DRIVE_SPEED, (1.5*rtTwo)*cvtn, (1.5*rtTwo)*cvtn, 3.0);
-        encoderDrive(TURN_SPEED,   38.0, -38.0, 4.0);
-        encoderDrive(DRIVE_SPEED, (2.5*rtTwo)*cvtn, (2.5*rtTwo)*cvtn, 4.0);*/
+        encoderDrive(DRIVE_SPEED, 12, 12, 100.0); // Drive forward 12 inches
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -126,8 +108,8 @@ public class Auto1 extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = robot.motor1.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget = robot.motor2.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newLeftTarget = robot.motor1.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
+            newRightTarget = robot.motor2.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
             robot.motor1.setTargetPosition(newLeftTarget);
             robot.motor2.setTargetPosition(newRightTarget);
 
@@ -146,20 +128,20 @@ public class Auto1 extends LinearOpMode {
                     (robot.motor1.isBusy() && robot.motor2.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
+                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
+                telemetry.addData("Path2", "Running at %7d :%7d",
                         robot.motor1.getCurrentPosition(),
                         robot.motor2.getCurrentPosition());
                 telemetry.update();
 
-                if(leftInches == ((7.5*rtTwo)*cvtn) && robot.motor1.getCurrentPosition() >= ((1*rtTwo)*cvtn) && robot.motor1.getCurrentPosition() <= ((5*rtTwo)*cvtn)){
+                if (leftInches == ((7.5 * rtTwo) * cvtn) && robot.motor1.getCurrentPosition() >= ((1 * rtTwo) * cvtn) && robot.motor1.getCurrentPosition() <= ((5 * rtTwo) * cvtn)) {
                     robot.motor3.setPower(-1);
                     robot.motor4.setPower(-1);
                 }
-                if(leftInches == ((7.5*rtTwo)*cvtn) && robot.motor1.getCurrentPosition() >= ((1.5*rtTwo)*cvtn) && robot.motor1.getCurrentPosition() <= ((5*rtTwo)*cvtn)){
+                if (leftInches == ((7.5 * rtTwo) * cvtn) && robot.motor1.getCurrentPosition() >= ((1.5 * rtTwo) * cvtn) && robot.motor1.getCurrentPosition() <= ((5 * rtTwo) * cvtn)) {
                     robot.motor5.setPower(-0.25);
                 }
-                if(leftInches == ((7.5*rtTwo)*cvtn) && robot.motor1.getCurrentPosition() >= ((5*rtTwo)*cvtn)){
+                if (leftInches == ((7.5 * rtTwo) * cvtn) && robot.motor1.getCurrentPosition() >= ((5 * rtTwo) * cvtn)) {
                     robot.motor3.setPower(0);
                     robot.motor4.setPower(0);
                     robot.motor5.setPower(0);
@@ -202,27 +184,26 @@ public class Auto1 extends LinearOpMode {
         robot.motor2.setPower(0);
     }
 
-    public void sensorTest(){
+    public void sensorTest() {
 
         telemetry.addData("In Sensor Test", "NOW");
         telemetry.update();
 
-        if(opModeIsActive()){
+        if (opModeIsActive()) {
             robot.colorS1.enableLed(false);
-            if(robot.colorS1.red() >= 1 && robot.colorS1.blue() == 0){
-                if(TeamColor == "Red"){
+            if (robot.colorS1.red() >= 1 && robot.colorS1.blue() == 0) {
+                if (TeamColor == "Red") {
                     robot.btnPush.setPosition(Servo.MAX_POSITION);
-                }else if(TeamColor == "Blue"){
+                } else if (TeamColor == "Blue") {
                     robot.btnPush.setPosition(Servo.MIN_POSITION);
                 }
-            }else if(robot.colorS1.blue() >= 1 && robot.colorS1.red() == 0){
-                if(TeamColor == "Red"){
+            } else if (robot.colorS1.blue() >= 1 && robot.colorS1.red() == 0) {
+                if (TeamColor == "Red") {
                     robot.btnPush.setPosition(Servo.MAX_POSITION);
-                }else if(TeamColor == "Blue"){
+                } else if (TeamColor == "Blue") {
                     robot.btnPush.setPosition(Servo.MIN_POSITION);
                 }
-            // Prevents tha robot from choosing the wrong color for the beacon
-            }else {robot.btnPush.setPosition(Servo.MAX_POSITION/2);}
+            } else {/*Pick Neither*/}
         }
 
     }
