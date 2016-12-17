@@ -60,6 +60,10 @@ public class TankOp extends OpMode {
     @Override
     public void init() {
         robot.init(hardwareMap);
+
+        // Sets button puah position
+        robot.btnPush.setPosition(Servo.MAX_POSITION);
+
         // Servo Default Position
         armPosition = 0;
 
