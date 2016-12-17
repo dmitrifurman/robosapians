@@ -177,7 +177,8 @@ public class Auto1 extends LinearOpMode {
             robot.motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            //  sleep(250);   // optional pause after each move
+            // Short pause after each move for testing
+            sleep(5000);
         }
     }
 
