@@ -31,8 +31,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package org.firstinspires.ftc.teamcode;
 
-import android.content.Context;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -162,8 +160,7 @@ public class Auto1 extends LinearOpMode {
             // Keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (robot.motor1.isBusy() && robot.motor2.isBusy()) &&
-                    !robot.touch.isPressed()) {
+                    (robot.motor1.isBusy() && robot.motor2.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
@@ -228,14 +225,14 @@ public class Auto1 extends LinearOpMode {
         telemetry.update();
 
         if(opModeIsActive()){
-            robot.colorS1.enableLed(false);
-            if(robot.colorS1.red() >= 1 && robot.colorS1.blue() == 0){
+            robot.color.enableLed(false);
+            if(robot.color.red() >= 1 && robot.color.blue() == 0){
                 if(TeamColor == "Red"){
                     robot.btnPush.setPosition(Servo.MIN_POSITION);
                 }else if(TeamColor == "Blue"){
                     robot.btnPush.setPosition(Servo.MAX_POSITION);
                 }
-            }else if(robot.colorS1.blue() >= 1 && robot.colorS1.red() == 0){
+            }else if(robot.color.blue() >= 1 && robot.color.red() == 0){
                 if(TeamColor == "Red"){
                     robot.btnPush.setPosition(Servo.MIN_POSITION);
                 }else if(TeamColor == "Blue"){

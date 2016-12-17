@@ -33,7 +33,6 @@ package org.firstinspires.ftc.teamcode;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
@@ -130,9 +129,9 @@ public class AlternateTankOp extends OpMode {
 
         // Color Sensor Mode Changer
         if (LEDmode == 0) {
-            robot.colorS1.enableLed(false);
+            robot.color.enableLed(false);
         } else if (LEDmode == 1) {
-            robot.colorS1.enableLed(true);
+            robot.color.enableLed(true);
         }
 
         // LED Mode Updater
