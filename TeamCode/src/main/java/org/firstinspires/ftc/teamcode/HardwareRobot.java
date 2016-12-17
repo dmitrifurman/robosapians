@@ -70,9 +70,9 @@ public class HardwareRobot {
             motor7 = hwMap.dcMotor.get("Extend");
 
             // Reverse Motors
-            motor1.setDirection(DcMotor.Direction.REVERSE);
-            motor3.setDirection(DcMotor.Direction.REVERSE);
-            motor5.setDirection(DcMotor.Direction.REVERSE);
+            motor2.setDirection(DcMotor.Direction.REVERSE);
+            motor4.setDirection(DcMotor.Direction.REVERSE);
+            motor6.setDirection(DcMotor.Direction.REVERSE);
 
 
             // Assigns Names to Servos
