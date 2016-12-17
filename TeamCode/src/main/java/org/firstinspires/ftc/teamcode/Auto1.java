@@ -92,12 +92,16 @@ public class Auto1 extends LinearOpMode {
         encoderDrive(TURN_SPEED,   -19.0, 19.0, 3.0);
         sensorTest();
         /*encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0);
+        encoderDrive(DRIVE_SPEED, (-0.125)*cvtn, (-0.25)*cvtn, 1.0);
+        encoderDrive(DRIVE_SPEED, (0.125)*cvtn, (0.25)*cvtn, 1.0);
         encoderDrive(DRIVE_SPEED, (-0.25)*cvtn, (-0.25)*cvtn, 1.0);
         encoderDrive(TURN_SPEED,   -38.0, 38.0, 4.0);
         encoderDrive(DRIVE_SPEED, (4)*cvtn, (4)*cvtn, 5.0);
         encoderDrive(TURN_SPEED,   38.0, -38.0, 3.0);
         sensorTest();
         encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0);
+        encoderDrive(DRIVE_SPEED, (-0.125)*cvtn, (-0.25)*cvtn, 1.0);
+        encoderDrive(DRIVE_SPEED, (0.125)*cvtn, (0.25)*cvtn, 1.0);
         encoderDrive(DRIVE_SPEED, (-1.25)*cvtn, (-1.25)*cvtn, 3.0);
         encoderDrive(TURN_SPEED,   -57.0, 57.0, 4.0);
         encoderDrive(DRIVE_SPEED, (1.5*rtTwo)*cvtn, (1.5*rtTwo)*cvtn, 3.0);
@@ -143,7 +147,8 @@ public class Auto1 extends LinearOpMode {
             // Keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (robot.motor1.isBusy() && robot.motor2.isBusy())) {
+                    (robot.motor1.isBusy() && robot.motor2.isBusy()) &&
+                    !robot.touch.isPressed()) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
