@@ -42,10 +42,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class TankOp extends OpMode {
     private final static double Arm_Min_Range = 0;
     private final static double Arm_Max_Range = 1;
-    private final static double Extender_Min = -23000;
-    private final static double Extender_Max = 0;
+    private final static double Extender_Max = 22000;
+    private final static double Extender_Min = 0;
     private final static double BeltInterval = 600;
     private HardwareRobot robot = new HardwareRobot();
+    private double driveMode = 0;
     private double armPosition = 0;
     private double armChange = 0.025;
     private double LEDmode = 0;
@@ -61,6 +62,9 @@ public class TankOp extends OpMode {
     @Override
     public void init() {
         robot.init(hardwareMap);
+
+        // Sets Default Drive Mode
+        driveMode = 0;
 
         // Sets button puah position
         robot.btnPush.setPosition(Servo.MAX_POSITION);
@@ -146,8 +150,29 @@ public class TankOp extends OpMode {
     private void  drive() {
 
         // Drive Code
-        robot.motor1.setPower(gamepad1.left_stick_y);
-        robot.motor2.setPower(gamepad1.right_stick_y);
+        if(driveMode == 0) {
+            robot.motor1.setPower(gamepad1.left_stick_y);
+            robot.motor2.setPower(gamepad1.right_stick_y);
+        }else if(driveMode == 1){
+            robot.motor1.setPower(gamepad1.left_stick_y*0.1);
+            robot.motor2.setPower(gamepad1.right_stick_y*0.1);
+        }
+
+        if(gamepad1.start){
+            if(driveMode == 0){
+                driveMode = 2;
+            }else if(driveMode == 1){
+                driveMode = 3;
+            }
+        }
+
+        if(!gamepad1.start){
+            if(driveMode == 2){
+                driveMode = 1;
+            }else if(driveMode == 3){
+                driveMode = 0;
+            }
+        }
 
     }
 
