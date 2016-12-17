@@ -101,9 +101,9 @@ public class Auto1 extends LinearOpMode {
         encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0);
 
         // Move to the next beacon
-        encoderDrive(TURN_SPEED,   -38.0, 38.0, 4.0);
+        encoderDrive(TURN_SPEED,   5.0, -5.0, 4.0);
         encoderDrive(DRIVE_SPEED, (4)*cvtn, (4)*cvtn, 5.0);
-        encoderDrive(TURN_SPEED,   38.0, -38.0, 3.0);
+        /*encoderDrive(TURN_SPEED,   38.0, -38.0, 3.0);
 
         // Next section needs to start 3 in. away and centered to the beacon
         encoderDrive(TURN_SPEED, (-0.125)*cvtn, (-0.125)*cvtn, 1.0);
@@ -119,7 +119,7 @@ public class Auto1 extends LinearOpMode {
         // Important last step: move on ramp
         //encoderDrive(DRIVE_SPEED, (1.5*rtTwo)*cvtn, (1.5*rtTwo)*cvtn, 3.0);
         //encoderDrive(TURN_SPEED,   38.0, -38.0, 4.0);
-        //encoderDrive(DRIVE_SPEED, (2.5*rtTwo)*cvtn, (2.5*rtTwo)*cvtn, 4.0);
+        //encoderDrive(DRIVE_SPEED, (2.5*rtTwo)*cvtn, (2.5*rtTwo)*cvtn, 4.0); */
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
