@@ -71,6 +71,8 @@ public class TankOp extends OpMode {
 
         // Servo Default Position
         armPosition = 0;
+        robot.release1.setPosition(armPosition);
+        robot.release2.setPosition(1-armPosition);
 
         // Sets Default Color Senor Mode
         LEDmode = 0;
@@ -117,10 +119,11 @@ public class TankOp extends OpMode {
         telemetry.addData("Extend Speed", robot.motor7.getPower());
         telemetry.addData("Extend Pos", robot.motor7.getCurrentPosition());
         telemetry.addData("Servos 1/2 Pos", robot.release1.getPosition());
+        telemetry.addData("Button Pusher", robot.btnPush.getPosition());
 
     }
 
-    private void colorsensor() {
+    private void colorSensor() {
 
         // Color Sensor Mode Changer
         if (LEDmode == 0) {

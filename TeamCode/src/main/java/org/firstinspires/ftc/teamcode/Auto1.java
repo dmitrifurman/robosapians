@@ -86,27 +86,42 @@ public class Auto1 extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0); // Drive forward 3 inches
-        encoderDrive(TURN_SPEED,   19.0, -19.0, 3.0); // turns
-        encoderDrive(DRIVE_SPEED, (7.5*rtTwo)*cvtn, (7.5*rtTwo)*cvtn, 8.0); // Drives forward
-        encoderDrive(TURN_SPEED,   -19.0, 19.0, 3.0);
+
+        // Start Parallel to the wall
+        //encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0); // Drive forward 3 inches
+        //encoderDrive(TURN_SPEED,   19.0, -19.0, 3.0); // turns
+        //encoderDrive(DRIVE_SPEED, (7.5*rtTwo)*cvtn, (7.5*rtTwo)*cvtn, 8.0); // Drives forward
+        //encoderDrive(TURN_SPEED,   -19.0, 19.0, 3.0);
+
+        // Next section needs to start 3 in. away and centered to the beacon
+        encoderDrive(TURN_SPEED, (-0.125)*cvtn, (-0.125)*cvtn, 1.0);
         sensorTest();
-        /*encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0);
-        encoderDrive(DRIVE_SPEED, (-0.125)*cvtn, (-0.25)*cvtn, 1.0);
-        encoderDrive(DRIVE_SPEED, (0.125)*cvtn, (0.25)*cvtn, 1.0);
-        encoderDrive(DRIVE_SPEED, (-0.25)*cvtn, (-0.25)*cvtn, 1.0);
+        sleep(1500);
+        encoderDrive(TURN_SPEED, (-0.125)*cvtn, (-0.125)*cvtn, 1.0);
+        encoderDrive(TURN_SPEED, (0.125)*cvtn, (0.25)*cvtn, 1.0);
+        encoderDrive(TURN_SPEED, (-0.125)*cvtn, (-0.25)*cvtn, 1.0);
+        encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0);
+
+        // Move to the next beacon
         encoderDrive(TURN_SPEED,   -38.0, 38.0, 4.0);
         encoderDrive(DRIVE_SPEED, (4)*cvtn, (4)*cvtn, 5.0);
         encoderDrive(TURN_SPEED,   38.0, -38.0, 3.0);
+
+        // Next section needs to start 3 in. away and centered to the beacon
+        encoderDrive(TURN_SPEED, (-0.125)*cvtn, (-0.125)*cvtn, 1.0);
         sensorTest();
-        encoderDrive(DRIVE_SPEED, (0.25)*cvtn, (0.25)*cvtn, 1.0);
-        encoderDrive(DRIVE_SPEED, (-0.125)*cvtn, (-0.25)*cvtn, 1.0);
-        encoderDrive(DRIVE_SPEED, (0.125)*cvtn, (0.25)*cvtn, 1.0);
-        encoderDrive(DRIVE_SPEED, (-1.25)*cvtn, (-1.25)*cvtn, 3.0);
+        sleep(1500);
+        encoderDrive(TURN_SPEED, (-0.125)*cvtn, (-0.125)*cvtn, 1.0);
+        encoderDrive(TURN_SPEED, (0.125)*cvtn, (0.25)*cvtn, 1.0);
+        encoderDrive(TURN_SPEED, (-0.125)*cvtn, (-0.25)*cvtn, 1.0);
+        encoderDrive(DRIVE_SPEED, (1.25)*cvtn, (1.25)*cvtn, 1.0);
+
         encoderDrive(TURN_SPEED,   -57.0, 57.0, 4.0);
-        encoderDrive(DRIVE_SPEED, (1.5*rtTwo)*cvtn, (1.5*rtTwo)*cvtn, 3.0);
-        encoderDrive(TURN_SPEED,   38.0, -38.0, 4.0);
-        encoderDrive(DRIVE_SPEED, (2.5*rtTwo)*cvtn, (2.5*rtTwo)*cvtn, 4.0);*/
+
+        // Optional last step: move on ramp
+        //encoderDrive(DRIVE_SPEED, (1.5*rtTwo)*cvtn, (1.5*rtTwo)*cvtn, 3.0);
+        //encoderDrive(TURN_SPEED,   38.0, -38.0, 4.0);
+        //encoderDrive(DRIVE_SPEED, (2.5*rtTwo)*cvtn, (2.5*rtTwo)*cvtn, 4.0);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -183,7 +198,7 @@ public class Auto1 extends LinearOpMode {
             robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             // Short pause after each move for testing
-            sleep(5000);
+            sleep(500);
         }
     }
 
@@ -216,15 +231,15 @@ public class Auto1 extends LinearOpMode {
             robot.colorS1.enableLed(false);
             if(robot.colorS1.red() >= 1 && robot.colorS1.blue() == 0){
                 if(TeamColor == "Red"){
-                    robot.btnPush.setPosition(Servo.MAX_POSITION);
-                }else if(TeamColor == "Blue"){
                     robot.btnPush.setPosition(Servo.MIN_POSITION);
+                }else if(TeamColor == "Blue"){
+                    robot.btnPush.setPosition(Servo.MAX_POSITION);
                 }
             }else if(robot.colorS1.blue() >= 1 && robot.colorS1.red() == 0){
                 if(TeamColor == "Red"){
-                    robot.btnPush.setPosition(Servo.MAX_POSITION);
-                }else if(TeamColor == "Blue"){
                     robot.btnPush.setPosition(Servo.MIN_POSITION);
+                }else if(TeamColor == "Blue"){
+                    robot.btnPush.setPosition(Servo.MAX_POSITION);
                 }
             // Prevents tha robot from choosing the wrong color for the beacon
             }else {robot.btnPush.setPosition(Servo.MAX_POSITION/2);}
