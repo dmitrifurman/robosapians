@@ -221,7 +221,8 @@ public class Auto1 extends LinearOpMode {
                 }else if(TeamColor == "Blue"){
                     robot.btnPush.setPosition(Servo.MIN_POSITION);
                 }
-            }else {/*Pick Neither*/}
+            // Prevents tha robot from choosing the wrong color for the beacon
+            }else {robot.btnPush.setPosition(Servo.MAX_POSITION/2);}
         }
 
     }
