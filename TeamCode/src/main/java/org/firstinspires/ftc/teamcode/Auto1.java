@@ -85,10 +85,10 @@ public class Auto1 extends LinearOpMode {
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
         // Start Parallel to the wall
-        encoderDrive(DRIVE_SPEED, 3, 3, 1.0); // Drive forward 3 inches
-        encoderDrive(TURN_SPEED,   19.0, -19.0, 3.0); // turns
-        encoderDrive(DRIVE_SPEED, (90*rtTwo), (90*rtTwo), 8.0); // Drives forward
-        encoderDrive(TURN_SPEED,   -19.0, 19.0, 3.0);
+        encoderDrive(DRIVE_SPEED, -3, -3, 1.0); // Drive forward 3 inches
+        encoderDrive(TURN_SPEED,   10.0, -10.0, 3.0); // turns
+        encoderDrive(DRIVE_SPEED, (-7.5*rtTwo), (-7.5*rtTwo), 8.0); // Drives forward
+        encoderDrive(TURN_SPEED,   19.0, -19.0, 3.0);
 
         // Next section needs to start 3 in. away and centered to the beacon
         /*encoderDrive(TURN_SPEED, -1.5, -1.5, 1.0);
@@ -168,14 +168,14 @@ public class Auto1 extends LinearOpMode {
                         robot.motor2.getCurrentPosition());
                 telemetry.update();
 
-                if (leftInches == (90 * rtTwo) && robot.motor1.getCurrentPosition() >= (12 * rtTwo) + 23 && robot.motor1.getCurrentPosition() <= (60 * rtTwo) + 23) {
+                if (leftInches == (-7.5 * rtTwo) && robot.motor1.getCurrentPosition() >= (12 * rtTwo) + 23 && robot.motor1.getCurrentPosition() <= (60 * rtTwo) + 23) {
                     robot.motor3.setPower(-1);
                     robot.motor4.setPower(-1);
                 }
-                if (leftInches == (90 * rtTwo) && robot.motor1.getCurrentPosition() >= (18 * rtTwo) + 23 && robot.motor1.getCurrentPosition() <= (60 * rtTwo) + 23) {
+                if (leftInches == (-7.5 * rtTwo) && robot.motor1.getCurrentPosition() >= (18 * rtTwo) + 23 && robot.motor1.getCurrentPosition() <= (60 * rtTwo) + 23) {
                     robot.motor5.setPower(-0.25);
                 }
-                if (leftInches == (90 * rtTwo) && robot.motor1.getCurrentPosition() >= (60 * rtTwo) + 23) {
+                if (leftInches == (-7.5 * rtTwo) && robot.motor1.getCurrentPosition() >= (60 * rtTwo) + 23) {
                     robot.motor3.setPower(0);
                     robot.motor4.setPower(0);
                     robot.motor5.setPower(0);
