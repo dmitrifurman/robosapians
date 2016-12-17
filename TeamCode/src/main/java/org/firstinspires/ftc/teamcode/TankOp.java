@@ -84,9 +84,9 @@ public class TankOp extends OpMode {
         // Set Extend Mode
         extendMode = 0;
 
-        // Sets Startng Robot Extender Position to Zero
+        // Sets Startng Robot Target Positions to Zero
         robot.motor5.setTargetPosition(0);
-        robot.motor7.setTargetPosition(-1);
+        robot.motor7.setTargetPosition(0);
 
 
     }
