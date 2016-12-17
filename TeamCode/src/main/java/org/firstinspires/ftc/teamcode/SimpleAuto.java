@@ -84,7 +84,7 @@ public class SimpleAuto extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED, 24, 24, 100.0); // Drive forward 12 inches
+        encoderDrive(DRIVE_SPEED, 24, 24, 5.0); // Drive forward 12 inches
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
