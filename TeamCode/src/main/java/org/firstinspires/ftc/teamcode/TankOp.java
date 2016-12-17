@@ -127,9 +127,9 @@ public class TankOp extends OpMode {
 
         // Color Sensor Mode Changer
         if (LEDmode == 0) {
-            robot.colorS1.enableLed(false);
+            robot.color.enableLed(false);
         } else if (LEDmode == 1) {
-            robot.colorS1.enableLed(true);
+            robot.color.enableLed(true);
         }
 
         // LED Mode Updater
