@@ -63,7 +63,7 @@ public class Auto1 extends LinearOpMode {
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status:", "Initializing");    //
+        telemetry.addData("Status", "Initializing");    //
         telemetry.update();
 
         robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -74,12 +74,12 @@ public class Auto1 extends LinearOpMode {
         robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Send telemetry message to indicate successful Encoder reset
-        telemetry.addData("Auto1",  "Starting at %7d :%7d",
+        telemetry.addData("Current Status",  "Starting at %7d :%7d",
                 robot.motor1.getCurrentPosition(),
                 robot.motor2.getCurrentPosition());
         telemetry.update();
 
-        // Wait for the game to start (driver presses PLAY)
+        // Wait for the game to start
         waitForStart();
 
         // Step through each leg of the path,
@@ -116,7 +116,7 @@ public class Auto1 extends LinearOpMode {
 
         encoderDrive(TURN_SPEED,   -57.0, 57.0, 4.0);
 
-        // Optional last step: move on ramp
+        // Important last step: move on ramp
         //encoderDrive(DRIVE_SPEED, (1.5*rtTwo)*cvtn, (1.5*rtTwo)*cvtn, 3.0);
         //encoderDrive(TURN_SPEED,   38.0, -38.0, 4.0);
         //encoderDrive(DRIVE_SPEED, (2.5*rtTwo)*cvtn, (2.5*rtTwo)*cvtn, 4.0);
@@ -135,18 +135,18 @@ public class Auto1 extends LinearOpMode {
      */
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
-                             double timeoutS) throws InterruptedException {
-        int newLeftTarget;
-        int newRightTarget;
+                             double timeOut) throws InterruptedException {
+        int leftTarget;
+        int rightTarget;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newLeftTarget = robot.motor1.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
-            newRightTarget = robot.motor2.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
-            robot.motor1.setTargetPosition(newLeftTarget);
-            robot.motor2.setTargetPosition(newRightTarget);
+            leftTarget = robot.motor1.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            rightTarget = robot.motor2.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            robot.motor1.setTargetPosition(leftTarget);
+            robot.motor2.setTargetPosition(rightTarget);
 
             // Turn On RUN_TO_POSITION
             robot.motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -159,11 +159,11 @@ public class Auto1 extends LinearOpMode {
 
             // Keep looping while we are still active, and there is time left, and both motors are running.
             while (opModeIsActive() &&
-                    (runtime.seconds() < timeoutS) &&
-                    (robot.motor1.isBusy() && robot.motor2.isBusy())) {
+                    (runtime.seconds() < timeOut) &&
+                    (robot.motor1.isBusy() || robot.motor2.isBusy())) {
 
                 // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", newLeftTarget,  newRightTarget);
+                telemetry.addData("Path1",  "Running to %7d :%7d", leftTarget,  rightTarget);
                 telemetry.addData("Path2",  "Running at %7d :%7d",
                         robot.motor1.getCurrentPosition(),
                         robot.motor2.getCurrentPosition());
@@ -194,12 +194,11 @@ public class Auto1 extends LinearOpMode {
             robot.motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            // Short pause after each move for testing
             sleep(500);
         }
     }
 
-    public void turnRightGyroTarget(int angle, double power, int maxTimeInSec) {
+    /*public void turnRightGyroTarget(int angle, double power, int maxTimeInSec) {
 
         robot.gyro.calibrate();
         while (robot.gyro.isCalibrating()) {
@@ -217,7 +216,7 @@ public class Auto1 extends LinearOpMode {
 
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
-    }
+    }*/
 
     public void sensorTest(){
 
@@ -238,7 +237,7 @@ public class Auto1 extends LinearOpMode {
                 }else if(TeamColor == "Blue"){
                     robot.btnPush.setPosition(Servo.MAX_POSITION);
                 }
-            // Prevents tha robot from choosing the wrong color for the beacon
+            // Prevents the robot from choosing the wrong color for the beacon
             }else {robot.btnPush.setPosition(Servo.MAX_POSITION/2);}
         }
 
