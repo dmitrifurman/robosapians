@@ -49,7 +49,7 @@ public class SimpleAuto extends LinearOpMode {
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * (Math.PI));
-    static final double DRIVE_SPEED = 0.75;
+    static final double DRIVE_SPEED = -0.75;
     static final double TURN_SPEED = 0.5;
 
     static final double rtTwo = Math.sqrt(2);
@@ -84,7 +84,7 @@ public class SimpleAuto extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED, 24, 24, 100.0); // Drive forward 12 inches
+        encoderDrive(DRIVE_SPEED, 24, 24, 100.0); // Drive forward 24 inches
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -133,19 +133,6 @@ public class SimpleAuto extends LinearOpMode {
                         robot.motor1.getCurrentPosition(),
                         robot.motor2.getCurrentPosition());
                 telemetry.update();
-
-                if (leftInches == ((7.5 * rtTwo) * cvtn) && robot.motor1.getCurrentPosition() >= ((1 * rtTwo) * cvtn + 23) && robot.motor1.getCurrentPosition() <= ((5 * rtTwo) * cvtn)) {
-                    robot.motor3.setPower(-1);
-                    robot.motor4.setPower(-1);
-                }
-                if (leftInches == ((7.5 * rtTwo) * cvtn) && robot.motor1.getCurrentPosition() >= ((1.5 * rtTwo) * cvtn) && robot.motor1.getCurrentPosition() <= ((5 * rtTwo) * cvtn)) {
-                    robot.motor5.setPower(-0.25);
-                }
-                if (leftInches == ((7.5 * rtTwo) * cvtn) && robot.motor1.getCurrentPosition() >= ((5 * rtTwo) * cvtn)) {
-                    robot.motor3.setPower(0);
-                    robot.motor4.setPower(0);
-                    robot.motor5.setPower(0);
-                }
 
                 // Allow time for other processes to run.
                 idle();
