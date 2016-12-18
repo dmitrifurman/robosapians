@@ -89,6 +89,10 @@ public class TankOp extends OpMode {
         robot.motor5.setTargetPosition(0);
         robot.motor7.setTargetPosition(0);
 
+        // Reset belt encoder
+        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
 
     }
 

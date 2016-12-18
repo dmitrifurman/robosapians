@@ -34,6 +34,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -58,15 +59,13 @@ public class SimpleAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        // Initialize the drive system variables.
-
         robot.init(hardwareMap);
 
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status:", "Initializing");    //
+        // Send telemetry message to signify robot waiting
+        telemetry.addData("Status:", "Initializing");
         telemetry.update();
 
-        robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        /*robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         idle();
 
@@ -84,92 +83,81 @@ public class SimpleAuto extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        encoderDrive(DRIVE_SPEED, -24, -24, 100.0); // Drive forward 24 inches
+        encoderDrive(DRIVE_SPEED, -24, -24, 100.0); // Drive forward 24 inches*/
+
+        waitForStart();
+
+        runtime.reset();
+
+        robot.motor1.setPower(-0.5);
+        robot.motor2.setPower(-0.5);
+
+        while (opModeIsActive() && (runtime.seconds() < 1.7)) {
+            idle();
+        }
+
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+
+        robot.motor3.setPower(-1);
+        robot.motor4.setPower(-1);
+
+        while (opModeIsActive() && (runtime.seconds() < 2.0)) {
+            idle();
+        }
+
+        robot.motor5.setPower(0.25); // MAY NEED TO CHANGE TO ADD NEGATIVE SIGN: WANT BELT TO SHOOT BALL IN FORWARD DIRECTION
+
+
+        while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
+            idle();
+            //Do no task
+            //REMOVE ONE OF THE WHILE CONDITIONS BASED ON IF MOTOR 5 MOVES IN + OR - POWER
+        }
+
+        robot.motor5.setPower(0);
+        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
+        robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
+
+
+        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
+            idle();
+        }
+
+        robot.motor5.setPower(0.25); // MAY NEED TO CHANGE TO ADD NEGATIVE SIGN: WANT BELT TO SHOOT BALL IN FORWARD DIRECTION
+
+        while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
+            idle();
+            //Do no task
+            //REMOVE ONE OF THE WHILE CONDITIONS BASED ON IF MOTOR 5 MOVES IN + OR - POWER
+        }
+        robot.motor5.setPower(0); // Stop belt motor
+        robot.motor3.setPower(0);
+        robot.motor4.setPower(0);
+        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
+        robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
+
+        robot.motor1.setPower(-0.3);
+        robot.motor2.setPower(-0.3);
+
+        while (opModeIsActive() && (runtime.seconds() < 6.0)) {
+            idle();
+        }
+
+        /*robot.motor1.setPower(0.3);
+        robot.motor2.setPower(0.3);
+
+        while (opModeIsActive() && (runtime.seconds() < 9.0)) {
+            idle();
+        }
+*/
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }
 
-    /*
-     *  Method to perform a relative move, based on encoder counts.
-     *  Encoders are not reset as the move is based on the current position.
-     *  Move will stop if any of three conditions occur:
-     *  1) Move gets to the desired position
-     *  2) Move runs out of time
-     *  3) Driver stops the opmode running.
-     */
-    public void encoderDrive(double speed,
-                             double leftInches, double rightInches,
-                             double timeoutS) throws InterruptedException {
-        int newLeftTarget;
-        int newRightTarget;
-
-        // Ensure that the opmode is still active
-        if (opModeIsActive()) {
-
-            // Determine new target position, and pass to motor controller
-            newLeftTarget = robot.motor1.getCurrentPosition() + (int) (leftInches * COUNTS_PER_INCH);
-            newRightTarget = robot.motor2.getCurrentPosition() + (int) (rightInches * COUNTS_PER_INCH);
-            robot.motor1.setTargetPosition(newLeftTarget);
-            robot.motor2.setTargetPosition(newRightTarget);
-
-            // Turn On RUN_TO_POSITION
-            robot.motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.motor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            // Reset the timeout time and start motion.
-            runtime.reset();
-            robot.motor1.setPower(speed);
-            robot.motor2.setPower(speed);
-
-            // Keep looping while we are still active, and there is time left, and both motors are running.
-            while (opModeIsActive() &&
-                    (runtime.seconds() < timeoutS) &&
-                    (robot.motor1.isBusy() && robot.motor2.isBusy())) {
-
-                // Display it for the driver.
-                telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);
-                telemetry.addData("Path2", "Running at %7d :%7d",
-                        robot.motor1.getCurrentPosition(),
-                        robot.motor2.getCurrentPosition());
-                telemetry.update();
-
-                // Allow time for other processes to run.
-                idle();
-            }
-
-            // Stop all motion;
-            robot.motor1.setPower(0);
-            robot.motor2.setPower(0);
-
-            // Turn off RUN_TO_POSITION
-            robot.motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-            // Short pause after each move for testing
-            sleep(5000);
-        }
-    }
-
-    public void turnRightGyroTarget(int angle, double power, int maxTimeInSec) {
-
-        robot.gyro.calibrate();
-        while (robot.gyro.isCalibrating()) {
-            // Nothing
-        }
-
-        long start = System.currentTimeMillis();
-        long end = start + maxTimeInSec; // max time in milliseconds * 1000 ms per second
-
-        while (robot.gyro.getHeading() != angle && (System.currentTimeMillis() < end)) {
-            robot.motor1.setPower(power * -1);
-            robot.motor2.setPower(power);
-            telemetry.addData("Gyro heading", robot.gyro.getHeading());
-        }
-
-        robot.motor1.setPower(0);
-        robot.motor2.setPower(0);
-    }
 
     public void sensorTest() {
 
