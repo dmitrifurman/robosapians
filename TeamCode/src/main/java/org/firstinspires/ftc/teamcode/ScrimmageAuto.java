@@ -138,17 +138,18 @@ public class ScrimmageAuto extends LinearOpMode {
             robot.motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.motor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+            //Ensure target positions are set
+            robot.motor1.setTargetPosition(newLeftTarget);
+            robot.motor2.setTargetPosition(newRightTarget);
+
             // Reset the timeout time and start motion.
             runtime.reset();
             robot.motor1.setPower(Math.abs(speed));
             robot.motor2.setPower(Math.abs(speed));
 
             // Keep looping while we are still active, and there is time left, and both motors are running.
-            while (opModeIsActive() &&
-                    (runtime.seconds() < timeoutS) &&
-                    (robot.motor1.isBusy() && robot.motor2.isBusy())) {
-
-                // Display it for the driver.
+            while (opModeIsActive() && (runtime.seconds() < timeoutS) && (robot.motor1.isBusy() || robot.motor2.isBusy())) {
+                // Update Telemetry
                 telemetry.addData("Targets", "Running to %7d :%7d", newLeftTarget, newRightTarget);
                 telemetry.addData("Current", "Running at %7d :%7d", robot.motor1.getCurrentPosition(), robot.motor2.getCurrentPosition());
                 telemetry.update();
@@ -183,40 +184,28 @@ public class ScrimmageAuto extends LinearOpMode {
         }
     }
 
-    public void turnRightGyroTarget(int angle, double power, int maxTimeInSec) {
+    public void turnGyroTarget(int angle, double power, int maxTimeInSec, char direction) {
 
         robot.gyro.calibrate();
         while (robot.gyro.isCalibrating()) {
-            // Nothing
+            //Do Nothing
         }
 
-        long start = System.currentTimeMillis();
-        long end = start + maxTimeInSec; // max time in milliseconds * 1000 ms per second
+        runtime.reset();
 
-        while (robot.gyro.getHeading() != angle && (System.currentTimeMillis() < end)) {
-            robot.motor1.setPower(power * -1);
-            robot.motor2.setPower(power);
-            telemetry.addData("Gyro heading", robot.gyro.getHeading());
-        }
+        /*long start = System.currentTimeMillis();
+        long end = start + maxTimeInSec; // max time in milliseconds * 1000 ms per second*/
 
-        robot.motor1.setPower(0);
-        robot.motor2.setPower(0);
-    }
-
-    public void turnLeftGyroTarget(int angle, double power, int maxTimeInSec) {
-
-        robot.gyro.calibrate();
-        while (robot.gyro.isCalibrating()) {
-            // Nothing
-        }
-
-        long start = System.currentTimeMillis();
-        long end = start + maxTimeInSec; // max time in milliseconds * 1000 ms per second
-
-        while (robot.gyro.getHeading() != angle && (System.currentTimeMillis() < end)) {
-            robot.motor1.setPower(power);
-            robot.motor2.setPower(power * -1);
-            telemetry.addData("Gyro heading", robot.gyro.getHeading());
+        while (robot.gyro.getHeading() != angle && (runtime.seconds() < maxTimeInSec)) {
+            if (direction == 'r') {
+                robot.motor1.setPower(power);
+                robot.motor2.setPower(power * -1);
+                telemetry.addData("Gyro heading", robot.gyro.getHeading());
+            } else {
+                robot.motor1.setPower(power * -1);
+                robot.motor2.setPower(power);
+                telemetry.addData("Gyro heading", robot.gyro.getHeading());
+            }
         }
 
         robot.motor1.setPower(0);
