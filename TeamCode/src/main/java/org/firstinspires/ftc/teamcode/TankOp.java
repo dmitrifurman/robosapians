@@ -38,7 +38,7 @@ import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name = "TankOp", group = "Linear Opmode")
+@TeleOp(name = "Tank Op", group = "Linear Opmode")
 public class TankOp extends OpMode {
     private final static double Arm_Min_Range = 0;
     private final static double Arm_Max_Range = 1;
