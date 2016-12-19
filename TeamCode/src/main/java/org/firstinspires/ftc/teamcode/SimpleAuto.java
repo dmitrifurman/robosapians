@@ -34,16 +34,27 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
-@Autonomous(name="Advanced Auto", group="Linear OpModes")
-public class Auto1 extends LinearOpMode {
+@Autonomous(name = "Simple Auto", group = "Linear OpModes")
+public class SimpleAuto extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
+
+    static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: TETRIX Motor Encoder
+    static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
+    static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
+    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * (Math.PI));
+    static final double DRIVE_SPEED = 0.75;
+    static final double TURN_SPEED = 0.5;
+
+    static final double rtTwo = Math.sqrt(2);
+    static final double cvtn = 12;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -54,75 +65,97 @@ public class Auto1 extends LinearOpMode {
         telemetry.addData("Status:", "Initializing");
         telemetry.update();
 
-        robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        /*robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        idle();
+
+        robot.motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        // Send telemetry message to indicate successful Encoder reset
+        telemetry.addData("Auto1", "Starting at %7d :%7d",
+                robot.motor1.getCurrentPosition(),
+                robot.motor2.getCurrentPosition());
+        telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        // Step through each leg of the path,
+        // Note: Reverse movement is obtained by setting a negative distance (not speed)
+        encoderDrive(DRIVE_SPEED, -24, -24, 100.0); // Drive forward 24 inches*/
+
+        waitForStart();
+
         runtime.reset();
 
-        Move(-0.5, 2.2, 0.5);
+        robot.motor1.setPower(-0.5);
+        robot.motor2.setPower(-0.5);
 
-        Launch(2);
-
-        Move(-0.3, 6, 0.5);
-
-
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
-    }
-
-
-    // Speed: how fast, Time: how long in seconds, Pause: pause after move in seconds
-    public void Move(double speed, double time, double pause) throws InterruptedException {
-
-        robot.motor1.setPower(speed);
-        robot.motor2.setPower(speed);
-
-        while (opModeIsActive() && (runtime.seconds() < time)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.7)) {
             idle();
         }
 
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
 
-        sleep((int) (pause * 1000));
-
-        runtime.reset();
-
-    }
-
-    public void Launch(double balls) throws InterruptedException{
-
         robot.motor3.setPower(-1);
         robot.motor4.setPower(-1);
 
-        for(int l = 1; l <= balls; l++) {
-
-            while (opModeIsActive() && (runtime.seconds() < 1.5)) {
-                idle();
-            }
-
-            robot.motor5.setPower(0.25);
-
-
-            while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
-                idle();
-            }
-
-            robot.motor5.setPower(0);
-            robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
-            robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
-
-            runtime.reset();
-
+        while (opModeIsActive() && (runtime.seconds() < 2.0)) {
+            idle();
         }
 
+        robot.motor5.setPower(0.25); // MAY NEED TO CHANGE TO ADD NEGATIVE SIGN: WANT BELT TO SHOOT BALL IN FORWARD DIRECTION
+
+
+        while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
+            idle();
+            //Do no task
+            //REMOVE ONE OF THE WHILE CONDITIONS BASED ON IF MOTOR 5 MOVES IN + OR - POWER
+        }
+
+        robot.motor5.setPower(0);
+        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
+        robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
+
+
+        while (opModeIsActive() && (runtime.seconds() < 3.0)) {
+            idle();
+        }
+
+        robot.motor5.setPower(0.25); // MAY NEED TO CHANGE TO ADD NEGATIVE SIGN: WANT BELT TO SHOOT BALL IN FORWARD DIRECTION
+
+        while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
+            idle();
+            //Do no task
+            //REMOVE ONE OF THE WHILE CONDITIONS BASED ON IF MOTOR 5 MOVES IN + OR - POWER
+        }
+        robot.motor5.setPower(0); // Stop belt motor
         robot.motor3.setPower(0);
         robot.motor4.setPower(0);
+        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
+        robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
 
+        robot.motor1.setPower(-0.3);
+        robot.motor2.setPower(-0.3);
+
+        while (opModeIsActive() && (runtime.seconds() < 6.0)) {
+            idle();
+        }
+
+        /*robot.motor1.setPower(0.3);
+        robot.motor2.setPower(0.3);
+
+        while (opModeIsActive() && (runtime.seconds() < 9.0)) {
+            idle();
+        }
+*/
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+
+        telemetry.addData("Path", "Complete");
+        telemetry.update();
     }
 
 

@@ -34,8 +34,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 public class HardwareRobot {
     public DcMotor motor1 = null,
@@ -46,9 +47,11 @@ public class HardwareRobot {
                    motor6 = null,
                    motor7 = null;
     public Servo release1 = null,
-                 release2 = null;
-    public ColorSensor colorS1 = null;
+                 release2 = null,
+                 btnPush = null;
+    public ColorSensor color = null;
     public GyroSensor gyro = null;
+    public TouchSensor touch = null;
     private HardwareMap hwMap = null;
 
     public HardwareRobot() {
@@ -60,10 +63,10 @@ public class HardwareRobot {
             this.hwMap = hwMap;
 
             // Assigns Names to Motors
-            motor1 = hwMap.dcMotor.get("Left motor");
-            motor2 = hwMap.dcMotor.get("Right motor");
-            motor3 = hwMap.dcMotor.get("Left launch");
-            motor4 = hwMap.dcMotor.get("Right launch");
+            motor1 = hwMap.dcMotor.get("Left Motor");
+            motor2 = hwMap.dcMotor.get("Right Motor");
+            motor3 = hwMap.dcMotor.get("Left Launch");
+            motor4 = hwMap.dcMotor.get("Right Launch");
             motor5 = hwMap.dcMotor.get("Belt");
             motor6 = hwMap.dcMotor.get("Collect");
             motor7 = hwMap.dcMotor.get("Extend");
@@ -72,16 +75,18 @@ public class HardwareRobot {
             motor1.setDirection(DcMotor.Direction.REVERSE);
             motor2.setDirection(DcMotor.Direction.REVERSE);
             motor3.setDirection(DcMotor.Direction.REVERSE);
-            motor5.setDirection(DcMotor.Direction.REVERSE);
+            motor6.setDirection(DcMotor.Direction.REVERSE);
 
 
             // Assigns Names to Servos
-            release1 = hwMap.servo.get("Release left");
-            release2 = hwMap.servo.get("Release right");
+            release1 = hwMap.servo.get("Release Left");
+            release2 = hwMap.servo.get("Release Right");
+            btnPush = hwMap.servo.get("Button Push");
 
             // Assigns Names to Sensors
-//            colorS1 = hwMap.colorSensor.get("Color sensor");
-//            gyro = hwMap.gyroSensor.get("Gyro sensor");
+            color = hwMap.colorSensor.get("Color Sensor");
+            touch = hwMap.touchSensor.get("Touch Sensor");
+//            gyro = hwMap.gyroSensor.get("Gyro Sensor");
 
     }
 
