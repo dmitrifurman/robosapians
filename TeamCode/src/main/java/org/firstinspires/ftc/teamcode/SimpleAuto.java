@@ -40,7 +40,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
-@Autonomous(name = "SimpleAuto", group = "Linear OpModes")
+@Autonomous(name = "Simple Auto", group = "Linear OpModes")
 public class SimpleAuto extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
