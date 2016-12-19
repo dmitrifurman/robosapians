@@ -148,7 +148,7 @@ public class ScrimmageAuto extends LinearOpMode {
             robot.motor2.setPower(Math.abs(speed));
 
             // Keep looping while we are still active, and there is time left, and both motors are running.
-            while (opModeIsActive() && (runtime.seconds() < timeoutS) && (robot.motor1.isBusy() || robot.motor2.isBusy())) {
+            while (opModeIsActive() && (runtime.seconds() < timeoutS) && (robot.motor1.isBusy() && robot.motor2.isBusy())) {
                 // Update Telemetry
                 telemetry.addData("Targets", "Running to %7d :%7d", newLeftTarget, newRightTarget);
                 telemetry.addData("Current", "Running at %7d :%7d", robot.motor1.getCurrentPosition(), robot.motor2.getCurrentPosition());
