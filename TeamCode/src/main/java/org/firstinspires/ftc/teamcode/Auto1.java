@@ -37,46 +37,19 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import java.util.Objects;
+
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
-@Autonomous(name="Advanced Auto", group="Linear OpModes")
+@Autonomous(name = "Advanced Auto", group = "Linear OpModes")
 public class Auto1 extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
 
-    @Override
-    public void runOpMode() throws InterruptedException {
-
-        robot.init(hardwareMap);
-
-        // Send telemetry message to signify robot waiting
-        telemetry.addData("Status:", "Initializing");
-        telemetry.update();
-
-        robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-
-        runtime.reset();
-
-        Move(-0.5, 2.2, 0.5);
-
-        Launch(2);
-
-        Move(-0.3, 6, 0.5);
-
-
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
-    }
-
 
     // Speed: how fast, Time: how long in seconds, Pause: pause after move in seconds
-    public void Move(double speed, double time, double pause) throws InterruptedException {
+    private void Move(double speed, double time, double pause) throws InterruptedException {
 
         robot.motor1.setPower(speed);
         robot.motor2.setPower(speed);
@@ -94,12 +67,12 @@ public class Auto1 extends LinearOpMode {
 
     }
 
-    public void Launch(double balls) throws InterruptedException{
+    private void Launch(double balls) throws InterruptedException {
 
         robot.motor3.setPower(-1);
         robot.motor4.setPower(-1);
 
-        for(int l = 1; l <= balls; l++) {
+        for (int l = 1; l <= balls; l++) {
 
             while (opModeIsActive() && (runtime.seconds() < 1.5)) {
                 idle();
@@ -134,19 +107,91 @@ public class Auto1 extends LinearOpMode {
         if (opModeIsActive()) {
             robot.color.enableLed(false);
             if (robot.color.red() >= 1 && robot.color.blue() == 0) {
-                if (TeamColor == "Red") {
+                if (Objects.equals(TeamColor, "Red")) {
                     robot.btnPush.setPosition(Servo.MAX_POSITION);
-                } else if (TeamColor == "Blue") {
+                } else if (Objects.equals(TeamColor, "Blue")) {
                     robot.btnPush.setPosition(Servo.MIN_POSITION);
                 }
             } else if (robot.color.blue() >= 1 && robot.color.red() == 0) {
-                if (TeamColor == "Red") {
+                if (Objects.equals(TeamColor, "Red")) {
                     robot.btnPush.setPosition(Servo.MAX_POSITION);
-                } else if (TeamColor == "Blue") {
+                } else if (Objects.equals(TeamColor, "Blue")) {
                     robot.btnPush.setPosition(Servo.MIN_POSITION);
                 }
-            } else {/*Pick Neither*/}
+            } else {
+                robot.btnPush.setPosition(Servo.MAX_POSITION / 2);
+            }
+        }
+    }
+
+    public void gyroTurn(int angle, java.lang.String Direction, double time, double pause) throws InterruptedException {
+
+        robot.gyro.calibrate();
+        while (robot.gyro.isCalibrating()) {
+            idle();
         }
 
+        runtime.reset();
+
+        while (robot.gyro.getHeading() != angle && (runtime.seconds() < time)) {
+            if (Objects.equals(Direction, "Right")) {
+                robot.motor1.setPower(0.25);
+                robot.motor2.setPower(-0.25);
+                telemetry.addData("Gyro heading", robot.gyro.getHeading());
+            } else if(Objects.equals(Direction, "Left")){
+                robot.motor1.setPower(-0.25);
+                robot.motor2.setPower(0.25);
+                telemetry.addData("Gyro heading", robot.gyro.getHeading());
+            }
+        }
+
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+
+        sleep((int) (pause * 1000));
     }
+
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+
+        robot.init(hardwareMap);
+
+        // Send telemetry message to signify robot waiting
+        telemetry.addData("Status:", "Initializing");
+
+
+        robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        telemetry.clearAll();
+        telemetry.addData("Status: ", "Ready");
+        telemetry.addData("Left Motor Position: ", robot.motor1.getCurrentPosition());
+        telemetry.addData("Right Motor Position: ", robot.motor1.getCurrentPosition());
+
+
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
+
+        telemetry.clearAll();
+        telemetry.addData("Status:", "Running");
+        telemetry.addData("Left Motor Position: ", robot.motor1.getCurrentPosition());
+        telemetry.addData("Right Motor Position: ", robot.motor1.getCurrentPosition());
+        telemetry.update();
+
+
+        runtime.reset();
+
+        Move(-0.5, 2.2, 0.5);
+
+        Launch(2);
+
+        Move(-0.6, 3, 0.5);
+
+
+        telemetry.addData("Path", "Complete");
+        telemetry.update();
+    }
+
 }
