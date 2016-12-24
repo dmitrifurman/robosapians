@@ -59,6 +59,7 @@ public class Auto1 extends LinearOpMode {
         robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         robot.motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -99,7 +100,9 @@ public class Auto1 extends LinearOpMode {
         robot.motor1.setPower(speed);
         robot.motor2.setPower(speed);
 
-        Thread.sleep((int)(time));
+        while (opModeIsActive() && (runtime.seconds() < time)) {
+            idle();
+        }
 
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
@@ -118,16 +121,16 @@ public class Auto1 extends LinearOpMode {
 
         for (int l = 1; l <= balls; l++) {
 
-            Thread.sleep((int)(1));
+            while (opModeIsActive() && (runtime.seconds() < 1)) {
+                idle();
+            }
 
             robot.motor5.setPower(0.25);
-
 
             while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
                 idle();
             }
 
-            robot.motor5.setPower(0);
             robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
             robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
 
