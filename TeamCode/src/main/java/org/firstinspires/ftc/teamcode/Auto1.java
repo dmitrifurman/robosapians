@@ -53,7 +53,7 @@ public class Auto1 extends LinearOpMode {
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting
-        telemetry.addData("Status:", "Initializing");
+        telemetry.addData("Status: ", "Initializing");
 
 
         robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -74,9 +74,10 @@ public class Auto1 extends LinearOpMode {
         waitForStart();
 
         telemetry.clearAll();
-        telemetry.addData("Status:", "Running");
+        telemetry.addData("Status: ", "Running");
         telemetry.addData("Left Motor Position: ", robot.motor1.getCurrentPosition());
         telemetry.addData("Right Motor Position: ", robot.motor1.getCurrentPosition());
+        telemetry.addData("Belt Position: ", robot.motor5.getCurrentPosition());
         telemetry.update();
 
 
@@ -89,7 +90,7 @@ public class Auto1 extends LinearOpMode {
         Move(-0.6, 3, 0.5);
 
 
-        telemetry.addData("Path", "Complete");
+        telemetry.addData("Status: ", "Complete");
         telemetry.update();
     }
 
@@ -182,11 +183,11 @@ public class Auto1 extends LinearOpMode {
             if (Objects.equals(Direction, "Right")) {
                 robot.motor1.setPower(0.25);
                 robot.motor2.setPower(-0.25);
-                telemetry.addData("Gyro heading", robot.gyro.getHeading());
+                telemetry.addData("Gyro heading: ", robot.gyro.getHeading());
             } else if (Objects.equals(Direction, "Left")) {
                 robot.motor1.setPower(-0.25);
                 robot.motor2.setPower(0.25);
-                telemetry.addData("Gyro heading", robot.gyro.getHeading());
+                telemetry.addData("Gyro heading: ", robot.gyro.getHeading());
             }
         }
 
