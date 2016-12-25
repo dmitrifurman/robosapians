@@ -71,14 +71,13 @@ public class Auto2 extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        runtime.reset();
+
         telemetry.clearAll();
         telemetry.addData("Status:", "Running");
         telemetry.addData("Left Motor Position: ", robot.motor1.getCurrentPosition());
         telemetry.addData("Right Motor Position: ", robot.motor1.getCurrentPosition());
         telemetry.update();
-
-
-        runtime.reset();
 
         robot.motor1.setPower(-0.5);
         robot.motor2.setPower(-0.5);
@@ -90,33 +89,40 @@ public class Auto2 extends LinearOpMode {
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
 
-        sleep((int)(0.5 * 1000));
-
-        runtime.reset();
+        sleep(500);
 
         robot.motor3.setPower(-1);
         robot.motor4.setPower(-1);
 
-        for (int l = 1; l <= 2; l++) {
-
-            while (opModeIsActive() && (runtime.seconds() < 1)) {
-                idle();
-            }
-
-            robot.motor5.setPower(0.25);
-
-
-            while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
-                idle();
-            }
-
-            robot.motor5.setPower(0);
-            robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
-            robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
-
-            runtime.reset();
-
+        while (opModeIsActive() && (runtime.seconds() < 3.7)) {
+            idle();
         }
+
+        robot.motor5.setPower(0.25);
+
+
+        while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
+            idle();
+        }
+
+        robot.motor5.setPower(0);
+        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
+        robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
+
+        while (opModeIsActive() && (runtime.seconds() < 4.7)) {
+            idle();
+        }
+
+        robot.motor5.setPower(0.25);
+
+
+        while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
+            idle();
+        }
+
+        robot.motor5.setPower(0);
+        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
+        robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
 
         robot.motor3.setPower(0);
         robot.motor4.setPower(0);
@@ -124,16 +130,14 @@ public class Auto2 extends LinearOpMode {
         robot.motor1.setPower(-0.6);
         robot.motor2.setPower(-0.6);
 
-        while (opModeIsActive() && (runtime.seconds() < 3)) {
+        while (opModeIsActive() && (runtime.seconds() < 7.7)) {
 
         }
 
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
 
-        sleep((int)(0.5 * 1000));
-
-        runtime.reset();
+        sleep(500);
 
 
         telemetry.addData("Path", "Complete");
@@ -142,7 +146,7 @@ public class Auto2 extends LinearOpMode {
 
 
     // Speed: how fast, Time: how long in seconds, Pause: pause after move in seconds
-    private void Move(double speed, double time, double pause) throws InterruptedException{
+    private void Move(double speed, double time, double pause) throws InterruptedException {
 
         robot.motor1.setPower(speed);
         robot.motor2.setPower(speed);
@@ -154,13 +158,13 @@ public class Auto2 extends LinearOpMode {
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
 
-        sleep((int)(pause * 1000));
+        sleep((int) (pause * 1000));
 
         runtime.reset();
 
     }
 
-    private void Launch(double balls) throws InterruptedException{
+    private void Launch(double balls) throws InterruptedException {
 
         robot.motor3.setPower(-1);
         robot.motor4.setPower(-1);

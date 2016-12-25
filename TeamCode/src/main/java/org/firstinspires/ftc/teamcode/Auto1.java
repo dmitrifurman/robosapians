@@ -90,15 +90,13 @@ public class Auto1 extends LinearOpMode {
     }
 
 
-    // Speed: how fast, Time: how long in seconds, Pause: pause after move in seconds
-    private void Move(double speed, double time, double pause) throws InterruptedException{
+    private void Move(double speed, double time, double pause)
+            throws InterruptedException {
 
         robot.motor1.setPower(speed);
         robot.motor2.setPower(speed);
 
-        while (runtime.seconds() < time) {
-            idle();
-        }
+        Thread.sleep((int)(time));
 
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
@@ -109,16 +107,15 @@ public class Auto1 extends LinearOpMode {
 
     }
 
-    private void Launch(double balls) throws InterruptedException{
+    private void Launch(double balls)
+            throws InterruptedException {
 
         robot.motor3.setPower(-1);
         robot.motor4.setPower(-1);
 
         for (int l = 1; l <= balls; l++) {
 
-            while (runtime.seconds() < 1.5) {
-                idle();
-            }
+            Thread.sleep((int)(1));
 
             robot.motor5.setPower(0.25);
 
