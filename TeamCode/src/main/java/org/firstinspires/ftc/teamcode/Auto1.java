@@ -59,6 +59,9 @@ public class Auto1 extends LinearOpMode {
         robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         telemetry.clearAll();
         telemetry.addData("Status: ", "Ready");
