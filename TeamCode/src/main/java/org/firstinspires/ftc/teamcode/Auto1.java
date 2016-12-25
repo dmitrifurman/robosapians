@@ -41,7 +41,7 @@ import java.util.Objects;
 
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
-@Autonomous(name = "Advanced Auto", group = "Linear OpModes")
+@Autonomous(name = "Advanced Auto w/ Functions", group = "Linear OpModes")
 public class Auto1 extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
@@ -91,42 +91,40 @@ public class Auto1 extends LinearOpMode {
 
 
     // Speed: how fast, Time: how long in seconds, Pause: pause after move in seconds
-    private void Move(double speed, double time, double pause) {
+    private void Move(double speed, double time, double pause) throws InterruptedException{
 
         robot.motor1.setPower(speed);
         robot.motor2.setPower(speed);
 
-        while (opModeIsActive() && (runtime.seconds() < time)) {
-
+        while (runtime.seconds() < time) {
+            idle();
         }
 
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
 
-        while (opModeIsActive() && (runtime.seconds() < time + (pause * 1000))) {
-
-        }
+        sleep((int)(pause * 1000));
 
         runtime.reset();
 
     }
 
-    private void Launch(double balls) {
+    private void Launch(double balls) throws InterruptedException{
 
         robot.motor3.setPower(-1);
         robot.motor4.setPower(-1);
 
         for (int l = 1; l <= balls; l++) {
 
-            while (opModeIsActive() && (runtime.seconds() < 1.5)) {
-
+            while (runtime.seconds() < 1.5) {
+                idle();
             }
 
             robot.motor5.setPower(0.25);
 
 
             while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
-
+                idle();
             }
 
             robot.motor5.setPower(0);
