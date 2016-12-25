@@ -47,27 +47,71 @@ public class Auto1 extends LinearOpMode {
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
 
+    @Override
+    public void runOpMode() throws InterruptedException {
+
+        robot.init(hardwareMap);
+
+        // Send telemetry message to signify robot waiting
+        telemetry.addData("Status:", "Initializing");
+
+
+        robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        telemetry.clearAll();
+        telemetry.addData("Status: ", "Ready");
+        telemetry.addData("Left Motor Position: ", robot.motor1.getCurrentPosition());
+        telemetry.addData("Right Motor Position: ", robot.motor1.getCurrentPosition());
+
+
+        // Wait for the game to start (driver presses PLAY)
+        waitForStart();
+
+        telemetry.clearAll();
+        telemetry.addData("Status:", "Running");
+        telemetry.addData("Left Motor Position: ", robot.motor1.getCurrentPosition());
+        telemetry.addData("Right Motor Position: ", robot.motor1.getCurrentPosition());
+        telemetry.update();
+
+
+        runtime.reset();
+
+        Move(-0.5, 2.2, 0.5);
+
+        Launch(2);
+
+        Move(-0.6, 3, 0.5);
+
+
+        telemetry.addData("Path", "Complete");
+        telemetry.update();
+    }
+
 
     // Speed: how fast, Time: how long in seconds, Pause: pause after move in seconds
-    private void Move(double speed, double time, double pause) throws InterruptedException {
+    private void Move(double speed, double time, double pause) {
 
         robot.motor1.setPower(speed);
         robot.motor2.setPower(speed);
 
         while (opModeIsActive() && (runtime.seconds() < time)) {
-            idle();
+
         }
 
         robot.motor1.setPower(0);
         robot.motor2.setPower(0);
 
-        sleep((int) (pause * 1000));
+        while (opModeIsActive() && (runtime.seconds() < time + (pause * 1000))) {
+
+        }
 
         runtime.reset();
 
     }
 
-    private void Launch(double balls) throws InterruptedException {
+    private void Launch(double balls) {
 
         robot.motor3.setPower(-1);
         robot.motor4.setPower(-1);
@@ -75,14 +119,14 @@ public class Auto1 extends LinearOpMode {
         for (int l = 1; l <= balls; l++) {
 
             while (opModeIsActive() && (runtime.seconds() < 1.5)) {
-                idle();
+
             }
 
             robot.motor5.setPower(0.25);
 
 
             while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
-                idle();
+
             }
 
             robot.motor5.setPower(0);
@@ -138,7 +182,7 @@ public class Auto1 extends LinearOpMode {
                 robot.motor1.setPower(0.25);
                 robot.motor2.setPower(-0.25);
                 telemetry.addData("Gyro heading", robot.gyro.getHeading());
-            } else if(Objects.equals(Direction, "Left")){
+            } else if (Objects.equals(Direction, "Left")) {
                 robot.motor1.setPower(-0.25);
                 robot.motor2.setPower(0.25);
                 telemetry.addData("Gyro heading", robot.gyro.getHeading());
@@ -151,47 +195,5 @@ public class Auto1 extends LinearOpMode {
         sleep((int) (pause * 1000));
     }
 
-
-    @Override
-    public void runOpMode() throws InterruptedException {
-
-        robot.init(hardwareMap);
-
-        // Send telemetry message to signify robot waiting
-        telemetry.addData("Status:", "Initializing");
-
-
-        robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        telemetry.clearAll();
-        telemetry.addData("Status: ", "Ready");
-        telemetry.addData("Left Motor Position: ", robot.motor1.getCurrentPosition());
-        telemetry.addData("Right Motor Position: ", robot.motor1.getCurrentPosition());
-
-
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-
-        telemetry.clearAll();
-        telemetry.addData("Status:", "Running");
-        telemetry.addData("Left Motor Position: ", robot.motor1.getCurrentPosition());
-        telemetry.addData("Right Motor Position: ", robot.motor1.getCurrentPosition());
-        telemetry.update();
-
-
-        runtime.reset();
-
-        Move(-0.5, 2.2, 0.5);
-
-        Launch(2);
-
-        Move(-0.6, 3, 0.5);
-
-
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
-    }
 
 }
