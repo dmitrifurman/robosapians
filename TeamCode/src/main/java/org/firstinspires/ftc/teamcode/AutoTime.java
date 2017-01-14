@@ -40,7 +40,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import java.util.Objects;
 
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
-
+/*
 @Autonomous(name = "Advanced Auto w/ Functions", group = "Linear OpModes")
 public class AutoTime extends LinearOpMode {
 
@@ -204,3 +204,4 @@ public class AutoTime extends LinearOpMode {
 
 
 }
+*/
