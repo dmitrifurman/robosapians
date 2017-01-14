@@ -10,7 +10,7 @@ import java.util.Objects;
 
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
-@Autonomous(name = "AutoTest", group = "Linear OpModes")
+@Autonomous(name = "AutoEncoder", group = "Linear OpModes")
 public class AutoEncoder extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
