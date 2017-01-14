@@ -83,11 +83,10 @@ public class AutoTime extends LinearOpMode {
 
         runtime.reset();
 
-        Move(0.5, 2.2, 0.5);
-
+        Move(0.5, 0.8, 0.5);
+        gyroTurn(50, "Left", 0.5, 0.5);
+        Move(0.5, 0.2, 0.5);
         Launch(2);
-
-        Move(0.6, 3, 0.5);
 
 
         telemetry.addData("Status: ", "Complete");
