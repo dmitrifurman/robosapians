@@ -1,34 +1,3 @@
-/* Copyright (c) 2016 ROBOSAPIANS
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification,
-are not permitted (subject to the exceptions in the disclaimer below)
-Exceptions are provided that the following conditions are met:
-
-Redistributions of source code must retain the above copyright notice, this list
-of conditions and the following disclaimer.
-
-Redistributions in binary form must reproduce the above copyright notice, this
-list of conditions and the following disclaimer in the documentation and/or
-other materials provided with the distribution.
-
-Neither the name of Robosapians nor the names of its contributors
-may be used to endorse or promote products derived from this software without
-specific prior written permission.
-
-NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
-LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
-THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
-
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -39,8 +8,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
-@Autonomous(name = "TESTING ONLY", group = "Testing")
-public class ScrimmageAuto extends LinearOpMode {
+@Autonomous(name = "AutoTest", group = "Linear OpModes")
+public class AutoEncoder extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
@@ -85,7 +54,7 @@ public class ScrimmageAuto extends LinearOpMode {
 
         // Set in the exact middle of 3rd tile from left (if on RED team)
         // Set in the exact middle of 3rd tile from right (if on BLUE team)
-        encoderDrive(DRIVE_SPEED, -24, -24, 11.0); // Drive forward 24 inches (Forward [or negative distance in inches] assigns FRONT as the side with the SHOOTING MECHANISM)
+        encoderDrive(DRIVE_SPEED, -6, -6 , 11.0); // Drive forward 24 inches (Forward [or negative distance in inches] assigns FRONT as the side with the SHOOTING MECHANISM)
 
         /*// Launching Code
         robot.motor3.setPower(-1);
@@ -235,4 +204,3 @@ public class ScrimmageAuto extends LinearOpMode {
     }
 
 }
-

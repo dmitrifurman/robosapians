@@ -42,7 +42,7 @@ import java.util.Objects;
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
 @Autonomous(name = "Advanced Auto w/ Functions", group = "Linear OpModes")
-public class Auto1 extends LinearOpMode {
+public class AutoTime extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
