@@ -172,14 +172,20 @@ public class AutoTime extends LinearOpMode {
 
     public void gyroTurn(int angle, java.lang.String Direction, double time, double pause) throws InterruptedException {
 
+        int gyroAngle = angle;
+
         robot.gyro.calibrate();
         while (robot.gyro.isCalibrating()) {
             idle();
         }
 
+        if(Objects.equals(Direction, "Right")){
+            gyroAngle = 360 - angle;
+        }
+
         runtime.reset();
 
-        while (robot.gyro.getHeading() != angle && (runtime.seconds() < time)) {
+        while (robot.gyro.getHeading() != gyroAngle && (runtime.seconds() < time)) {
             if (Objects.equals(Direction, "Right")) {
                 robot.motor1.setPower(0.25);
                 robot.motor2.setPower(-0.25);
