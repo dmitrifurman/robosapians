@@ -10,6 +10,21 @@ import java.util.Objects;
 
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
+/*
+
+Rishi and Matthew:
+        I believe that I have fixed the code for the gyro sensor. Please try it
+    and let me know if it works. Other than that, try to get a fully functional
+    autonomous. It won't include the launcher or the color sensor because Ethan
+    has disassembled the robot. You guys also might want to practice driving for
+    the competition next Saturday and the week afterwards. TankOp should be fine,
+    so just worry about autonomous for know. If you guys need any pictures of the
+    "plan" for autonomous let me know (by text).
+                                                                         Thank you,
+                                                                             Thomas
+
+*/
+
 @Autonomous(name = "AutoEncoder", group = "Linear OpModes")
 public class AutoEncoder extends LinearOpMode {
 
@@ -19,7 +34,7 @@ public class AutoEncoder extends LinearOpMode {
     static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: TETRIX Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
-    static final double COUNTS_PER_FOOT = (12*(COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * (Math.PI)));
+    static final double COUNTS_PER_FOOT = (12 * (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * (Math.PI)));
 
     static final double rtTwo = Math.sqrt(2);
 
@@ -55,7 +70,7 @@ public class AutoEncoder extends LinearOpMode {
 
         //Launch(2);
 
-        Move(0.5, 5*rtTwo, 6, 0.5);
+        Move(0.5, 5 * rtTwo, 6, 0.5);
 
         gyroTurn(45, "LEFT", 5, 0.5);
 
@@ -109,62 +124,62 @@ public class AutoEncoder extends LinearOpMode {
         sleep((int) (1000 * pause));
     }
 
-/*    private void Launch(double balls)
-            throws InterruptedException {
+    /*    private void Launch(double balls)
+                throws InterruptedException {
 
-        robot.motor3.setPower(-1);
-        robot.motor4.setPower(-1);
+            robot.motor3.setPower(-1);
+            robot.motor4.setPower(-1);
 
-        for (int l = 1; l <= balls; l++) {
+            for (int l = 1; l <= balls; l++) {
 
-            while (opModeIsActive() && (runtime.seconds() < 1)) {
-                idle();
+                while (opModeIsActive() && (runtime.seconds() < 1)) {
+                    idle();
+                }
+
+                robot.motor5.setPower(0.25);
+
+                while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
+                    idle();
+                }
+
+                robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
+                robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
+
+                runtime.reset();
+
             }
 
-            robot.motor5.setPower(0.25);
-
-            while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
-                idle();
-            }
-
-            robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
-            robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
-
-            runtime.reset();
+            robot.motor3.setPower(0);
+            robot.motor4.setPower(0);
 
         }
 
-        robot.motor3.setPower(0);
-        robot.motor4.setPower(0);
 
-    }
+        public void sensorTest() {
 
+            telemetry.addData("In Sensor Test", "NOW");
+            telemetry.update();
 
-    public void sensorTest() {
-
-        telemetry.addData("In Sensor Test", "NOW");
-        telemetry.update();
-
-        if (opModeIsActive()) {
-            robot.color.enableLed(false);
-            if (robot.color.red() >= 1 && robot.color.blue() == 0) {
-                if (Objects.equals(TeamColor, "Red")) {
-                    robot.btnPush.setPosition(Servo.MAX_POSITION);
-                } else if (Objects.equals(TeamColor, "Blue")) {
-                    robot.btnPush.setPosition(Servo.MIN_POSITION);
+            if (opModeIsActive()) {
+                robot.color.enableLed(false);
+                if (robot.color.red() >= 1 && robot.color.blue() == 0) {
+                    if (Objects.equals(TeamColor, "Red")) {
+                        robot.btnPush.setPosition(Servo.MAX_POSITION);
+                    } else if (Objects.equals(TeamColor, "Blue")) {
+                        robot.btnPush.setPosition(Servo.MIN_POSITION);
+                    }
+                } else if (robot.color.blue() >= 1 && robot.color.red() == 0) {
+                    if (Objects.equals(TeamColor, "Red")) {
+                        robot.btnPush.setPosition(Servo.MAX_POSITION);
+                    } else if (Objects.equals(TeamColor, "Blue")) {
+                        robot.btnPush.setPosition(Servo.MIN_POSITION);
+                    }
+                } else {
+                    robot.btnPush.setPosition(Servo.MAX_POSITION / 2);
                 }
-            } else if (robot.color.blue() >= 1 && robot.color.red() == 0) {
-                if (Objects.equals(TeamColor, "Red")) {
-                    robot.btnPush.setPosition(Servo.MAX_POSITION);
-                } else if (Objects.equals(TeamColor, "Blue")) {
-                    robot.btnPush.setPosition(Servo.MIN_POSITION);
-                }
-            } else {
-                robot.btnPush.setPosition(Servo.MAX_POSITION / 2);
             }
         }
-    }
-*/
+    */
     public void gyroTurn(int angle, java.lang.String Direction, double time, double pause) throws InterruptedException {
 
         int gyroAngle = angle;
@@ -174,7 +189,7 @@ public class AutoEncoder extends LinearOpMode {
 
         robot.gyro.calibrate();
 
-        if(Objects.equals(Direction, "LEFT")){
+        if (Objects.equals(Direction, "LEFT")) {
             gyroAngle = 360 - angle;
         }
 
@@ -190,17 +205,8 @@ public class AutoEncoder extends LinearOpMode {
             telemetry.addData("Gyro heading: ", robot.gyro.getHeading());
         }
 
-        while(runtime.seconds() < 0.1){
+        while (runtime.seconds() < time && robot.gyro.getHeading() <= (gyroAngle + 2) && robot.gyro.getHeading() >= (gyroAngle - 2)) {
             idle();
-        }
-
-        while (runtime.seconds() < time) {
-            if(Objects.equals(Direction, "RIGHT") && robot.gyro.getHeading() > angle){
-                break;
-            }
-            if(Objects.equals(Direction, "LEFT") && robot.gyro.getHeading() < angle){
-                break;
-            }
         }
 
         robot.motor1.setPower(0);
