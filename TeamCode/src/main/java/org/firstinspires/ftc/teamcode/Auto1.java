@@ -83,11 +83,11 @@ public class Auto1 extends LinearOpMode {
 
         runtime.reset();
 
-        Move(-0.5, 2.2, 0.5);
+        Move(0.5, 2.2, 0.5);
 
         Launch(2);
 
-        Move(-0.6, 3, 0.5);
+        Move(0.6, 3, 0.5);
 
 
         telemetry.addData("Status: ", "Complete");
@@ -98,8 +98,8 @@ public class Auto1 extends LinearOpMode {
     private void Move(double speed, double time, double pause)
             throws InterruptedException {
 
-        robot.motor1.setPower(speed);
-        robot.motor2.setPower(speed);
+        robot.motor1.setPower(-speed);
+        robot.motor2.setPower(-speed);
 
         while (opModeIsActive() && (runtime.seconds() < time)) {
             idle();
