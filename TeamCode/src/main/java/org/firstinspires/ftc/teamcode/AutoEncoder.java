@@ -49,7 +49,7 @@ public class AutoEncoder extends LinearOpMode {
 
         Move(0.5, 1.5, 3, 0.5);
 
-        gyroTurn(45, "LEFT", 3, 0.5);
+        gyroTurn(45, "LEFT", 5, 0.5);
 
         Move(0.5, rtTwo, 3, 0.5);
 
@@ -57,15 +57,15 @@ public class AutoEncoder extends LinearOpMode {
 
         Move(0.5, 5*rtTwo, 6, 0.5);
 
-        gyroTurn(45, "LEFT", 3, 0.5);
+        gyroTurn(45, "LEFT", 5, 0.5);
 
         beaconPress();
 
-        gyroTurn(90, "LEFT", 5, 0.5);
+        gyroTurn(90, "LEFT", 7, 0.5);
 
         Move(0.5, 4, 6, 0.5);
 
-        gyroTurn(90, "RIGHT", 5, 0.5);
+        gyroTurn(90, "RIGHT", 7, 0.5);
 
         beaconPress();
 
@@ -167,22 +167,39 @@ public class AutoEncoder extends LinearOpMode {
 */
     public void gyroTurn(int angle, java.lang.String Direction, double time, double pause) throws InterruptedException {
 
+        int gyroAngle = angle;
+
+        robot.motor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         robot.gyro.calibrate();
-        while (robot.gyro.isCalibrating()) {
-            idle();
+
+        if(Objects.equals(Direction, "LEFT")){
+            gyroAngle = 360 - angle;
         }
 
         runtime.reset();
 
-        while (robot.gyro.getHeading() != angle && (runtime.seconds() < time)) {
-            if (Objects.equals(Direction, "RIGHT")) {
-                robot.motor1.setPower(0.25);
-                robot.motor2.setPower(-0.25);
-                telemetry.addData("Gyro heading: ", robot.gyro.getHeading());
-            } else if (Objects.equals(Direction, "LEFT")) {
-                robot.motor1.setPower(-0.25);
-                robot.motor2.setPower(0.25);
-                telemetry.addData("Gyro heading: ", robot.gyro.getHeading());
+        if (Objects.equals(Direction, "RIGHT")) {
+            robot.motor1.setPower(0.1);
+            robot.motor2.setPower(-0.1);
+            telemetry.addData("Gyro heading: ", robot.gyro.getHeading());
+        } else if (Objects.equals(Direction, "LEFT")) {
+            robot.motor1.setPower(-0.1);
+            robot.motor2.setPower(0.1);
+            telemetry.addData("Gyro heading: ", robot.gyro.getHeading());
+        }
+
+        while(runtime.seconds() < 0.1){
+            idle();
+        }
+
+        while (runtime.seconds() < time) {
+            if(Objects.equals(Direction, "RIGHT") && robot.gyro.getHeading() > angle){
+                break;
+            }
+            if(Objects.equals(Direction, "LEFT") && robot.gyro.getHeading() < angle){
+                break;
             }
         }
 
