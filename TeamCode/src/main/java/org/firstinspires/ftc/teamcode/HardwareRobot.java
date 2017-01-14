@@ -40,8 +40,8 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 
 public class HardwareRobot {
     public DcMotor motor1 = null,
-                   motor2 = null,
-                   motor3 = null,
+                   motor2 = null;
+/*                   motor3 = null,
                    motor4 = null,
                    motor5 = null,
                    motor6 = null,
@@ -50,8 +50,7 @@ public class HardwareRobot {
                  release2 = null,
                  btnPush = null;
     public ColorSensor color = null;
-    public GyroSensor gyro = null;
-    public TouchSensor touch = null;
+*/    public GyroSensor gyro = null;
     private HardwareMap hwMap = null;
 
     public HardwareRobot() {
@@ -65,16 +64,15 @@ public class HardwareRobot {
             // Assigns Names to Motors
             motor1 = hwMap.dcMotor.get("Left Motor");
             motor2 = hwMap.dcMotor.get("Right Motor");
-            motor3 = hwMap.dcMotor.get("Left Launch");
+/*            motor3 = hwMap.dcMotor.get("Left Launch");
             motor4 = hwMap.dcMotor.get("Right Launch");
             motor5 = hwMap.dcMotor.get("Belt");
             motor6 = hwMap.dcMotor.get("Collect");
             motor7 = hwMap.dcMotor.get("Extend");
-
+*/
             // Reverse Motors
-            motor1.setDirection(DcMotor.Direction.REVERSE);
             motor2.setDirection(DcMotor.Direction.REVERSE);
-            motor3.setDirection(DcMotor.Direction.REVERSE);
+/*            motor3.setDirection(DcMotor.Direction.REVERSE);
             motor6.setDirection(DcMotor.Direction.REVERSE);
 
 
@@ -84,9 +82,8 @@ public class HardwareRobot {
             btnPush = hwMap.servo.get("Button Push");
 
             // Assigns Names to Sensors
-            color = hwMap.colorSensor.get("Color Sensor");
             touch = hwMap.touchSensor.get("Touch Sensor");
-//            gyro = hwMap.gyroSensor.get("Gyro Sensor");
+*/            gyro = hwMap.gyroSensor.get("Gyro Sensor");
 
     }
 

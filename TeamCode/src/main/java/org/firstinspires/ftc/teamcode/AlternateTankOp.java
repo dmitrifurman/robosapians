@@ -47,8 +47,9 @@ PLEASE DO NOT USE THIS TELEOP CODE YET SINCE I MUST STILL EDIT IT FOR USABILITY.
  */
 
 
-
+/*
 public class AlternateTankOp extends OpMode {
+
     private final static double Arm_Min_Range = 0;
     private final static double Arm_Max_Range = 1;
     private final static double Extender_Min = -23000;
@@ -199,9 +200,7 @@ public class AlternateTankOp extends OpMode {
         boolean driveFwdRight = driveFwdBtn && driveRightBtn;
         boolean driveFwdLeft = driveFwdBtn && driveLeftBtn;
 
-        /*
-        *  Set power to the driving motor
-        */
+
         if (driveFwdRight) {
             robot.motor2.setPower(-driveSpeed);
             robot.motor1.setPower(driveSpeed);
@@ -388,7 +387,7 @@ public class AlternateTankOp extends OpMode {
         robot.motor7.setPower(0);
     }
 }
-
+*/
 
 
 

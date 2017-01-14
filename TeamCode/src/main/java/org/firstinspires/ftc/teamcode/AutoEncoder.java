@@ -33,11 +33,11 @@ public class AutoEncoder extends LinearOpMode {
 
         robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         robot.motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         telemetry.addData("Status: ", "Ready");
         telemetry.update();
@@ -53,7 +53,7 @@ public class AutoEncoder extends LinearOpMode {
 
         Move(0.5, rtTwo, 3, 0.5);
 
-        Launch(2);
+        //Launch(2);
 
         Move(0.5, 5*rtTwo, 6, 0.5);
 
@@ -109,7 +109,7 @@ public class AutoEncoder extends LinearOpMode {
         sleep((int) (1000 * pause));
     }
 
-    private void Launch(double balls)
+/*    private void Launch(double balls)
             throws InterruptedException {
 
         robot.motor3.setPower(-1);
@@ -164,7 +164,7 @@ public class AutoEncoder extends LinearOpMode {
             }
         }
     }
-
+*/
     public void gyroTurn(int angle, java.lang.String Direction, double time, double pause) throws InterruptedException {
 
         robot.gyro.calibrate();
@@ -196,7 +196,7 @@ public class AutoEncoder extends LinearOpMode {
 
         Move(0.5, 0.6, 3, 0.5);
 
-        sensorTest();
+        //sensorTest();
 
         Move(0.5, 0.3, 3, 0.5);
 
