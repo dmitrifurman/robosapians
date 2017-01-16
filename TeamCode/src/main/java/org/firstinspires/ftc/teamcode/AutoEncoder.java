@@ -193,11 +193,11 @@ public class AutoEncoder extends LinearOpMode {
         runtime.reset();
 
         if (Objects.equals(Direction, "RIGHT")) {
-            robot.motor1.setPower(0.25);
-            robot.motor2.setPower(-0.25);
-        } else if (Objects.equals(Direction, "LEFT")) {
             robot.motor1.setPower(-0.25);
             robot.motor2.setPower(0.25);
+        } else if (Objects.equals(Direction, "LEFT")) {
+            robot.motor1.setPower(0.25);
+            robot.motor2.setPower(-0.25);
         }
 
         while (runtime.seconds() < time) {
