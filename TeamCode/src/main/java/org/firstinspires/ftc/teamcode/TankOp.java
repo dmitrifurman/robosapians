@@ -27,7 +27,48 @@ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
 SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+public void turnGyroTarget(int angle, double power, int maxTime, char turnDirection) throws InterruptedException{
+
+        long start = System.currentTimeMillis();
+        long end = start + maxTime * 1000; // max time in seconds * 1000 ms per second
+
+        angle -= 16;
+
+
+
+
+        if (turnDirection =='r') {
+            do {
+                robot.motor2.setPower(power * -1);
+                robot.motor1.setPower(power);
+                telemetry.addData("Gyro heading", robot.gyro.getHeading());
+                telemetry.update();
+
+            }
+            while (robot.gyro.getHeading() < angle && (System.currentTimeMillis() < end));
+
+        } else if (turnDirection == 'l') {
+
+            while (((robot.gyro.getHeading() > (360 - angle)) || (robot.gyro.getHeading() == 0)) && (System.currentTimeMillis() < end)){
+                robot.motor1.setPower(power * -1);
+                robot.motor2.setPower(power);
+                telemetry.addData("Gyro heading", robot.gyro.getHeading());
+                telemetry.update();
+
+            }
+        }
+
+        robot.motor2.setPower(0); //turn both motors off
+        robot.motor1.setPower(0);
+
+        robot.gyro.calibrate();
+        sleep(2000);
+
+
+    }
+*/
 
 package org.firstinspires.ftc.teamcode;
 
