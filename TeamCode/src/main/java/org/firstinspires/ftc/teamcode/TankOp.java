@@ -94,6 +94,8 @@ public class TankOp extends OpMode {
     private double beltMode = 0;
     private double collectMode = 0;
     private double extendMode = 0;
+    private double power = 0;
+    private double powerMode = 0;
 
     public TankOp() {
 
@@ -126,9 +128,11 @@ public class TankOp extends OpMode {
         // Set Extend Mode
         extendMode = 0;
 
+        power = 0;
+
         // Sets Startng Robot Target Positions to Zero
         robot.motor5.setTargetPosition(0);
-//        robot.motor7.setTargetPosition(0);
+        robot.motor7.setTargetPosition(0);
 
         // Reset belt encoder
         robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -145,7 +149,7 @@ public class TankOp extends OpMode {
         particleLaunch();
         particleCollector();
         servos();
-//        extender();
+        extender();
 
     }
 
@@ -160,8 +164,8 @@ public class TankOp extends OpMode {
         telemetry.addData("Belt Speed", robot.motor5.getPower());
         telemetry.addData("Belt Pos", robot.motor5.getCurrentPosition());
         telemetry.addData("Collector Speed", robot.motor6.getPower());
-//        telemetry.addData("Extend Speed", robot.motor7.getPower());
-//        telemetry.addData("Extend Pos", robot.motor7.getCurrentPosition());
+        telemetry.addData("Extend Speed", robot.motor7.getPower());
+        telemetry.addData("Extend Pos", robot.motor7.getCurrentPosition());
         telemetry.addData("Servos 1/2 Pos", robot.release1.getPosition());
         telemetry.addData("Button Pusher", robot.btnPush.getPosition());
 
@@ -192,17 +196,23 @@ public class TankOp extends OpMode {
             }
         }
 
+        if(gamepad1.x){
+            robot.btnPush.setPosition(Servo.MAX_POSITION);
+        }else if(gamepad1.y){
+            robot.btnPush.setPosition(Servo.MIN_POSITION);
+        }
+
     }
 
     private void  drive() {
 
         // Drive Code
         if(driveMode == 0) {
-            robot.motor1.setPower(gamepad1.left_stick_y);
-            robot.motor2.setPower(gamepad1.right_stick_y);
+            robot.motor1.setPower(-gamepad1.left_stick_y);
+            robot.motor2.setPower(-gamepad1.right_stick_y);
         }else if(driveMode == 1){
-            robot.motor1.setPower(gamepad1.left_stick_y*0.1);
-            robot.motor2.setPower(gamepad1.right_stick_y*0.1);
+            robot.motor1.setPower(-gamepad1.left_stick_y*0.1);
+            robot.motor2.setPower(-gamepad1.right_stick_y*0.1);
         }
 
         if(gamepad1.start){
@@ -225,9 +235,11 @@ public class TankOp extends OpMode {
 
     private void  particleLaunch() {
 
+        power = Range.clip(power, 0, 0.5);
+
         // Launching Code
-        robot.motor3.setPower(-1);
-        robot.motor4.setPower(-1);
+        robot.motor3.setPower(-1+power);
+        robot.motor4.setPower(-1+power);
 
         // Belt Mode Update
         if (gamepad2.a) {
@@ -250,6 +262,22 @@ public class TankOp extends OpMode {
             robot.motor5.setPower(0);
             robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
+
+        if (gamepad2.dpad_up) {
+            powerMode = 1;
+        }else if (gamepad2.dpad_down){
+            powerMode = 2;
+        }
+
+        if (!gamepad2.dpad_up && !gamepad2.dpad_down) {
+            if (powerMode == 1) {
+                powerMode = 0;
+                power -= 0.1;
+            } else if (powerMode == 2) {
+                powerMode = 0;
+                power += 0.1;
+            }
         }
 
 
@@ -307,7 +335,7 @@ public class TankOp extends OpMode {
 
     }
 
-/*    private void  extender() {
+    private void  extender() {
 
         // Limits The Range of the Motors
         if(robot.motor7.getPower() < 0 && robot.motor7.getCurrentPosition() < Extender_Min){
@@ -368,7 +396,7 @@ public class TankOp extends OpMode {
         }
 
     }
-*/
+
 
     @Override
     public void stop() {
@@ -378,7 +406,7 @@ public class TankOp extends OpMode {
         robot.motor4.setPower(0);
         robot.motor5.setPower(0);
         robot.motor6.setPower(0);
-//        robot.motor7.setPower(0);
+        robot.motor7.setPower(0);
     }
 }
 

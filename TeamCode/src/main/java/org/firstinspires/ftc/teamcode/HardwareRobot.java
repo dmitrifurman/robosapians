@@ -44,8 +44,8 @@ public class HardwareRobot {
                    motor3 = null,
                    motor4 = null,
                    motor5 = null,
-                   motor6 = null;
-//                   motor7 = null;
+                   motor6 = null,
+                   motor7 = null;
     public Servo release1 = null,
                  release2 = null,
                  btnPush = null;
@@ -68,7 +68,7 @@ public class HardwareRobot {
             motor4 = hwMap.dcMotor.get("Right Launch");
             motor5 = hwMap.dcMotor.get("Belt");
             motor6 = hwMap.dcMotor.get("Collect");
-//            motor7 = hwMap.dcMotor.get("Extend");
+            motor7 = hwMap.dcMotor.get("Extend");
 
             // Reverse Motors
             motor4.setDirection(DcMotor.Direction.REVERSE);
