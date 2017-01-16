@@ -34,17 +34,17 @@ public class AutoEncoder extends LinearOpMode {
 
         robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         robot.motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         sleep(2000);
 
         robot.gyro.calibrate();
 
-        while(robot.gyro.isCalibrating()){
+        while (robot.gyro.isCalibrating()) {
             idle();
         }
 
@@ -62,7 +62,7 @@ public class AutoEncoder extends LinearOpMode {
 
         Move(1, rtTwo, 3, 0.5);
 
-        //Launch(2);
+        Launch(2);
 
         Move(1, 5 * rtTwo, 6, 0.5);
 
@@ -116,67 +116,69 @@ public class AutoEncoder extends LinearOpMode {
         robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
-
         sleep((int) (1000 * pause));
     }
 
-    /*
-            private void Launch(double balls)
-                    throws InterruptedException {
 
-                robot.motor3.setPower(-1);
-                robot.motor4.setPower(-1);
+    private void Launch(double balls) throws InterruptedException {
 
-                for (int l = 1; l <= balls; l++) {
+        runtime.reset();
 
-                    while (opModeIsActive() && (runtime.seconds() < 1)) {
-                        idle();
-                    }
+        robot.motor3.setPower(-1);
+        robot.motor4.setPower(-1);
 
-                    robot.motor5.setPower(0.25);
+        for (int l = 1; l <= balls; l++) {
 
-                    while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
-                        idle();
-                    }
-
-                    robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
-                    robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
-
-                    runtime.reset();
-
-                }
-
-                robot.motor3.setPower(0);
-                robot.motor4.setPower(0);
-
+            while (opModeIsActive() && (runtime.seconds() < 1)) {
+                idle();
             }
 
+            robot.motor5.setPower(0.25);
 
-            public void sensorTest() {
-
-                telemetry.addData("In Sensor Test", "NOW");
-                telemetry.update();
-
-                if (opModeIsActive()) {
-                    robot.color.enableLed(false);
-                    if (robot.color.red() >= 1 && robot.color.blue() == 0) {
-                        if (Objects.equals(TeamColor, "Red")) {
-                            robot.btnPush.setPosition(Servo.MAX_POSITION);
-                        } else if (Objects.equals(TeamColor, "Blue")) {
-                            robot.btnPush.setPosition(Servo.MIN_POSITION);
-                        }
-                    } else if (robot.color.blue() >= 1 && robot.color.red() == 0) {
-                        if (Objects.equals(TeamColor, "Red")) {
-                            robot.btnPush.setPosition(Servo.MAX_POSITION);
-                        } else if (Objects.equals(TeamColor, "Blue")) {
-                            robot.btnPush.setPosition(Servo.MIN_POSITION);
-                        }
-                    } else {
-                        robot.btnPush.setPosition(Servo.MAX_POSITION / 2);
-                    }
-                }
+            while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
+                idle();
             }
-    */
+
+            robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
+            robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
+
+            runtime.reset();
+
+        }
+
+        robot.motor3.setPower(0);
+        robot.motor4.setPower(0);
+
+    }
+
+
+    public void sensorTest() {
+
+        telemetry.addData("In Sensor Test", "NOW");
+        telemetry.update();
+
+        if (opModeIsActive()) {
+            robot.color.enableLed(false);
+            if (robot.color.red() >= 1 && robot.color.blue() == 0) {
+                if (Objects.equals(TeamColor, "Red")) {
+                    robot.btnPush.setPosition(Servo.MAX_POSITION);
+                } else if (Objects.equals(TeamColor, "Blue")) {
+                    robot.btnPush.setPosition(Servo.MIN_POSITION);
+                }
+            } else if (robot.color.blue() >= 1 && robot.color.red() == 0) {
+                if (Objects.equals(TeamColor, "Red")) {
+                    robot.btnPush.setPosition(Servo.MAX_POSITION);
+                } else if (Objects.equals(TeamColor, "Blue")) {
+                    robot.btnPush.setPosition(Servo.MIN_POSITION);
+                }
+            } else {
+                robot.btnPush.setPosition(Servo.MAX_POSITION / 2);
+            }
+        }
+    }
+
+
+
     public void gyroTurn(int angle, java.lang.String Direction, double time, double pause) throws InterruptedException {
 
         int gyroAngle = angle;
@@ -184,7 +186,7 @@ public class AutoEncoder extends LinearOpMode {
         robot.motor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        if (Objects.equals(Direction, "LEFT")){
+        if (Objects.equals(Direction, "LEFT")) {
             gyroAngle = 360 - angle;
         }
 
@@ -218,7 +220,7 @@ public class AutoEncoder extends LinearOpMode {
 
     public void beaconPress() throws InterruptedException {
 
-        //sensorTest();
+        sensorTest();
 
         Move(0.5, 0.3, 3, 0.5);
 
