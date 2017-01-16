@@ -78,7 +78,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-
+/*
 @TeleOp(name = "Tank Op", group = "Linear Opmode")
 public class TankOp extends OpMode {
     private final static double Arm_Min_Range = 0;
@@ -368,7 +368,7 @@ public class TankOp extends OpMode {
         }
 
     }
-*/
+
 
     @Override
     public void stop() {
@@ -381,7 +381,7 @@ public class TankOp extends OpMode {
 //        robot.motor7.setPower(0);
     }
 }
-
+*/
 
 
 
