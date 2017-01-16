@@ -56,15 +56,15 @@ public class AutoEncoder extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        Move(1, 2, 3, 0.5);
+        Move(0.5, 2, 3, 0.5);
 
         gyroTurn(45, "LEFT", 6, 0.5);
 
-        Move(1, rtTwo, 3, 0.5);
+        Move(0.5, rtTwo, 3, 0.5);
 
         Launch(2);
 
-        Move(1, 5 * rtTwo, 6, 0.5);
+        Move(0.5, 5 * rtTwo, 6, 0.5);
 
         gyroTurn(90, "LEFT", 6, 0.5);
 
@@ -72,13 +72,13 @@ public class AutoEncoder extends LinearOpMode {
 
         gyroTurn(180, "LEFT", 8, 0.5);
 
-        Move(1, 4, 6, 0.5);
+        Move(0.5, 4, 6, 0.5);
 
         gyroTurn(270, "RIGHT", 8, 0.5);
 
         beaconPress();
 
-        Move(1, -4.5, 6, 0.5);
+        Move(0.5, -4.5, 6, 0.5);
 
 
         telemetry.addData("Status: ", "Complete");

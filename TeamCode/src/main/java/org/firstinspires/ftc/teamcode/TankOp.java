@@ -81,12 +81,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name = "Tank Op", group = "Linear Opmode")
 public class TankOp extends OpMode {
+    private HardwareRobot robot = new HardwareRobot();
     private final static double Arm_Min_Range = 0;
     private final static double Arm_Max_Range = 1;
     private final static double Extender_Max = 22000;
     private final static double Extender_Min = 0;
     private final static double BeltInterval = 600;
-    private HardwareRobot robot = new HardwareRobot();
     private double driveMode = 0;
     private double armPosition = 0;
     private double armChange = 0.025;
