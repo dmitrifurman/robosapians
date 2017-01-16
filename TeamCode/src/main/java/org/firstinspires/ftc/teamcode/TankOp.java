@@ -78,7 +78,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-/*
+
 @TeleOp(name = "Tank Op", group = "Linear Opmode")
 public class TankOp extends OpMode {
     private final static double Arm_Min_Range = 0;
@@ -128,7 +128,7 @@ public class TankOp extends OpMode {
 
         // Sets Startng Robot Target Positions to Zero
         robot.motor5.setTargetPosition(0);
-        robot.motor7.setTargetPosition(0);
+//        robot.motor7.setTargetPosition(0);
 
         // Reset belt encoder
         robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -142,10 +142,10 @@ public class TankOp extends OpMode {
 
         feedback();
         drive();
-        particlelaunch();
-        particlecollector();
+        particleLaunch();
+        particleCollector();
         servos();
-        extender();
+//        extender();
 
     }
 
@@ -160,8 +160,8 @@ public class TankOp extends OpMode {
         telemetry.addData("Belt Speed", robot.motor5.getPower());
         telemetry.addData("Belt Pos", robot.motor5.getCurrentPosition());
         telemetry.addData("Collector Speed", robot.motor6.getPower());
-        telemetry.addData("Extend Speed", robot.motor7.getPower());
-        telemetry.addData("Extend Pos", robot.motor7.getCurrentPosition());
+//        telemetry.addData("Extend Speed", robot.motor7.getPower());
+//        telemetry.addData("Extend Pos", robot.motor7.getCurrentPosition());
         telemetry.addData("Servos 1/2 Pos", robot.release1.getPosition());
         telemetry.addData("Button Pusher", robot.btnPush.getPosition());
 
@@ -223,7 +223,7 @@ public class TankOp extends OpMode {
 
     }
 
-    private void  particlelaunch() {
+    private void  particleLaunch() {
 
         // Launching Code
         robot.motor3.setPower(-1);
@@ -239,10 +239,10 @@ public class TankOp extends OpMode {
         if (!gamepad2.a && !gamepad2.b) {
             if (beltMode == 1) {
                 beltMode = 0;
-                robot.motor5.setPower(-0.25);
+                robot.motor5.setPower(-1);
             } else if (beltMode == 2) {
                 beltMode = 0;
-                robot.motor5.setPower(0.25);
+                robot.motor5.setPower(1);
             }
         }
 
@@ -274,7 +274,7 @@ public class TankOp extends OpMode {
 
     }
 
-    private void  particlecollector() {
+    private void  particleCollector() {
 
         // Collect Code
         if (collectMode == 0) {
@@ -307,7 +307,7 @@ public class TankOp extends OpMode {
 
     }
 
-    private void  extender() {
+/*    private void  extender() {
 
         // Limits The Range of the Motors
         if(robot.motor7.getPower() < 0 && robot.motor7.getCurrentPosition() < Extender_Min){
@@ -368,7 +368,7 @@ public class TankOp extends OpMode {
         }
 
     }
-
+*/
 
     @Override
     public void stop() {
@@ -378,10 +378,10 @@ public class TankOp extends OpMode {
         robot.motor4.setPower(0);
         robot.motor5.setPower(0);
         robot.motor6.setPower(0);
-        robot.motor7.setPower(0);
+//        robot.motor7.setPower(0);
     }
 }
-*/
+
 
 
 
