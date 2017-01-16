@@ -198,11 +198,11 @@ public class TankOp extends OpMode {
 
         // Drive Code
         if(driveMode == 0) {
-            robot.motor1.setPower(gamepad1.left_stick_y);
-            robot.motor2.setPower(gamepad1.right_stick_y);
+            robot.motor1.setPower(-gamepad1.left_stick_y);
+            robot.motor2.setPower(-gamepad1.right_stick_y);
         }else if(driveMode == 1){
-            robot.motor1.setPower(gamepad1.left_stick_y*0.1);
-            robot.motor2.setPower(gamepad1.right_stick_y*0.1);
+            robot.motor1.setPower(-gamepad1.left_stick_y*0.1);
+            robot.motor2.setPower(-gamepad1.right_stick_y*0.1);
         }
 
         if(gamepad1.start){
