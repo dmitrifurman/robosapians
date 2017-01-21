@@ -34,7 +34,6 @@ public class AutoEncoder extends LinearOpMode {
         robot.init(hardwareMap);
 
         telemetry.addData("Status", "Initializing");    //
-        telemetry.update();
 
         robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -64,12 +63,10 @@ public class AutoEncoder extends LinearOpMode {
         }
 
         telemetry.addData("Status: ", "Ready");
-        telemetry.update();
 
         waitForStart();
 
         telemetry.addData("Status: ", "Running");
-        telemetry.update();
 
         Move(0.5, 2, 3, 0.5);
 
@@ -97,7 +94,6 @@ public class AutoEncoder extends LinearOpMode {
 
 
         telemetry.addData("Status: ", "Complete");
-        telemetry.update();
     }
 
     public void Move(double speed, double distance, double time, double pause) throws InterruptedException {
@@ -116,10 +112,6 @@ public class AutoEncoder extends LinearOpMode {
         robot.motor2.setPower(speed);
 
         while (opModeIsActive() && (runtime.seconds() < time) && (robot.motor1.isBusy() && robot.motor2.isBusy())) {
-
-            telemetry.addData("Targets", "Running to %7d :%7d", target, target);
-            telemetry.addData("Current", "Running at %7d :%7d", robot.motor1.getCurrentPosition(), robot.motor2.getCurrentPosition());
-            telemetry.update();
 
             idle();
         }
@@ -170,7 +162,6 @@ public class AutoEncoder extends LinearOpMode {
     public void sensorTest() {
 
         telemetry.addData("In Sensor Test", "NOW");
-        telemetry.update();
 
         if (opModeIsActive()) {
             robot.color.enableLed(false);
