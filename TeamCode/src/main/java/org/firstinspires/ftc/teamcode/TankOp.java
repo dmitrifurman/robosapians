@@ -88,7 +88,7 @@ public class TankOp extends OpMode {
     private final static double Extender_Min = 0;
     private final static double BeltInterval = 600;
     private double driveMode = 0;
-    private double armPosition = 0;
+    private double armPosition = Servo.MAX_POSITION/2;
     private double armChange = 0.025;
     private double LEDmode = 0;
     private double beltMode = 0;
@@ -113,8 +113,8 @@ public class TankOp extends OpMode {
 
         // Servo Default Position
         armPosition = 0;
-        robot.release1.setPosition(armPosition);
-        robot.release2.setPosition(1-armPosition);
+        robot.release1.setPosition(0.5);
+        robot.release2.setPosition(0.5);
 
         // Sets Default Color Senor Mode
         LEDmode = 0;
@@ -294,7 +294,7 @@ public class TankOp extends OpMode {
         }
 
         //Limits Servo Movement
-        armPosition = Range.clip(armPosition, Arm_Min_Range, Arm_Max_Range);
+        armPosition = Range.clip(armPosition, Arm_Min_Range, Arm_Max_Range/2);
 
         // Updates Servoes
         robot.release1.setPosition(armPosition);
