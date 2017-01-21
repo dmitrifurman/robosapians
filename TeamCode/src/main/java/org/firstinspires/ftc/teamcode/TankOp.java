@@ -88,7 +88,7 @@ public class TankOp extends OpMode {
     private final static double Extender_Min = 0;
     private final static double BeltInterval = 600;
     private double driveMode = 0;
-    private double armPosition = 0.6;
+    private double armPosition = 0;
     private double armChange = 0.025;
     private double LEDmode = 0;
     private double beltMode = 0;
@@ -112,7 +112,7 @@ public class TankOp extends OpMode {
         robot.btnPush.setPosition(Servo.MAX_POSITION);
 
         // Servo Default Position
-        armPosition = 0.6;
+        armPosition = 0.7;
         robot.release1.setPosition(0.6);
         robot.release2.setPosition(1-armPosition);
 
@@ -238,8 +238,14 @@ public class TankOp extends OpMode {
         power = Range.clip(power, 0, 0.5);
 
         // Launching Code
-        robot.motor3.setPower(-1+power);
-        robot.motor4.setPower(-1+power);
+        if (extendMode == 0) {
+            robot.motor3.setPower(-1 + power);
+            robot.motor4.setPower(-1 + power);
+        }else{
+            robot.motor3.setPower(0);
+            robot.motor4.setPower(0);
+        }
+
 
         // Belt Mode Update
         if (gamepad2.a) {
@@ -349,9 +355,9 @@ public class TankOp extends OpMode {
         if (extendMode == 0) {
             robot.motor7.setPower(0);
         } else if (extendMode == 1 && robot.motor7.getCurrentPosition() <= Extender_Max) {
-            robot.motor7.setPower(0.5);
+            robot.motor7.setPower(1);
         } else if (extendMode == 2 && robot.motor7.getCurrentPosition() >= Extender_Min) {
-            robot.motor7.setPower(-0.5);
+            robot.motor7.setPower(-1);
         } else if(gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0){
             robot.motor7.setPower(0);
         }
