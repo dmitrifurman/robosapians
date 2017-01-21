@@ -63,10 +63,10 @@ public class AutoEncoder extends LinearOpMode {
         }
 
         telemetry.addData("Status: ", "Ready");
+        telemetry.update();
 
         waitForStart();
 
-        telemetry.addData("Status: ", "Running");
 
         Move(1, 2, 3, 0.5);
 
@@ -112,7 +112,6 @@ public class AutoEncoder extends LinearOpMode {
         robot.motor2.setPower(speed);
 
         while (opModeIsActive() && (runtime.seconds() < time) && (robot.motor1.isBusy() && robot.motor2.isBusy())) {
-
             idle();
         }
 

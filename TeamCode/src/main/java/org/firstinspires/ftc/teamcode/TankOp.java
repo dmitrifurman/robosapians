@@ -144,7 +144,7 @@ public class TankOp extends OpMode {
     @Override
     public void loop() {
 
-        feedback();
+        //feedback();
         drive();
         particleLaunch();
         particleCollector();
@@ -152,7 +152,7 @@ public class TankOp extends OpMode {
         extender();
 
     }
-
+/*
     private void feedback() {
 
         // Feedback Data
@@ -203,7 +203,7 @@ public class TankOp extends OpMode {
         }
 
     }
-
+*/
     private void  drive() {
 
         // Drive Code
