@@ -88,7 +88,7 @@ public class TankOp extends OpMode {
     private final static double Extender_Min = 0;
     private final static double BeltInterval = 600;
     private double driveMode = 0;
-    private double armPosition = 0.5;
+    private double armPosition = 0.6;
     private double armChange = 0.025;
     private double LEDmode = 0;
     private double beltMode = 0;
@@ -112,9 +112,9 @@ public class TankOp extends OpMode {
         robot.btnPush.setPosition(Servo.MAX_POSITION);
 
         // Servo Default Position
-        armPosition = 0;
-        robot.release1.setPosition(0.5);
-        robot.release2.setPosition(0.5);
+        armPosition = 0.6;
+        robot.release1.setPosition(0.6);
+        robot.release2.setPosition(1-armPosition);
 
         // Sets Default Color Senor Mode
         LEDmode = 0;
@@ -294,11 +294,11 @@ public class TankOp extends OpMode {
         }
 
         //Limits Servo Movement
-        armPosition = Range.clip(armPosition, Arm_Min_Range, Arm_Max_Range/2);
+        armPosition = Range.clip(armPosition, Arm_Min_Range, Arm_Max_Range);
 
-        // Updates Servoes
+        // Updates Servos
         robot.release1.setPosition(armPosition);
-        robot.release2.setPosition(armPosition);
+        robot.release2.setPosition(1-armPosition);
 
     }
 
@@ -340,28 +340,44 @@ public class TankOp extends OpMode {
         // Limits The Range of the Motors
         if(robot.motor7.getPower() < 0 && robot.motor7.getCurrentPosition() < Extender_Min){
             robot.motor7.setPower(1);
+            robot.motor3.setPower(0);
+            robot.motor4.setPower(0);
             extendMode = 0;
         }
         if(robot.motor7.getPower() == 1 && robot.motor7.getCurrentPosition() >= Extender_Min){
             robot.motor7.setPower(0);
+            robot.motor3.setPower(-1);
+            robot.motor4.setPower(-1);
         }
         if(robot.motor7.getPower() > 0 && robot.motor7.getCurrentPosition() > Extender_Max){
             robot.motor7.setPower(-1);
+            robot.motor3.setPower(0);
+            robot.motor4.setPower(0);
             extendMode = 0;
         }
         if(robot.motor7.getPower() == -1 && robot.motor7.getCurrentPosition() <= Extender_Min){
             robot.motor7.setPower(0);
+            robot.motor3.setPower(-1);
+            robot.motor4.setPower(-1);
         }
 
         // Extend Code
         if (extendMode == 0 && gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0) {
             robot.motor7.setPower(0);
+            robot.motor3.setPower(-1);
+            robot.motor4.setPower(-1);
         } else if (extendMode == 1 && robot.motor7.getCurrentPosition() <= Extender_Max) {
             robot.motor7.setPower(0.5);
+            robot.motor3.setPower(0);
+            robot.motor4.setPower(0);
         } else if (extendMode == 2 && robot.motor7.getCurrentPosition() >= Extender_Min) {
             robot.motor7.setPower(-0.5);
+            robot.motor3.setPower(0);
+            robot.motor4.setPower(0);
         } else if(gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0){
             robot.motor7.setPower(0);
+            robot.motor3.setPower(-1);
+            robot.motor4.setPower(-1);
         }
 
         // Automatic Extension
@@ -388,11 +404,15 @@ public class TankOp extends OpMode {
         if(robot.motor7.getCurrentPosition() <= Extender_Max && gamepad2.left_trigger > 0){
             extendMode = 0;
             robot.motor7.setPower(-1);
+            robot.motor3.setPower(0);
+            robot.motor4.setPower(0);
         }
 
         if(robot.motor7.getCurrentPosition() >= Extender_Min && gamepad2.right_trigger > 0){
             extendMode = 0;
             robot.motor7.setPower(1);
+            robot.motor3.setPower(0);
+            robot.motor4.setPower(0);
         }
 
     }
