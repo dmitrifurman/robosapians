@@ -88,7 +88,7 @@ public class TankOp extends OpMode {
     private final static double Extender_Min = 0;
     private final static double BeltInterval = 600;
     private double driveMode = 0;
-    private double armPosition = Servo.MAX_POSITION/2;
+    private double armPosition = 0.5;
     private double armChange = 0.025;
     private double LEDmode = 0;
     private double beltMode = 0;
@@ -298,7 +298,7 @@ public class TankOp extends OpMode {
 
         // Updates Servoes
         robot.release1.setPosition(armPosition);
-        robot.release2.setPosition(1-armPosition);
+        robot.release2.setPosition(armPosition);
 
     }
 
