@@ -339,45 +339,21 @@ public class TankOp extends OpMode {
 
         // Limits The Range of the Motors
         if(robot.motor7.getPower() < 0 && robot.motor7.getCurrentPosition() < Extender_Min){
-            robot.motor7.setPower(1);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
             extendMode = 0;
-        }
-        if(robot.motor7.getPower() == 1 && robot.motor7.getCurrentPosition() >= Extender_Min){
-            robot.motor7.setPower(0);
-            robot.motor3.setPower(-1);
-            robot.motor4.setPower(-1);
         }
         if(robot.motor7.getPower() > 0 && robot.motor7.getCurrentPosition() > Extender_Max){
-            robot.motor7.setPower(-1);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
             extendMode = 0;
-        }
-        if(robot.motor7.getPower() == -1 && robot.motor7.getCurrentPosition() <= Extender_Min){
-            robot.motor7.setPower(0);
-            robot.motor3.setPower(-1);
-            robot.motor4.setPower(-1);
         }
 
         // Extend Code
-        if (extendMode == 0 && gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0) {
+        if (extendMode == 0) {
             robot.motor7.setPower(0);
-            robot.motor3.setPower(-1);
-            robot.motor4.setPower(-1);
         } else if (extendMode == 1 && robot.motor7.getCurrentPosition() <= Extender_Max) {
             robot.motor7.setPower(0.5);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
         } else if (extendMode == 2 && robot.motor7.getCurrentPosition() >= Extender_Min) {
             robot.motor7.setPower(-0.5);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
         } else if(gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0){
             robot.motor7.setPower(0);
-            robot.motor3.setPower(-1);
-            robot.motor4.setPower(-1);
         }
 
         // Automatic Extension
@@ -400,20 +376,6 @@ public class TankOp extends OpMode {
             }
         }
 
-        // Manual Extension
-        if(robot.motor7.getCurrentPosition() <= Extender_Max && gamepad2.left_trigger > 0){
-            extendMode = 0;
-            robot.motor7.setPower(-1);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
-        }
-
-        if(robot.motor7.getCurrentPosition() >= Extender_Min && gamepad2.right_trigger > 0){
-            extendMode = 0;
-            robot.motor7.setPower(1);
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
-        }
 
     }
 
