@@ -24,9 +24,9 @@ public class AutoEncoder extends LinearOpMode {
 
     static final double rtTwo = Math.sqrt(2);
 
-    java.lang.String Left = "LEFT";
-    java.lang.String Right = "RIGHT";
-    double LoR = 0;
+    //java.lang.String Left = "LEFT";
+    //java.lang.String Right = "RIGHT";
+   // double LoR = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -43,7 +43,7 @@ public class AutoEncoder extends LinearOpMode {
         robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        if (Objects.equals(TeamColor, "Blue")) {
+       /* if (Objects.equals(TeamColor, "Blue")) {
             Left = "LEFT";
             Right = "RIGHT";
             LoR = 0;
@@ -52,7 +52,7 @@ public class AutoEncoder extends LinearOpMode {
             Right = "LEFT";
             LoR = 360;
         }
-
+*/
 
         sleep(2000);
 
@@ -70,7 +70,7 @@ public class AutoEncoder extends LinearOpMode {
 
         Move(1, 2, 3, 0.5);
 
-        gyroTurn((int)(LoR - 45), "LEFT", 6, 0.5);
+        gyroTurn(45, "LEFT", 6, 0.5);
 
         Move(1, rtTwo, 3, 0.5);
 
@@ -78,15 +78,15 @@ public class AutoEncoder extends LinearOpMode {
 
         Move(1, 5 * rtTwo, 6, 0.5);
 
-        gyroTurn((int)(LoR - 90), "LEFT", 6, 0.5);
+        gyroTurn(90, "LEFT", 6, 0.5);
 
         beaconPress();
 
-        gyroTurn((int)(LoR - 180), "LEFT", 8, 0.5);
+        gyroTurn(180, "LEFT", 8, 0.5);
 
         Move(1, 4, 6, 0.5);
 
-        gyroTurn((int)(LoR - 270), "RIGHT", 8, 0.5);
+        gyroTurn(270, "RIGHT", 8, 0.5);
 
         beaconPress();
 
@@ -130,8 +130,8 @@ public class AutoEncoder extends LinearOpMode {
 
         runtime.reset();
 
-        robot.motor3.setPower(-1);
-        robot.motor4.setPower(-1);
+        robot.motor3.setPower(-0.7);
+        robot.motor4.setPower(-0.7);
 
         for (int l = 1; l <= balls; l++) {
 
@@ -158,7 +158,7 @@ public class AutoEncoder extends LinearOpMode {
     }
 
 
-    public void sensorTest() {
+    /*public void sensorTest() {
 
         telemetry.addData("In Sensor Test", "NOW");
 
@@ -181,25 +181,26 @@ public class AutoEncoder extends LinearOpMode {
             }
         }
     }
+*/
 
-
-    public void gyroTurn(int angle, java.lang.String Direction, double time, double pause) throws InterruptedException {
+    public void gyroTurn(int angle, /*java.lang.String Direction*/String direction, double time, double pause) throws InterruptedException {
 
         int gyroAngle = angle;
 
         robot.motor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        if (Objects.equals(Direction, "LEFT")) {
+        if (direction.equals("LEFT")){
             gyroAngle = 360 - angle;
         }
 
+
         runtime.reset();
 
-        if (Objects.equals(Direction, "RIGHT")) {
+        if (direction.equals("LEFT")) {
             robot.motor1.setPower(-0.25);
             robot.motor2.setPower(0.25);
-        } else if (Objects.equals(Direction, "LEFT")) {
+        } else if (direction.equals("RIGHT")) {
             robot.motor1.setPower(0.25);
             robot.motor2.setPower(-0.25);
         }
@@ -224,7 +225,7 @@ public class AutoEncoder extends LinearOpMode {
 
     public void beaconPress() throws InterruptedException {
 
-        sensorTest();
+        //sensorTest();
 
         Move(0.5, 0.3, 3, 0.5);
 

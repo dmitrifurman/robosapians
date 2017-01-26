@@ -47,8 +47,8 @@ public class HardwareRobot {
                    motor6 = null,
                    motor7 = null;
     public Servo release1 = null,
-                 release2 = null,
-                 btnPush = null;
+                 release2 = null;
+                 //btnPush = null;
     public ColorSensor color = null;
     public GyroSensor gyro = null;
     private HardwareMap hwMap = null;
@@ -78,7 +78,7 @@ public class HardwareRobot {
             // Assigns Names to Servos
             release1 = hwMap.servo.get("Release Left");
             release2 = hwMap.servo.get("Release Right");
-            btnPush = hwMap.servo.get("Button Push");
+            //btnPush = hwMap.servo.get("Button Push");
 
             // Assigns Names to Sensors
             color = hwMap.colorSensor.get("Color Sensor");

@@ -109,12 +109,12 @@ public class TankOp extends OpMode {
         driveMode = 0;
 
         // Sets button puah position
-        robot.btnPush.setPosition(Servo.MAX_POSITION);
+        //robot.btnPush.setPosition(Servo.MAX_POSITION);
 
         // Servo Default Position
-        armPosition = 0.7;
-        robot.release1.setPosition(0.6);
-        robot.release2.setPosition(1-armPosition);
+        armPosition = 0.8;
+        robot.release1.setPosition(0.8);
+        robot.release2.setPosition(.9-armPosition);
 
         // Sets Default Color Senor Mode
         LEDmode = 0;
@@ -209,10 +209,10 @@ public class TankOp extends OpMode {
         // Drive Code
         if(driveMode == 0) {
             robot.motor1.setPower(-gamepad1.left_stick_y);
-            robot.motor2.setPower(-gamepad1.right_stick_y);
+            robot.motor2.setPower(gamepad1.right_stick_y);
         }else if(driveMode == 1){
-            robot.motor1.setPower(-gamepad1.left_stick_y*0.1);
-            robot.motor2.setPower(-gamepad1.right_stick_y*0.1);
+            robot.motor1.setPower(gamepad1.left_stick_y*0.32);
+            robot.motor2.setPower(-gamepad1.right_stick_y*0.32);
         }
 
         if(gamepad1.start){
@@ -239,8 +239,8 @@ public class TankOp extends OpMode {
 
         // Launching Code
         if (extendMode == 0) {
-            robot.motor3.setPower(-1 + power);
-            robot.motor4.setPower(-1 + power);
+            robot.motor3.setPower(-0.3 + power);
+            robot.motor4.setPower(-0.3 + power);
         }else{
             robot.motor3.setPower(0);
             robot.motor4.setPower(0);
@@ -344,20 +344,23 @@ public class TankOp extends OpMode {
     private void  extender() {
 
         // Limits The Range of the Motors
-        if(robot.motor7.getPower() < 0 && robot.motor7.getCurrentPosition() < Extender_Min){
+        /*if(robot.motor7.getPower() < 0 && robot.motor7.getCurrentPosition() < Extender_Min){
             extendMode = 0;
         }
         if(robot.motor7.getPower() > 0 && robot.motor7.getCurrentPosition() > Extender_Max){
             extendMode = 0;
         }
+        */
 
         // Extend Code
         if (extendMode == 0) {
             robot.motor7.setPower(0);
-        } else if (extendMode == 1 && robot.motor7.getCurrentPosition() <= Extender_Max) {
+        } else if (extendMode == 1 ) {//&& robot.motor7.getCurrentPosition() <= Extender_Max) {
             robot.motor7.setPower(1);
-        } else if (extendMode == 2 && robot.motor7.getCurrentPosition() >= Extender_Min) {
+            armPosition = 0.25;
+        } else if (extendMode == 2 ) {//&& robot.motor7.getCurrentPosition() >= Extender_Min) {
             robot.motor7.setPower(-1);
+            armPosition = 0.25;
         } else if(gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0){
             robot.motor7.setPower(0);
         }
@@ -366,10 +369,13 @@ public class TankOp extends OpMode {
         if (gamepad2.left_bumper || gamepad2.right_bumper) {
             if (extendMode == 0 && gamepad2.left_bumper) {
                 extendMode = 4;
+                armPosition = 0.25;
             } else if (extendMode == 0 && gamepad2.right_bumper) {
                 extendMode = 3;
+                armPosition = 0.25;
             } else if (extendMode == 1 || extendMode == 2) {
                 extendMode = 5;
+                armPosition = 0.25;
             }
         }
         if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
