@@ -9,8 +9,8 @@ import java.util.Objects;
 
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
-@Autonomous(name = "AutoEncoder: Simple without Gyro", group = "Linear OpModes")
-public class AutoEncoder3 extends LinearOpMode {
+@Autonomous(name = "AutoEncoder: Beacons", group = "Linear OpModes")
+public class AutoEncoder4 extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
@@ -45,12 +45,38 @@ public class AutoEncoder3 extends LinearOpMode {
             Turn(0.5, 0.5, 6, 0.5);
         }
 
-        Move(1, 0.75 * rtTwo, 6, 1);
+        Move(1, 1.25 * rtTwo, 6, 1);
 
-        Launch(2);
+        if (Objects.equals(TeamColor, "Red")) {
+            Turn(0.5, -0.5, 6, 0.5);
+        } else if (Objects.equals(TeamColor, "Blue")) {
+            Turn(0.5, 0.5, 6, 0.5);
+        }
 
-        Move(0.5, 0.75 * rtTwo, 6, 0);
-        ;
+        Move(1, 4.6, 6, 1);
+
+        beaconPress();
+
+        if (Objects.equals(TeamColor, "Red")) {
+            Turn(0.5, 0.9, 6, 0.5);
+        } else if (Objects.equals(TeamColor, "Blue")) {
+            Turn(0.5, -0.9, 6, 0.5);
+        }
+
+        Move(1, 4, 6, 1);
+
+        if (Objects.equals(TeamColor, "Red")) {
+            Turn(0.5, -0.9, 6, 0.5);
+        } else if (Objects.equals(TeamColor, "Blue")) {
+            Turn(0.5, 0.9, 6, 0.5);
+        }
+
+        Move(0.25, 0.6, 3, 0);
+
+        beaconPress();
+
+        Turn(1, 100, 30, 0);
+
     }
 
     public void Move(double speed, double distance, double time, double pause) throws InterruptedException {
@@ -143,6 +169,42 @@ public class AutoEncoder3 extends LinearOpMode {
         sleep((int) (1000 * pause));
     }
 
+
+    public void sensorTest() {
+
+        if (opModeIsActive()) {
+            robot.color.enableLed(false);
+            if (robot.color.red() >= 1 && robot.color.blue() == 0) {
+                if (Objects.equals(TeamColor, "Red")) {
+                    robot.btnPush.setPosition(0.75);
+                } else if (Objects.equals(TeamColor, "Blue")) {
+                    robot.btnPush.setPosition(0);
+                }
+            } else if (robot.color.blue() >= 1 && robot.color.red() == 0) {
+                if (Objects.equals(TeamColor, "Red")) {
+                    robot.btnPush.setPosition(0.75);
+                } else if (Objects.equals(TeamColor, "Blue")) {
+                    robot.btnPush.setPosition(0);
+                }
+            } else {
+                robot.btnPush.setPosition(0.35);
+            }
+        }
+    }
+
+    public void beaconPress() throws InterruptedException {
+
+        sensorTest();
+
+        Move(0.5, 0.3, 3, 0.5);
+
+        Move(0.5, -0.3, 3, 0.5);
+
+        Move(0.5, 0.3, 3, 0.5);
+
+        Move(0.5, -0.9, 3, 0.5);
+
+    }
 
 }
 
