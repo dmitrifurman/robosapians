@@ -59,6 +59,12 @@ public class AutoEncoder2 extends LinearOpMode {
         robot.release1.setPosition(armPosition);
         robot.release2.setPosition(1 - armPosition);
 
+        runtime.reset();
+
+        while((robot.motor1.getCurrentPosition() != 0 || robot.motor2.getCurrentPosition() != 0 || robot.motor5.getCurrentPosition() != 0) && runtime.seconds() <= 10){
+            idle();
+        }
+
         waitForStart();
 
         Move(0.5, 2, 3, 0.5);
@@ -143,12 +149,18 @@ public class AutoEncoder2 extends LinearOpMode {
 
         runtime.reset();
 
-        robot.motor3.setPower(-0.4);
-        robot.motor4.setPower(-0.4);
+        robot.motor3.setPower(-0.3);
+        robot.motor4.setPower(-0.3);
+
+        while (opModeIsActive() && (runtime.seconds() < 2)) {
+            idle();
+        }
+
+        runtime.reset();
 
         for (int l = 1; l <= balls; l++) {
 
-            while (opModeIsActive() && (runtime.seconds() < 2)) {
+            while (opModeIsActive() && (runtime.seconds() < 0.5)) {
                 idle();
             }
 

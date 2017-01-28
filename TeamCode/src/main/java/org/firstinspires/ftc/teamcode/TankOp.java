@@ -205,6 +205,7 @@ public class TankOp extends OpMode {
         if (gamepad1.right_bumper) {
             if (dirctionMode == 0) {
                 dirctionMode = 1;
+
             }
         }
         if (!gamepad1.right_bumper) {
