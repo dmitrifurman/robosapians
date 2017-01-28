@@ -77,9 +77,9 @@ public class TankOp extends OpMode {
         //robot.btnPush.setPosition(Servo.MAX_POSITION);
 
         // Servo Default Position
-        armPosition = 0.8;
-        robot.release1.setPosition(0.8);
-        robot.release2.setPosition(.9 - armPosition);
+        armPosition = 1;
+        robot.release1.setPosition(armPosition);
+        robot.release2.setPosition(1 - armPosition);
         robot.btnPush.setPosition(buttonPosition);
 
         // Sets Default Color Senor Mode

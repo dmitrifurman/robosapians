@@ -47,9 +47,6 @@ public class AutoEncoder2 extends LinearOpMode {
 
         robot.init(hardwareMap);
 
-        telemetry.addData("Status", "Initializing");
-        telemetry.update();
-
         robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -58,17 +55,11 @@ public class AutoEncoder2 extends LinearOpMode {
         robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        armPosition = 0.8;
-        robot.release1.setPosition(0.8);
-        robot.release2.setPosition(.9 - armPosition);
-
-        telemetry.addData("Status: ", "Ready");
-        telemetry.update();
+        armPosition = 1;
+        robot.release1.setPosition(armPosition);
+        robot.release2.setPosition(1 - armPosition);
 
         waitForStart();
-
-        telemetry.addData("Status: ", "Running");
-        telemetry.update();
 
         Move(0.5, 2, 3, 0.5);
 
@@ -80,11 +71,11 @@ public class AutoEncoder2 extends LinearOpMode {
 
         Move(1, 1.25*rtTwo, 6, 0.5);
 
-        Move(0.5, -0.75*rtTwo, 6, 0.5);
+        Move(0.5, -0.6*rtTwo, 6, 0.5);
 
         Launch(2);
 
-        Move(1, 4.5*rtTwo, 6, 0.5);
+        Move(1, 4.6*rtTwo, 6, 0.5);
 
         if (Objects.equals(TeamColor, "Red")){
             Turn(0.5, -0.5, 6, 0.5);
@@ -116,8 +107,6 @@ public class AutoEncoder2 extends LinearOpMode {
 
         Move(0.5, -4.5, 6, 0.5);
 
-        telemetry.addData("Status: ", "Complete");
-        telemetry.update();
     }
 
     public void Move(double speed, double distance, double time, double pause) throws InterruptedException {
@@ -136,12 +125,6 @@ public class AutoEncoder2 extends LinearOpMode {
         robot.motor2.setPower(speed);
 
         while (opModeIsActive() && (runtime.seconds() < time) && (robot.motor1.isBusy() && robot.motor2.isBusy())) {
-            telemetry.addData("Path1",  "Running to %7d :%7d", target, target);
-            telemetry.addData("Path2",  "Running at %7d :%7d",
-                    robot.motor1.getCurrentPosition(),
-                    robot.motor2.getCurrentPosition());
-            telemetry.update();
-
             idle();
         }
 
@@ -160,8 +143,8 @@ public class AutoEncoder2 extends LinearOpMode {
 
         runtime.reset();
 
-        robot.motor3.setPower(-0.3);
-        robot.motor4.setPower(-0.3);
+        robot.motor3.setPower(-0.4);
+        robot.motor4.setPower(-0.4);
 
         for (int l = 1; l <= balls; l++) {
 
