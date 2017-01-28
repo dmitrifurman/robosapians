@@ -78,7 +78,9 @@ public class AutoEncoder2 extends LinearOpMode {
             Turn(0.5, 0.5, 6, 0.5);
         }
 
-        Move(1, 0.75*rtTwo, 6, 0.5);
+        Move(1, 1.25*rtTwo, 6, 0.5);
+
+        Move(0.5, 0.5*rtTwo, 6, 0.5);
 
         Launch(2);
 
