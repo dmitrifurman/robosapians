@@ -80,7 +80,7 @@ public class AutoEncoder2 extends LinearOpMode {
 
         Move(1, 1.25*rtTwo, 6, 0.5);
 
-        Move(0.5, 0.5*rtTwo, 6, 0.5);
+        Move(0.5, -0.5*rtTwo, 6, 0.5);
 
         Launch(2);
 
@@ -97,17 +97,17 @@ public class AutoEncoder2 extends LinearOpMode {
         beaconPress();
 
         if (Objects.equals(TeamColor, "Blue")){
-            Turn(0.5, -1, 6, 0.5);
+            Turn(0.5, -0.9, 6, 0.5);
         }else if (Objects.equals(TeamColor, "Red")){
-            Turn(0.5, 1, 6, 0.5);
+            Turn(0.5, 0.9, 6, 0.5);
         }
 
         Move(1, 4, 3, 0.5);
 
         if (Objects.equals(TeamColor, "Blue")){
-            Turn(0.5, 1, 6, 0.5);
+            Turn(0.5, 0.9, 6, 0.5);
         }else if (Objects.equals(TeamColor, "Red")){
-            Turn(0.5, -1, 6, 0.5);
+            Turn(0.5, -0.9, 6, 0.5);
         }
 
         Move(0.5, 1, 3, 0.5);
