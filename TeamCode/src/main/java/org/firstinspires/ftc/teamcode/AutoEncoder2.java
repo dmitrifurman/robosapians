@@ -73,38 +73,42 @@ public class AutoEncoder2 extends LinearOpMode {
         Move(0.5, 2, 3, 0.5);
 
         if (Objects.equals(TeamColor, "Blue")){
-            Turn(0.5, -0.5, 6, 1);
+            Turn(0.5, -0.5, 6, 0.5);
         }else if (Objects.equals(TeamColor, "Red")){
-            Turn(0.5, 0.5, 6, 1);
+            Turn(0.5, 0.5, 6, 0.5);
         }
 
-        Move(0.5, 0.75*rtTwo, 6, 0.5);
+        Move(1, 0.75*rtTwo, 6, 0.5);
 
         Launch(2);
 
         Move(1, 4.75*rtTwo, 6, 0.5);
 
         if (Objects.equals(TeamColor, "Blue")){
-            Turn(0.5, -0.5, 6, 1);
+            Turn(0.5, -0.5, 6, 0.5);
         }else if (Objects.equals(TeamColor, "Red")){
-            Turn(0.5, 0.5, 6, 1);
+            Turn(0.5, 0.5, 6, 0.5);
         }
+
+        Move(0.5, 0.5, 3, 0.5);
 
         beaconPress();
 
         if (Objects.equals(TeamColor, "Blue")){
-            Turn(0.5, -1, 6, 1);
+            Turn(0.5, -1, 6, 0.5);
         }else if (Objects.equals(TeamColor, "Red")){
-            Turn(0.5, 1, 6, 1);
+            Turn(0.5, 1, 6, 0.5);
         }
 
-        Move(0.5, 4, 3, 0.5);
+        Move(1, 4, 3, 0.5);
 
         if (Objects.equals(TeamColor, "Blue")){
-            Turn(0.5, 1, 6, 1);
+            Turn(0.5, 1, 6, 0.5);
         }else if (Objects.equals(TeamColor, "Red")){
-            Turn(0.5, -1, 6, 1);
+            Turn(0.5, -1, 6, 0.5);
         }
+
+        Move(0.5, 1, 3, 0.5);
 
         beaconPress();
 
@@ -237,8 +241,6 @@ public class AutoEncoder2 extends LinearOpMode {
     }
 
     public void beaconPress() throws InterruptedException {
-
-        Move(0.5, 0.3, 3, 0.5);
 
         sensorTest();
 
