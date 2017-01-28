@@ -50,7 +50,7 @@ public class AutoEncoder3 extends LinearOpMode {
         Launch(2);
 
         Move(0.5, 0.75 * rtTwo, 6, 0);
-        ;
+
     }
 
     public void Move(double speed, double distance, double time, double pause) throws InterruptedException {
