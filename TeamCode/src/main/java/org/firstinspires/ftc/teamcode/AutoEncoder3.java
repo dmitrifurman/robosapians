@@ -37,19 +37,23 @@ public class AutoEncoder3 extends LinearOpMode {
 
         waitForStart();
 
-        Move(0.5, 2, 3, 0.5);
+        runtime.reset();
 
-        if (Objects.equals(TeamColor, "Red")) {
-            Turn(0.5, -0.5, 6, 0.5);
-        } else if (Objects.equals(TeamColor, "Blue")) {
-            Turn(0.5, 0.5, 6, 0.5);
+        while (runtime.seconds() <= 10) {
+            idle();
         }
 
-        Move(1, 0.75 * rtTwo, 6, 1);
+        Move(0.5, 2, 3, 0.5);
 
         Launch(2);
 
-        Move(0.5, 0.75 * rtTwo, 6, 0);
+        if (Objects.equals(TeamColor, "Red")) {
+            Turn(0.5, 0.4, 6, 0.5);
+        } else if (Objects.equals(TeamColor, "Blue")) {
+            Turn(0.5, -0.4, 6, 0.5);
+        }
+
+        Move(1, 1.5 * rtTwo, 6, 1);
 
     }
 
@@ -87,8 +91,8 @@ public class AutoEncoder3 extends LinearOpMode {
 
         runtime.reset();
 
-        robot.motor3.setPower(-0.2);
-        robot.motor4.setPower(-0.2);
+        robot.motor3.setPower(-0.35);
+        robot.motor4.setPower(-0.35);
 
         while (opModeIsActive() && (runtime.seconds() < 3)) {
             idle();
