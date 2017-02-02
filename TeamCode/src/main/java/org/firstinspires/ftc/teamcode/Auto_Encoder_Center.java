@@ -43,7 +43,7 @@ public class Auto_Encoder_Center extends LinearOpMode {
             idle();
         }
 
-        Move(0.5, 2, 3, 0.5);
+        Move(0.5, 0.5, 2, 2, 3, 0.5);
 
         Launch(2);
 
@@ -53,7 +53,7 @@ public class Auto_Encoder_Center extends LinearOpMode {
             Turn(0.5, -0.4, 6, 0.5);
         }
 
-        Move(1, 1.5 * rtTwo, 6, 1);
+        Move(1, 1, 1.5 * rtTwo, 1.5 * rtTwo, 6, 1);
 
     }
 
