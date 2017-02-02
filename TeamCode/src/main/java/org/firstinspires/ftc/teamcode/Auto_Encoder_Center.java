@@ -43,7 +43,7 @@ public class Auto_Encoder_Center extends LinearOpMode {
             idle();
         }
 
-        Move(0.5, 2, 3, 0.5);
+        Move(0.5, 0.5, 2, 2, 3, 0.5);
 
         Launch(2);
 
@@ -53,24 +53,25 @@ public class Auto_Encoder_Center extends LinearOpMode {
             Turn(0.5, -0.4, 6, 0.5);
         }
 
-        Move(1, 1.5 * rtTwo, 6, 1);
+        Move(1, 1, 1.5 * rtTwo, 1.5 * rtTwo, 6, 1);
 
     }
 
-    public void Move(double speed, double distance, double time, double pause) throws InterruptedException {
-        int target;
+    public void Move(double leftSpeed, double rightSpeed, double leftDistance, double rightDistance, double time, double pause) throws InterruptedException {
+        int leftTarget, rightTarget;
 
-        target = (int) (distance * COUNTS_PER_FOOT);
+        leftTarget = (int) (leftDistance * COUNTS_PER_FOOT);
+        rightTarget = (int) (rightDistance * COUNTS_PER_FOOT);
 
         robot.motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.motor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        robot.motor1.setTargetPosition(target);
-        robot.motor2.setTargetPosition(target);
+        robot.motor1.setTargetPosition(leftTarget);
+        robot.motor2.setTargetPosition(rightTarget);
 
         runtime.reset();
-        robot.motor1.setPower(speed);
-        robot.motor2.setPower(speed);
+        robot.motor1.setPower(leftSpeed);
+        robot.motor2.setPower(rightSpeed);
 
         while (opModeIsActive() && (runtime.seconds() < time) && (robot.motor1.isBusy() && robot.motor2.isBusy())) {
             idle();

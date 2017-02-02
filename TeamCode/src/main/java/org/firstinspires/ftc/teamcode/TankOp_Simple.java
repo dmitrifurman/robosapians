@@ -101,31 +101,11 @@ public class TankOp_Simple extends OpMode {
     @Override
     public void loop() {
 
-        feedback();
         drive();
         particleLaunch();
         particleCollector();
         servos();
         extender();
-
-    }
-
-
-    private void feedback() {
-
-        // Feedback Data
-        telemetry.addData("Feedback Data for", "TankOp");
-        telemetry.addData("Left Motor", robot.motor1.getPower());
-        telemetry.addData("Right Motor", robot.motor2.getPower());
-        telemetry.addData("Left Launch Power", (robot.motor3.getPower() * -1));
-        telemetry.addData("Right Launch Power", (robot.motor4.getPower() * -1));
-        telemetry.addData("Belt Speed", robot.motor5.getPower());
-        telemetry.addData("Belt Pos", robot.motor5.getCurrentPosition());
-        telemetry.addData("Collector Speed", robot.motor6.getPower());
-        telemetry.addData("Extend Speed", robot.motor7.getPower());
-        telemetry.addData("Extend Pos", robot.motor7.getCurrentPosition());
-        telemetry.addData("Servos 1/2 Pos", robot.release1.getPosition());
-        telemetry.addData("Button Pusher", robot.btnPush.getPosition());
 
     }
 
