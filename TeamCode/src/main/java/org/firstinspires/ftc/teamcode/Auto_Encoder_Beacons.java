@@ -21,11 +21,23 @@ public class Auto_Encoder_Beacons extends LinearOpMode {
     static final double COUNTS_PER_FOOT = (12 * (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * (Math.PI)));
 
     static final double rtTwo = Math.sqrt(2);
+    static final double pi = Math.PI;
+
+    static final double DSL = 2 / 3;
+    static final double DSR = 1 / 2;
+    static final double DDL = pi * rtTwo;
+    static final double DDR = ((3 * pi * rtTwo) / 4);
+
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         robot.init(hardwareMap);
+
+        telemetry.addData("Status", "Initializing");
+        telemetry.update();
+
+        robot.gyro.calibrate();
 
         robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -35,47 +47,37 @@ public class Auto_Encoder_Beacons extends LinearOpMode {
         robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        while (robot.gyro.isCalibrating()) {
+            idle();
+        }
+
+        telemetry.addData("Status: ", "Ready");
+        telemetry.update();
+
         waitForStart();
 
-        Move(0.5, 2, 3, 0.5);
+        telemetry.addData("Status: ", "Running");
+        telemetry.update();
+
+        Move(0.5, 0.5, 2, 0.5);
+
+        Turn(0.25, -0.5, 3, 0.5);
+
+        Move(0.5, 1.5 * rtTwo, 4, 0.5);
 
         if (Objects.equals(TeamColor, "Red")) {
-            Turn(0.5, -0.5, 6, 0.5);
+            Drift(DSR, DSL, DDR, DDL, 7, 0.5);
         } else if (Objects.equals(TeamColor, "Blue")) {
-            Turn(0.5, 0.5, 6, 0.5);
+            Drift(DSL, DSR, DDL, DDR, 7, 0.5);
         }
 
-        Move(1, 1.25 * rtTwo, 6, 1);
 
-        if (Objects.equals(TeamColor, "Red")) {
-            Turn(0.5, -0.5, 6, 0.5);
-        } else if (Objects.equals(TeamColor, "Blue")) {
-            Turn(0.5, 0.5, 6, 0.5);
-        }
+        Move(0.5, -1, 2, 0.5);
 
-        Move(1, 4.6, 6, 1);
+        //Sensor Test (new)
 
-        beaconPress();
-
-        if (Objects.equals(TeamColor, "Red")) {
-            Turn(0.5, 0.9, 6, 0.5);
-        } else if (Objects.equals(TeamColor, "Blue")) {
-            Turn(0.5, -0.9, 6, 0.5);
-        }
-
-        Move(1, 4, 6, 1);
-
-        if (Objects.equals(TeamColor, "Red")) {
-            Turn(0.5, -0.9, 6, 0.5);
-        } else if (Objects.equals(TeamColor, "Blue")) {
-            Turn(0.5, 0.9, 6, 0.5);
-        }
-
-        Move(0.25, 0.6, 3, 0);
-
-        beaconPress();
-
-        Turn(1, 100, 30, 0);
+        telemetry.addData("Status: ", "Complete");
+        telemetry.update();
 
     }
 
@@ -104,10 +106,41 @@ public class Auto_Encoder_Beacons extends LinearOpMode {
         robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-
         sleep((int) (1000 * pause));
     }
 
+    public void Drift(double leftSpeed, double rightSpeed,
+                      double leftDistance, double rightDistance,
+                      double time, double pause)
+            throws InterruptedException {
+
+        double leftTarget, rightTarget;
+
+        leftTarget = (leftDistance * COUNTS_PER_FOOT);
+        rightTarget = (rightDistance * COUNTS_PER_FOOT);
+
+        robot.motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.motor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        robot.motor1.setTargetPosition((int) (leftTarget));
+        robot.motor2.setTargetPosition((int) (rightTarget));
+
+        runtime.reset();
+        robot.motor1.setPower(leftSpeed);
+        robot.motor2.setPower(rightSpeed);
+
+        while (opModeIsActive() && (runtime.seconds() < time) && (robot.motor1.isBusy() && robot.motor2.isBusy())) {
+            idle();
+        }
+
+        robot.motor1.setPower(0);
+        robot.motor2.setPower(0);
+
+        robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        sleep((int) (1000 * pause));
+    }
 
     private void Launch(double balls) throws InterruptedException {
 
@@ -140,6 +173,10 @@ public class Auto_Encoder_Beacons extends LinearOpMode {
 
 
     public void Turn(double speed, double distance, double time, double pause) throws InterruptedException {
+
+        if (Objects.equals(TeamColor, "Blue")) {
+            distance = distance * -1;
+        }
 
         int target;
 

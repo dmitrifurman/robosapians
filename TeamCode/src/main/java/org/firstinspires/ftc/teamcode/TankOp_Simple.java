@@ -39,7 +39,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name = "Tank Op: Simple", group = "Linear Opmode")
+@TeleOp(name = "Tank Op Simple", group = "Linear Opmode")
 public class TankOp_Simple extends OpMode {
     private HardwareRobot robot = new HardwareRobot();
     private final static double Arm_Min_Range = 0;

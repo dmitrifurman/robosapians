@@ -48,11 +48,9 @@ public class Auto_Gyro extends LinearOpMode {
         if (Objects.equals(TeamColor, "Blue")) {
             Left = "LEFT";
             Right = "RIGHT";
-            LoR = 0;
         } else if (Objects.equals(TeamColor, "Red")) {
             Left = "RIGHT";
             Right = "LEFT";
-            LoR = 360;
         }
 
         while (robot.gyro.isCalibrating()) {
@@ -67,13 +65,13 @@ public class Auto_Gyro extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        Move(1, 2, 3, 0.5);
+        //Move(1, 2, 3, 0.5);
 
-        //gyroTurn(45, Left, 6, 0.5);
+        gyroTurn(45, Left, 6, 0.5);
 
         //Move(1, rtTwo, 3, 0.5);
 
-        Launch(2);
+        //Launch(2);
 
         /*Move(1, 5 * rtTwo, 6, 0.5);
 
@@ -185,12 +183,19 @@ public class Auto_Gyro extends LinearOpMode {
 
     public void gyroTurn(int angle, String direction, double time, double pause) throws InterruptedException {
 
-        int gyroAngle = angle;
+        int gyroAngle = 0;
+
+        if (Objects.equals(TeamColor, "Blue")) {
+            gyroAngle = angle;
+        } else if (Objects.equals(TeamColor, "Red")) {
+            gyroAngle = 360 - angle;
+        }
+
 
         robot.motor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        if (direction.equals("LEFT")){
+        if (direction.equals("LEFT")) {
             gyroAngle = 360 - angle;
         }
 
