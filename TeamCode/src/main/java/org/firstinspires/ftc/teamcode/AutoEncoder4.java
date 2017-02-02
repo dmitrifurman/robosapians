@@ -37,7 +37,7 @@ public class AutoEncoder4 extends LinearOpMode {
 
         waitForStart();
 
-        Move(0.5, 2, 3, 0.5);
+        Move(0.5, 0.5, 2, 2, 3, 0.5);
 
         if (Objects.equals(TeamColor, "Red")) {
             Turn(0.5, -0.5, 6, 0.5);
@@ -45,7 +45,7 @@ public class AutoEncoder4 extends LinearOpMode {
             Turn(0.5, 0.5, 6, 0.5);
         }
 
-        Move(1, 1.25 * rtTwo, 6, 1);
+        Move(1, 1, 1.25 * rtTwo, 1.25 * rtTwo, 6, 1);
 
         if (Objects.equals(TeamColor, "Red")) {
             Turn(0.5, -0.5, 6, 0.5);
@@ -53,7 +53,7 @@ public class AutoEncoder4 extends LinearOpMode {
             Turn(0.5, 0.5, 6, 0.5);
         }
 
-        Move(1, 4.6, 6, 1);
+        Move(1, 1, 4.6, 4.6, 6, 1);
 
         beaconPress();
 
@@ -63,7 +63,7 @@ public class AutoEncoder4 extends LinearOpMode {
             Turn(0.5, -0.9, 6, 0.5);
         }
 
-        Move(1, 4, 6, 1);
+        Move(1, 1, 4, 4, 6, 1);
 
         if (Objects.equals(TeamColor, "Red")) {
             Turn(0.5, -0.9, 6, 0.5);
@@ -71,7 +71,7 @@ public class AutoEncoder4 extends LinearOpMode {
             Turn(0.5, 0.9, 6, 0.5);
         }
 
-        Move(0.25, 0.6, 3, 0);
+        Move(0.25, 0.25, 0.6, 0.6, 3, 0);
 
         beaconPress();
 
@@ -79,20 +79,21 @@ public class AutoEncoder4 extends LinearOpMode {
 
     }
 
-    public void Move(double speed, double distance, double time, double pause) throws InterruptedException {
-        int target;
+    public void Move(double leftSpeed, double rightSpeed, double leftDistance, double rightDistance, double time, double pause) throws InterruptedException {
+        int leftTarget, rightTarget;
 
-        target = (int) (distance * COUNTS_PER_FOOT);
+        leftTarget = (int) (leftDistance * COUNTS_PER_FOOT);
+        rightTarget = (int) (rightDistance * COUNTS_PER_FOOT);
 
         robot.motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.motor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        robot.motor1.setTargetPosition(target);
-        robot.motor2.setTargetPosition(target);
+        robot.motor1.setTargetPosition(leftTarget);
+        robot.motor2.setTargetPosition(rightTarget);
 
         runtime.reset();
-        robot.motor1.setPower(speed);
-        robot.motor2.setPower(speed);
+        robot.motor1.setPower(leftSpeed);
+        robot.motor2.setPower(rightSpeed);
 
         while (opModeIsActive() && (runtime.seconds() < time) && (robot.motor1.isBusy() && robot.motor2.isBusy())) {
             idle();
@@ -196,13 +197,13 @@ public class AutoEncoder4 extends LinearOpMode {
 
         sensorTest();
 
-        Move(0.5, 0.3, 3, 0.5);
+        Move(0.5, 0.5, 0.3, 0.3, 3, 0.5);
 
-        Move(0.5, -0.3, 3, 0.5);
+        Move(0.5, 0.5, -0.3, -0.3, 3, 0.5);
 
-        Move(0.5, 0.3, 3, 0.5);
+        Move(0.5, 0.5, 0.3, 0.3, 3, 0.5);
 
-        Move(0.5, -0.9, 3, 0.5);
+        Move(0.5, 0.5, -0.9, -0.9, 3, 0.5);
 
     }
 
