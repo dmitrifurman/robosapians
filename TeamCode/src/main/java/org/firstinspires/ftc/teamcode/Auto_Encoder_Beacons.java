@@ -3,32 +3,14 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.Objects;
 
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
-/*
- RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
- RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
- RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
- RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
- RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
- RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
- RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
- RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
- RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
- RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
- RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
- RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
- RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
- RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
- RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
- */
-@Autonomous(name = "AutoEncoder: Without Gyro", group = "Linear OpModes")
-public class AutoEncoder2 extends LinearOpMode {
+@Autonomous(name = "AutoEncoder: Beacons", group = "Linear OpModes")
+public class Auto_Encoder_Beacons extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
@@ -39,8 +21,6 @@ public class AutoEncoder2 extends LinearOpMode {
     static final double COUNTS_PER_FOOT = (12 * (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * (Math.PI)));
 
     static final double rtTwo = Math.sqrt(2);
-
-    private double armPosition = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -55,63 +35,47 @@ public class AutoEncoder2 extends LinearOpMode {
         robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        armPosition = 1;
-        robot.release1.setPosition(armPosition);
-        robot.release2.setPosition(1 - armPosition);
-
-        runtime.reset();
-
-        while((robot.motor1.getCurrentPosition() != 0 || robot.motor2.getCurrentPosition() != 0 || robot.motor5.getCurrentPosition() != 0) && runtime.seconds() <= 10){
-            idle();
-        }
-
         waitForStart();
 
         Move(0.5, 2, 3, 0.5);
 
-        if (Objects.equals(TeamColor, "Red")){
+        if (Objects.equals(TeamColor, "Red")) {
             Turn(0.5, -0.5, 6, 0.5);
-        }else if (Objects.equals(TeamColor, "Blue")){
+        } else if (Objects.equals(TeamColor, "Blue")) {
             Turn(0.5, 0.5, 6, 0.5);
         }
 
-        Move(1, 1.25*rtTwo, 6, 0.5);
+        Move(1, 1.25 * rtTwo, 6, 1);
 
-        Move(0.5, -0.6*rtTwo, 6, 0.5);
-
-        Launch(2);
-
-        Move(1, 4.6*rtTwo, 6, 0.5);
-
-        if (Objects.equals(TeamColor, "Red")){
+        if (Objects.equals(TeamColor, "Red")) {
             Turn(0.5, -0.5, 6, 0.5);
-        }else if (Objects.equals(TeamColor, "Blue")){
+        } else if (Objects.equals(TeamColor, "Blue")) {
             Turn(0.5, 0.5, 6, 0.5);
         }
 
-        Move(0.5, 0.5, 3, 0.5);
+        Move(1, 4.6, 6, 1);
 
         beaconPress();
 
-        if (Objects.equals(TeamColor, "Red")){
-            Turn(0.5, -0.9, 6, 0.5);
-        }else if (Objects.equals(TeamColor, "Blue")){
+        if (Objects.equals(TeamColor, "Red")) {
             Turn(0.5, 0.9, 6, 0.5);
-        }
-
-        Move(1, 4, 3, 0.5);
-
-        if (Objects.equals(TeamColor, "Red")){
-            Turn(0.5, 0.9, 6, 0.5);
-        }else if (Objects.equals(TeamColor, "Blue")){
+        } else if (Objects.equals(TeamColor, "Blue")) {
             Turn(0.5, -0.9, 6, 0.5);
         }
 
-        Move(0.5, 1, 3, 0.5);
+        Move(1, 4, 6, 1);
+
+        if (Objects.equals(TeamColor, "Red")) {
+            Turn(0.5, -0.9, 6, 0.5);
+        } else if (Objects.equals(TeamColor, "Blue")) {
+            Turn(0.5, 0.9, 6, 0.5);
+        }
+
+        Move(0.25, 0.6, 3, 0);
 
         beaconPress();
 
-        Move(0.5, -4.5, 6, 0.5);
+        Turn(1, 100, 30, 0);
 
     }
 
@@ -149,35 +113,25 @@ public class AutoEncoder2 extends LinearOpMode {
 
         runtime.reset();
 
-        robot.motor3.setPower(-0.3);
-        robot.motor4.setPower(-0.3);
+        robot.motor3.setPower(-0.2);
+        robot.motor4.setPower(-0.2);
 
-        while (opModeIsActive() && (runtime.seconds() < 2)) {
+        while (opModeIsActive() && (runtime.seconds() < 3)) {
             idle();
         }
 
-        runtime.reset();
+        robot.motor5.setPower(0.25);
 
-        for (int l = 1; l <= balls; l++) {
-
-            while (opModeIsActive() && (runtime.seconds() < 0.5)) {
-                idle();
-            }
-
-            robot.motor5.setPower(0.25);
-
-            while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
-                idle();
-            }
-
-            robot.motor5.setPower(0);
-
-            robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
-            robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
-
-            runtime.reset();
-
+        while ((robot.motor5.getCurrentPosition() < 600 * balls) && (robot.motor5.getCurrentPosition() > -600 * balls)) {
+            idle();
         }
+
+        robot.motor5.setPower(0);
+
+        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
+        robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
+
+        runtime.reset();
 
         robot.motor3.setPower(0);
         robot.motor4.setPower(0);
@@ -214,6 +168,7 @@ public class AutoEncoder2 extends LinearOpMode {
 
         sleep((int) (1000 * pause));
     }
+
 
     public void sensorTest() {
 
@@ -252,3 +207,4 @@ public class AutoEncoder2 extends LinearOpMode {
     }
 
 }
+
