@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -12,7 +11,7 @@ import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerA
 
 
 //@Autonomous(name = "Testing", group = "Linear OpModes")
-public class AutoEncoder1 extends LinearOpMode {
+public class Auto_Gyro extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();

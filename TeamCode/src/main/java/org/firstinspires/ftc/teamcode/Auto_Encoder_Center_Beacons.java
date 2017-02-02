@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.Objects;
@@ -28,7 +27,7 @@ import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerA
  RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
  */
 @Autonomous(name = "AutoEncoder: Without Gyro", group = "Linear OpModes")
-public class AutoEncoder2 extends LinearOpMode {
+public class Auto_Encoder_Center_Beacons extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();

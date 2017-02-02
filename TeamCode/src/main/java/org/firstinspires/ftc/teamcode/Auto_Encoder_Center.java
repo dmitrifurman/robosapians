@@ -10,7 +10,7 @@ import java.util.Objects;
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
 @Autonomous(name = "AutoEncoder: Simple without Gyro", group = "Linear OpModes")
-public class AutoEncoder3 extends LinearOpMode {
+public class Auto_Encoder_Center extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
