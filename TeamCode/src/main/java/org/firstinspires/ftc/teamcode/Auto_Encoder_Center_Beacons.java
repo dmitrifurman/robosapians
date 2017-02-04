@@ -46,21 +46,21 @@ public class Auto_Encoder_Center_Beacons extends LinearOpMode {
 
         robot.init(hardwareMap);
 
-        robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        robot.motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         armPosition = 1;
-        robot.release1.setPosition(armPosition);
-        robot.release2.setPosition(1 - armPosition);
+        robot.releaseLeft.setPosition(armPosition);
+        robot.releaseRight.setPosition(1 - armPosition);
 
         runtime.reset();
 
-        while((robot.motor1.getCurrentPosition() != 0 || robot.motor2.getCurrentPosition() != 0 || robot.motor5.getCurrentPosition() != 0) && runtime.seconds() <= 10){
+        while ((robot.leftDrive.getCurrentPosition() != 0 || robot.rightDrive.getCurrentPosition() != 0 || robot.beltMotor.getCurrentPosition() != 0) && runtime.seconds() <= 10) {
             idle();
         }
 
@@ -119,25 +119,25 @@ public class Auto_Encoder_Center_Beacons extends LinearOpMode {
 
         target = (int) (distance * COUNTS_PER_FOOT);
 
-        robot.motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.motor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        robot.motor1.setTargetPosition(target);
-        robot.motor2.setTargetPosition(target);
+        robot.leftDrive.setTargetPosition(target);
+        robot.rightDrive.setTargetPosition(target);
 
         runtime.reset();
-        robot.motor1.setPower(speed);
-        robot.motor2.setPower(speed);
+        robot.leftDrive.setPower(speed);
+        robot.rightDrive.setPower(speed);
 
-        while (opModeIsActive() && (runtime.seconds() < time) && (robot.motor1.isBusy() && robot.motor2.isBusy())) {
+        while (opModeIsActive() && (runtime.seconds() < time) && (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())) {
             idle();
         }
 
-        robot.motor1.setPower(0);
-        robot.motor2.setPower(0);
+        robot.leftDrive.setPower(0);
+        robot.rightDrive.setPower(0);
 
-        robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
         sleep((int) (1000 * pause));
@@ -148,8 +148,8 @@ public class Auto_Encoder_Center_Beacons extends LinearOpMode {
 
         runtime.reset();
 
-        robot.motor3.setPower(-0.3);
-        robot.motor4.setPower(-0.3);
+        robot.leftLaunch.setPower(-0.3);
+        robot.rightLaunch.setPower(-0.3);
 
         while (opModeIsActive() && (runtime.seconds() < 2)) {
             idle();
@@ -163,23 +163,23 @@ public class Auto_Encoder_Center_Beacons extends LinearOpMode {
                 idle();
             }
 
-            robot.motor5.setPower(0.25);
+            robot.beltMotor.setPower(0.25);
 
-            while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
+            while ((robot.beltMotor.getCurrentPosition() < 600) && (robot.beltMotor.getCurrentPosition() > -600)) {
                 idle();
             }
 
-            robot.motor5.setPower(0);
+            robot.beltMotor.setPower(0);
 
-            robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
-            robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
+            robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
+            robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
 
             runtime.reset();
 
         }
 
-        robot.motor3.setPower(0);
-        robot.motor4.setPower(0);
+        robot.leftLaunch.setPower(0);
+        robot.rightLaunch.setPower(0);
 
     }
 
@@ -190,25 +190,25 @@ public class Auto_Encoder_Center_Beacons extends LinearOpMode {
 
         target = (int) (distance * COUNTS_PER_FOOT);
 
-        robot.motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.motor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        robot.motor1.setTargetPosition(-target);
-        robot.motor2.setTargetPosition(target);
+        robot.leftDrive.setTargetPosition(-target);
+        robot.rightDrive.setTargetPosition(target);
 
         runtime.reset();
-        robot.motor1.setPower(-speed);
-        robot.motor2.setPower(speed);
+        robot.leftDrive.setPower(-speed);
+        robot.rightDrive.setPower(speed);
 
-        while (opModeIsActive() && (runtime.seconds() < time) && (robot.motor1.isBusy() && robot.motor2.isBusy())) {
+        while (opModeIsActive() && (runtime.seconds() < time) && (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())) {
             idle();
         }
 
-        robot.motor1.setPower(0);
-        robot.motor2.setPower(0);
+        robot.leftDrive.setPower(0);
+        robot.rightDrive.setPower(0);
 
-        robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
         sleep((int) (1000 * pause));
@@ -217,14 +217,14 @@ public class Auto_Encoder_Center_Beacons extends LinearOpMode {
     public void sensorTest() {
 
         if (opModeIsActive()) {
-            robot.color.enableLed(false);
-            if (robot.color.red() >= 1 && robot.color.blue() == 0) {
+            robot.colorSensor.enableLed(false);
+            if (robot.colorSensor.red() >= 1 && robot.colorSensor.blue() == 0) {
                 if (Objects.equals(TeamColor, "Red")) {
                     robot.btnPush.setPosition(0.75);
                 } else if (Objects.equals(TeamColor, "Blue")) {
                     robot.btnPush.setPosition(0);
                 }
-            } else if (robot.color.blue() >= 1 && robot.color.red() == 0) {
+            } else if (robot.colorSensor.blue() >= 1 && robot.colorSensor.red() == 0) {
                 if (Objects.equals(TeamColor, "Red")) {
                     robot.btnPush.setPosition(0.75);
                 } else if (Objects.equals(TeamColor, "Blue")) {

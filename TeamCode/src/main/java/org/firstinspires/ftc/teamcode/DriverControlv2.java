@@ -95,12 +95,12 @@ public class DriverControlv2 extends OpMode {
 
         // Servo positioning
         armPosition = Servo.MAX_POSITION; // Set initialized position to maximum position (holding ball raiser lift in stowed position)
-        robot.release1.setPosition(armPosition); //Release 1 is set to stowed
+        robot.releaseLeft.setPosition(armPosition); //Release 1 is set to stowed
         //The direction of release 2 is upside-down so all positions must be opposite of release 1
-        robot.release2.setPosition(Servo.MAX_POSITION - armPosition); //Release 2 is set to stowed
+        robot.releaseRight.setPosition(Servo.MAX_POSITION - armPosition); //Release 2 is set to stowed
         robot.btnPush.setPosition(buttonPosition);
 
-        // Set initialized color sensing mode
+        // Set initialized colorSensor sensing mode
         LEDmode = 0;
 
         // Set Belt Mode
@@ -115,12 +115,12 @@ public class DriverControlv2 extends OpMode {
         power = 0;
 
         // Reset belt encoder
-        robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Reset extender encoder
-        robot.motor7.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motor7.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.extendMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.extendMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 
@@ -144,16 +144,16 @@ public class DriverControlv2 extends OpMode {
 
             // Feedback Data
             telemetry.addData("Feedback Data for", "TankOp");
-            telemetry.addData("Left Motor", robot.motor1.getPower());
-            telemetry.addData("Right Motor", robot.motor2.getPower());
-            telemetry.addData("Left Launch Power", (robot.motor3.getPower() * -1));
-            telemetry.addData("Right Launch Power", (robot.motor4.getPower() * -1));
-            telemetry.addData("Belt Speed", robot.motor5.getPower());
-            telemetry.addData("Belt Pos", robot.motor5.getCurrentPosition());
-            telemetry.addData("Collector Speed", robot.motor6.getPower());
-            telemetry.addData("Extend Speed", robot.motor7.getPower());
-            telemetry.addData("Extend Pos", robot.motor7.getCurrentPosition());
-            telemetry.addData("Servos 1/2 Pos", robot.release1.getPosition());
+            telemetry.addData("Left Motor", robot.leftDrive.getPower());
+            telemetry.addData("Right Motor", robot.rightDrive.getPower());
+            telemetry.addData("Left Launch Power", (robot.leftLaunch.getPower() * -1));
+            telemetry.addData("Right Launch Power", (robot.rightLaunch.getPower() * -1));
+            telemetry.addData("Belt Speed", robot.beltMotor.getPower());
+            telemetry.addData("Belt Pos", robot.beltMotor.getCurrentPosition());
+            telemetry.addData("Collector Speed", robot.collectMotor.getPower());
+            telemetry.addData("Extend Speed", robot.extendMotor.getPower());
+            telemetry.addData("Extend Pos", robot.extendMotor.getCurrentPosition());
+            telemetry.addData("Servos 1/2 Pos", robot.releaseLeft.getPosition());
             telemetry.addData("Button Pusher", robot.btnPush.getPosition());
 
         }
@@ -162,9 +162,9 @@ public class DriverControlv2 extends OpMode {
 
             // Color Sensor Mode Changer
             if (LEDmode == 0) {
-                robot.color.enableLed(false);
+                robot.colorSensor.enableLed(false);
             } else if (LEDmode == 1) {
-                robot.color.enableLed(true);
+                robot.colorSensor.enableLed(true);
             }
 
             // LED Mode Updater
@@ -195,11 +195,11 @@ public class DriverControlv2 extends OpMode {
 
         // Code to describe driving behavior of two motors
         if (driveMode == "normal") { //normal driving activated
-            robot.motor1.setPower(gamepad1.left_stick_y); //If joystick is pushed fully: 100% motor power
-            robot.motor2.setPower(gamepad1.right_stick_y); //If joystick is pushed fully: 100% motor power
+            robot.leftDrive.setPower(gamepad1.left_stick_y); //If joystick is pushed fully: 100% motor power
+            robot.rightDrive.setPower(gamepad1.right_stick_y); //If joystick is pushed fully: 100% motor power
         } else if (driveMode == "slowed") { //slow mode activated
-            robot.motor1.setPower(gamepad1.left_stick_y * 0.32); //If joystick is pushed fully: 32% motor power
-            robot.motor2.setPower(gamepad1.right_stick_y * 0.32); //If joystick is pushed fully: 32% motor power
+            robot.leftDrive.setPower(gamepad1.left_stick_y * 0.32); //If joystick is pushed fully: 32% motor power
+            robot.rightDrive.setPower(gamepad1.right_stick_y * 0.32); //If joystick is pushed fully: 32% motor power
         }
 
         if (gamepad1.start || gamepad2.start) { //If start key on either gamepad pressed
@@ -219,11 +219,11 @@ public class DriverControlv2 extends OpMode {
 
         // Launching Code
         if (extendMode == 0) {
-            robot.motor3.setPower(-0.3 - power);
-            robot.motor4.setPower(-0.3 - power);
+            robot.leftLaunch.setPower(-0.3 - power);
+            robot.rightLaunch.setPower(-0.3 - power);
         } else {
-            robot.motor3.setPower(0);
-            robot.motor4.setPower(0);
+            robot.leftLaunch.setPower(0);
+            robot.rightLaunch.setPower(0);
         }
 
 
@@ -237,17 +237,17 @@ public class DriverControlv2 extends OpMode {
         if (!gamepad2.a && !gamepad2.b) {
             if (beltMode == 1) {
                 beltMode = 0;
-                robot.motor5.setPower(-1);
+                robot.beltMotor.setPower(-1);
             } else if (beltMode == 2) {
                 beltMode = 0;
-                robot.motor5.setPower(1);
+                robot.beltMotor.setPower(1);
             }
         }
 
-        if (robot.motor5.getCurrentPosition() < BeltInterval * -1 || robot.motor5.getCurrentPosition() > BeltInterval) {
-            robot.motor5.setPower(0);
-            robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        if (robot.beltMotor.getCurrentPosition() < BeltInterval * -1 || robot.beltMotor.getCurrentPosition() > BeltInterval) {
+            robot.beltMotor.setPower(0);
+            robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
 
         if (gamepad2.dpad_up) {
@@ -294,8 +294,8 @@ public class DriverControlv2 extends OpMode {
         buttonPosition = Range.clip(buttonPosition, 0, 0.75);
 
         // Updates Servos
-        robot.release1.setPosition(armPosition);
-        robot.release2.setPosition(1 - armPosition);
+        robot.releaseLeft.setPosition(armPosition);
+        robot.releaseRight.setPosition(1 - armPosition);
         robot.btnPush.setPosition(buttonPosition);
 
     }
@@ -304,11 +304,11 @@ public class DriverControlv2 extends OpMode {
 
         // Collect Code
         if (collectMode == 0) {
-            robot.motor6.setPower(0);
+            robot.collectMotor.setPower(0);
         } else if (collectMode == 1) {
-            robot.motor6.setPower(1);
+            robot.collectMotor.setPower(1);
         } else if (collectMode == 2) {
-            robot.motor6.setPower(-1);
+            robot.collectMotor.setPower(-1);
         }
 
         // Collector Mode Updater
@@ -336,25 +336,25 @@ public class DriverControlv2 extends OpMode {
     private void extender() {
 
         // Limits The Range of the Motors
-        /*if(robot.motor7.getPower() < 0 && robot.motor7.getCurrentPosition() < Extender_Min){
+        /*if(robot.extendMotor.getPower() < 0 && robot.extendMotor.getCurrentPosition() < Extender_Min){
             extendMode = 0;
         }
-        if(robot.motor7.getPower() > 0 && robot.motor7.getCurrentPosition() > Extender_Max){
+        if(robot.extendMotor.getPower() > 0 && robot.extendMotor.getCurrentPosition() > Extender_Max){
             extendMode = 0;
         }
         */
 
         // Extend Code
         if (extendMode == 0) {
-            robot.motor7.setPower(0);
-        } else if (extendMode == 1) {//&& robot.motor7.getCurrentPosition() <= Extender_Max) {
-            robot.motor7.setPower(1);
+            robot.extendMotor.setPower(0);
+        } else if (extendMode == 1) {//&& robot.extendMotor.getCurrentPosition() <= Extender_Max) {
+            robot.extendMotor.setPower(1);
             armPosition = 0.25;
-        } else if (extendMode == 2) {//&& robot.motor7.getCurrentPosition() >= Extender_Min) {
-            robot.motor7.setPower(-1);
+        } else if (extendMode == 2) {//&& robot.extendMotor.getCurrentPosition() >= Extender_Min) {
+            robot.extendMotor.setPower(-1);
             armPosition = 0.25;
         } else if (gamepad2.left_trigger == 0 && gamepad2.right_trigger == 0) {
-            robot.motor7.setPower(0);
+            robot.extendMotor.setPower(0);
         }
 
         // Automatic Extension
@@ -386,13 +386,13 @@ public class DriverControlv2 extends OpMode {
 
     @Override
     public void stop() {
-        robot.motor1.setPower(0);
-        robot.motor2.setPower(0);
-        robot.motor3.setPower(0);
-        robot.motor4.setPower(0);
-        robot.motor5.setPower(0);
-        robot.motor6.setPower(0);
-        robot.motor7.setPower(0);
+        robot.leftDrive.setPower(0);
+        robot.rightDrive.setPower(0);
+        robot.leftLaunch.setPower(0);
+        robot.rightLaunch.setPower(0);
+        robot.beltMotor.setPower(0);
+        robot.collectMotor.setPower(0);
+        robot.extendMotor.setPower(0);
     }
 }
 

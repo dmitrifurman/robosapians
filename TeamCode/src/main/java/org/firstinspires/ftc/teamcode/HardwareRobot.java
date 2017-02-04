@@ -36,21 +36,20 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 
 public class HardwareRobot {
-    public DcMotor  motor1 = null,
-                    motor2 = null,
-                    motor3 = null,
-                    motor4 = null,
-                    motor5 = null,
-                    motor6 = null,
-                    motor7 = null;
-    public Servo    release1 = null,
-                    release2 = null,
+    public DcMotor leftDrive = null,
+            rightDrive = null,
+            leftLaunch = null,
+            rightLaunch = null,
+            beltMotor = null,
+            collectMotor = null,
+            extendMotor = null;
+    public Servo releaseLeft = null,
+            releaseRight = null,
                     btnPush = null;
-    public ColorSensor color = null;
-    public GyroSensor gyro = null;
+    public ColorSensor colorSensor = null;
+    public GyroSensor gyroSensor = null;
     private HardwareMap hwMap = null;
 
     public HardwareRobot() {
@@ -62,28 +61,28 @@ public class HardwareRobot {
             this.hwMap = hwMap;
 
             // Assigns Names to Motors
-            motor1 = hwMap.dcMotor.get("Left Motor");
-            motor2 = hwMap.dcMotor.get("Right Motor");
-            motor3 = hwMap.dcMotor.get("Left Launch");
-            motor4 = hwMap.dcMotor.get("Right Launch");
-            motor5 = hwMap.dcMotor.get("Belt");
-            motor6 = hwMap.dcMotor.get("Collect");
-            motor7 = hwMap.dcMotor.get("Extend");
+            leftDrive = hwMap.dcMotor.get("Left Motor");
+            rightDrive = hwMap.dcMotor.get("Right Motor");
+            leftLaunch = hwMap.dcMotor.get("Left Launch");
+            rightLaunch = hwMap.dcMotor.get("Right Launch");
+            beltMotor = hwMap.dcMotor.get("Belt");
+            collectMotor = hwMap.dcMotor.get("Collect");
+            extendMotor = hwMap.dcMotor.get("Extend");
 
             // Reverse Motors
-            motor1.setDirection(DcMotor.Direction.REVERSE);
-            motor4.setDirection(DcMotor.Direction.REVERSE);
-            motor6.setDirection(DcMotor.Direction.REVERSE);
+            leftDrive.setDirection(DcMotor.Direction.REVERSE);
+            leftLaunch.setDirection(DcMotor.Direction.REVERSE);
+            collectMotor.setDirection(DcMotor.Direction.REVERSE);
 
 
             // Assigns Names to Servos
-            release1 = hwMap.servo.get("Release Left");
-            release2 = hwMap.servo.get("Release Right");
+            releaseLeft = hwMap.servo.get("Release Left");
+            releaseRight = hwMap.servo.get("Release Right");
             btnPush = hwMap.servo.get("Button Push");
 
             // Assigns Names to Sensors
-            color = hwMap.colorSensor.get("Color Sensor");
-            gyro = hwMap.gyroSensor.get("Gyro Sensor");
+            colorSensor = hwMap.colorSensor.get("Color Sensor");
+            gyroSensor = hwMap.gyroSensor.get("Gyro Sensor");
 
     }
 
