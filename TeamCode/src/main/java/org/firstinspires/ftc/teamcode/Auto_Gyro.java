@@ -35,15 +35,15 @@ public class Auto_Gyro extends LinearOpMode {
         telemetry.addData("Status", "Initializing");
         telemetry.update();
 
-        robot.gyro.calibrate();
+        robot.gyroSensor.calibrate();
 
-        robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        robot.motor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
        /* if (Objects.equals(TeamColor, "Red")) {
             Left = "LEFT";
@@ -52,8 +52,8 @@ public class Auto_Gyro extends LinearOpMode {
             Left = "RIGHT";
             Right = "LEFT";
         }
-*/
-        while (robot.gyro.isCalibrating()) {
+
+        while (robot.gyroSensor.isCalibrating()) {
             idle();
         }
 
@@ -99,25 +99,25 @@ public class Auto_Gyro extends LinearOpMode {
 
         target = (int) (distance * COUNTS_PER_FOOT);
 
-        robot.motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.motor2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        robot.motor1.setTargetPosition(target);
-        robot.motor2.setTargetPosition(target);
+        robot.leftDrive.setTargetPosition(target);
+        robot.rightDrive.setTargetPosition(target);
 
         runtime.reset();
-        robot.motor1.setPower(speed);
-        robot.motor2.setPower(speed);
+        robot.leftDrive.setPower(speed);
+        robot.rightDrive.setPower(speed);
 
-        while (opModeIsActive() && (runtime.seconds() < time) && (robot.motor1.isBusy() && robot.motor2.isBusy())) {
+        while (opModeIsActive() && (runtime.seconds() < time) && (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())) {
             idle();
         }
 
-        robot.motor1.setPower(0);
-        robot.motor2.setPower(0);
+        robot.leftDrive.setPower(0);
+        robot.rightDrive.setPower(0);
 
-        robot.motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
 
         sleep((int) (1000 * pause));
@@ -128,8 +128,8 @@ public class Auto_Gyro extends LinearOpMode {
 
         runtime.reset();
 
-        robot.motor3.setPower(-0.4);
-        robot.motor4.setPower(-0.4);
+        robot.leftLaunch.setPower(-0.4);
+        robot.rightLaunch.setPower(-0.4);
 
         for (int l = 1; l <= balls; l++) {
 
@@ -137,21 +137,21 @@ public class Auto_Gyro extends LinearOpMode {
                 idle();
             }
 
-            robot.motor5.setPower(0.25);
+            robot.beltMotor.setPower(0.25);
 
-            while ((robot.motor5.getCurrentPosition() < 600) && (robot.motor5.getCurrentPosition() > -600)) {
+            while ((robot.beltMotor.getCurrentPosition() < 600) && (robot.beltMotor.getCurrentPosition() > -600)) {
                 idle();
             }
 
-            robot.motor5.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
-            robot.motor5.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
+            robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
+            robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
 
             runtime.reset();
 
         }
 
-        robot.motor3.setPower(0);
-        robot.motor4.setPower(0);
+        robot.leftLaunch.setPower(0);
+        robot.rightLaunch.setPower(0);
 
     }
 
@@ -161,14 +161,14 @@ public class Auto_Gyro extends LinearOpMode {
         telemetry.addData("In Sensor Test", "NOW");
 
         if (opModeIsActive()) {
-            robot.color.enableLed(false);
-            if (robot.color.red() >= 1 && robot.color.blue() == 0) {
+            robot.colorSensor.enableLed(false);
+            if (robot.colorSensor.red() >= 1 && robot.colorSensor.blue() == 0) {
                 if (Objects.equals(TeamColor, "Red")) {
                     robot.btnPush.setPosition(Servo.MAX_POSITION);
                 } else if (Objects.equals(TeamColor, "Blue")) {
                     robot.btnPush.setPosition(Servo.MIN_POSITION);
                 }
-            } else if (robot.color.blue() >= 1 && robot.color.red() == 0) {
+            } else if (robot.colorSensor.blue() >= 1 && robot.colorSensor.red() == 0) {
                 if (Objects.equals(TeamColor, "Red")) {
                     robot.btnPush.setPosition(Servo.MAX_POSITION);
                 } else if (Objects.equals(TeamColor, "Blue")) {
@@ -188,34 +188,34 @@ public class Auto_Gyro extends LinearOpMode {
 
 
 
-        robot.motor1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.motor2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
 
         runtime.reset();
 
         if (direction.equals("LEFT")) {
-            robot.motor1.setPower(-0.25);
-            robot.motor2.setPower(0.25);
+            robot.leftDrive.setPower(-0.25);
+            robot.rightDrive.setPower(0.25);
         } else if (direction.equals("RIGHT")) {
-            robot.motor1.setPower(0.25);
-            robot.motor2.setPower(-0.25);
+            robot.leftDrive.setPower(0.25);
+            robot.rightDrive.setPower(-0.25);
         }
 
         while (runtime.seconds() < time) {
 
-            telemetry.addData("Gyro: ", robot.gyro.getHeading());
+            telemetry.addData("Gyro: ", robot.gyroSensor.getHeading());
             telemetry.update();
 
-            if ((robot.gyro.getHeading() <= (gyroAngle + 2) && robot.gyro.getHeading() >= (gyroAngle - 2))) {
+            if ((robot.gyroSensor.getHeading() <= (gyroAngle + 2) && robot.gyroSensor.getHeading() >= (gyroAngle - 2))) {
                 break;
             }
 
         }
 
-        robot.motor1.setPower(0);
-        robot.motor2.setPower(0);
+        robot.leftDrive.setPower(0);
+        robot.rightDrive.setPower(0);
 
         sleep((int) (pause * 1000));
     }
