@@ -39,11 +39,11 @@ public class Auto_Gyro extends LinearOpMode {
 
         robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+       // robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
        /* if (Objects.equals(TeamColor, "Red")) {
             Left = "LEFT";
@@ -51,7 +51,7 @@ public class Auto_Gyro extends LinearOpMode {
         } else if (Objects.equals(TeamColor, "Blue")) {
             Left = "RIGHT";
             Right = "LEFT";
-        }
+        }*/
 
         while (robot.gyroSensor.isCalibrating()) {
             idle();
@@ -67,7 +67,7 @@ public class Auto_Gyro extends LinearOpMode {
 
         //Move(1, 2, 3, 0.5);
 
-        gyroTurn(45, "LEFT", 6, 0.5);
+        gyroTurn(90, "LEFT", 6, 0.5);
 
         //Move(1, rtTwo, 3, 0.5);
 
@@ -185,7 +185,7 @@ public class Auto_Gyro extends LinearOpMode {
 
         int gyroAngle = 0;
 
-
+        gyroAngle = angle-5;
 
 
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
