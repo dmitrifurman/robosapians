@@ -157,27 +157,31 @@ public class TankOp extends OpMode {
     private void drive() {
 
         // Drive Code
-        if (drive == driveMode.NORMAL) {
+        switch (drive) {
 
-            robot.leftDrive.setPower(gamepad1.left_stick_y);
-            robot.rightDrive.setPower(gamepad1.right_stick_y);
+            case NORMAL:
+                robot.leftDrive.setPower(gamepad1.left_stick_y);
+                robot.rightDrive.setPower(gamepad1.right_stick_y);
+                break;
 
-        } else if (drive == driveMode.SLOW) {
-
-            robot.leftDrive.setPower(gamepad1.left_stick_y * 0.32);
-            robot.rightDrive.setPower(gamepad1.right_stick_y * 0.32);
+            case SLOW:
+                robot.leftDrive.setPower(gamepad1.left_stick_y * 0.32);
+                robot.rightDrive.setPower(gamepad1.right_stick_y * 0.32);
+                break;
 
         }
 
         if (gamepad1.start) {
 
-            if (drive == driveMode.NORMAL) {
+            switch (drive) {
 
-                drive = driveMode.NORMAL_TO_SLOW;
+                case NORMAL:
+                    drive = driveMode.NORMAL_TO_SLOW;
+                    break;
 
-            } else if (drive == driveMode.SLOW) {
-
-                drive = driveMode.SLOW_TO_NORMAL;
+                case SLOW:
+                    drive = driveMode.SLOW_TO_NORMAL;
+                    break;
 
             }
 
@@ -185,13 +189,15 @@ public class TankOp extends OpMode {
 
         if (!gamepad1.start) {
 
-            if (drive == driveMode.NORMAL_TO_SLOW) {
+            switch (drive) {
 
-                drive = driveMode.SLOW;
+                case NORMAL_TO_SLOW:
+                    drive = driveMode.SLOW;
+                    break;
 
-            } else if (drive == driveMode.SLOW_TO_NORMAL) {
-
-                drive = driveMode.NORMAL;
+                case SLOW_TO_NORMAL:
+                    drive = driveMode.NORMAL;
+                    break;
 
             }
 
@@ -218,40 +224,37 @@ public class TankOp extends OpMode {
 
 
         // Belt Mode Update
-        if (gamepad2.a) {
+        if (belt == beltMode.STATIC) {
 
-            belt = beltMode.BACKWARD;
+            if (gamepad2.a) {
 
-        } else if (gamepad2.b) {
+                belt = beltMode.BACKWARD;
 
-            belt = beltMode.FORWARD;
+            } else if (gamepad2.b) {
 
-        }
-
-        if (!gamepad2.a && !gamepad2.b) {
-
-            if (belt == beltMode.BACKWARD) {
-
-                belt = beltMode.STATIC;
-                robot.beltMotor.setPower(-1);
-
-            } else if (belt == beltMode.FORWARD) {
-
-                belt = beltMode.STATIC;
-                robot.beltMotor.setPower(1);
+                belt = beltMode.FORWARD;
 
             }
 
         }
 
-        if (robot.beltMotor.getCurrentPosition() < BeltInterval * -1 || robot.beltMotor.getCurrentPosition() > BeltInterval) {
+        if (!gamepad2.a && !gamepad2.b) {
 
-            robot.beltMotor.setPower(0);
+            switch (belt) {
 
-            robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                case BACKWARD:
+                    robot.beltMotor.setPower(-1);
+                    break;
+
+                case FORWARD:
+                    robot.beltMotor.setPower(1);
+                    break;
+
+            }
 
         }
+
+        beltReset();
 
     }
 
@@ -281,17 +284,19 @@ public class TankOp extends OpMode {
     private void particleCollector() {
 
         // Collect Code
-        if (collect == collectMode.STATIC) {
+        switch (collect) {
 
-            robot.collectMotor.setPower(0);
+            case STATIC:
+                robot.collectMotor.setPower(0);
+                break;
 
-        } else if (collect == collectMode.IN) {
+            case IN:
+                robot.collectMotor.setPower(1);
+                break;
 
-            robot.collectMotor.setPower(1);
-
-        } else if (collect == collectMode.OUT) {
-
-            robot.collectMotor.setPower(-1);
+            case OUT:
+                robot.collectMotor.setPower(-1);
+                break;
 
         }
 
@@ -316,17 +321,19 @@ public class TankOp extends OpMode {
 
         if (!gamepad2.x && !gamepad2.y) {
 
-            if (collect == collectMode.STATIC_TO_OUT) {
+            switch (collect) {
 
-                collect = collectMode.OUT;
+                case STATIC_TO_IN:
+                    collect = collectMode.IN;
+                    break;
 
-            } else if (collect == collectMode.STATIC_TO_IN) {
+                case STATIC_TO_OUT:
+                    collect = collectMode.OUT;
+                    break;
 
-                collect = collectMode.IN;
-
-            } else if (collect == collectMode.MOVING_TO_STATIC) {
-
-                collect = collectMode.STATIC;
+                case MOVING_TO_STATIC:
+                    collect = collectMode.STATIC;
+                    break;
 
             }
 
@@ -338,19 +345,22 @@ public class TankOp extends OpMode {
     private void extender() {
 
         // Extend Code
-        if (extend == extendMode.STATIC) {
+        switch (extend) {
 
-            robot.extendMotor.setPower(0);
+            case STATIC:
+                robot.extendMotor.setPower(0);
+                break;
 
-        } else if (extend == extendMode.UP) {
+            case UP:
+                robot.extendMotor.setPower(1);
+                break;
 
-            robot.extendMotor.setPower(1);
-
-        } else if (extend == extendMode.DOWN) {
-
-            robot.extendMotor.setPower(-1);
+            case DOWN:
+                robot.extendMotor.setPower(-1);
+                break;
 
         }
+
 
         // Automatic Extension
         if (gamepad2.left_bumper || gamepad2.right_bumper) {
@@ -373,19 +383,36 @@ public class TankOp extends OpMode {
 
         if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
 
-            if (extend == extendMode.STATIC_TO_UP) {
+            switch (extend) {
 
-                extend = extendMode.UP;
+                case STATIC_TO_UP:
+                    extend = extendMode.UP;
+                    break;
 
-            } else if (extend == extendMode.STATIC_TO_DOWN) {
+                case STATIC_TO_DOWN:
+                    extend = extendMode.DOWN;
+                    break;
 
-                extend = extendMode.DOWN;
-
-            } else if (extend == extendMode.MOVING_TO_STATIC) {
-
-                extend = extendMode.STATIC;
+                case MOVING_TO_STATIC:
+                    extend = extendMode.STATIC;
+                    break;
 
             }
+
+        }
+
+    }
+
+    private void beltReset() {
+
+        if (robot.beltMotor.getCurrentPosition() < BeltInterval * -1 || robot.beltMotor.getCurrentPosition() > BeltInterval) {
+
+            belt = beltMode.STATIC;
+
+            robot.beltMotor.setPower(0);
+
+            robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         }
 
