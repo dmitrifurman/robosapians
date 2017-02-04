@@ -72,8 +72,7 @@ public class HardwareRobot {
             // Reverse Motors
             leftDrive.setDirection(DcMotor.Direction.REVERSE);
             leftLaunch.setDirection(DcMotor.Direction.REVERSE);
-            collectMotor.setDirection(DcMotor.Direction.REVERSE);
-
+            extendMotor.setDirection(DcMotor.Direction.REVERSE);
 
             // Assigns Names to Servos
             releaseLeft = hwMap.servo.get("Release Left");
