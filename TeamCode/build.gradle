@@ -13,3 +13,10 @@
 
 // Include common definitions from above.
 apply from: '../build.common.gradle'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '25.0.2'
+}
+dependencies {
+}

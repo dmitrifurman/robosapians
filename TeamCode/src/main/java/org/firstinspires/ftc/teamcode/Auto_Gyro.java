@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -10,7 +11,7 @@ import java.util.Objects;
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
 
-//@Autonomous(name = "Testing", group = "Linear OpModes")
+@Autonomous(name = "Testing", group = "Linear OpModes")
 public class Auto_Gyro extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
@@ -23,9 +24,8 @@ public class Auto_Gyro extends LinearOpMode {
 
     static final double rtTwo = Math.sqrt(2);
 
-    java.lang.String Left = "LEFT";
-    java.lang.String Right = "RIGHT";
-    double LoR = 0;
+    //java.lang.String Left = "LEFT";
+    //java.lang.String Right = "RIGHT";
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -39,19 +39,19 @@ public class Auto_Gyro extends LinearOpMode {
 
         robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+       // robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        if (Objects.equals(TeamColor, "Blue")) {
+       /* if (Objects.equals(TeamColor, "Red")) {
             Left = "LEFT";
             Right = "RIGHT";
-        } else if (Objects.equals(TeamColor, "Red")) {
+        } else if (Objects.equals(TeamColor, "Blue")) {
             Left = "RIGHT";
             Right = "LEFT";
-        }
+        }*/
 
         while (robot.gyroSensor.isCalibrating()) {
             idle();
@@ -67,7 +67,7 @@ public class Auto_Gyro extends LinearOpMode {
 
         //Move(1, 2, 3, 0.5);
 
-        gyroTurn(45, Left, 6, 0.5);
+        gyroTurn(90, "LEFT", 6, 0.5);
 
         //Move(1, rtTwo, 3, 0.5);
 
@@ -124,7 +124,7 @@ public class Auto_Gyro extends LinearOpMode {
     }
 
 
-    private void Launch(double balls) throws InterruptedException {
+   /* private void Launch(double balls) throws InterruptedException {
 
         runtime.reset();
 
@@ -180,24 +180,17 @@ public class Auto_Gyro extends LinearOpMode {
         }
     }
 
-
+*/
     public void gyroTurn(int angle, String direction, double time, double pause) throws InterruptedException {
 
         int gyroAngle = 0;
 
-        if (Objects.equals(TeamColor, "Blue")) {
-            gyroAngle = angle;
-        } else if (Objects.equals(TeamColor, "Red")) {
-            gyroAngle = 360 - angle;
-        }
+        gyroAngle = angle-5;
 
 
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        if (direction.equals("LEFT")) {
-            gyroAngle = 360 - angle;
-        }
 
 
         runtime.reset();
@@ -230,7 +223,7 @@ public class Auto_Gyro extends LinearOpMode {
 
     public void beaconPress() throws InterruptedException {
 
-        sensorTest();
+        //sensorTest();
 
         Move(0.5, 0.3, 3, 0.5);
 
