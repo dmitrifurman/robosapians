@@ -39,7 +39,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 
 @TeleOp(name = "Tank Op Simple", group = "Linear Opmode")
-public class TankOp extends OpMode {
+public class Tank_Op extends OpMode {
 
     public enum driveMode {
 
@@ -78,7 +78,7 @@ public class TankOp extends OpMode {
     private double armChange = 0.025;
 
 
-    public TankOp() {
+    public Tank_Op() {
 
     }
 
@@ -88,15 +88,9 @@ public class TankOp extends OpMode {
         robot.init(hardwareMap);
 
         // Sets Default Drive Mode
-<<<<<<< Updated upstream
         drive = driveMode.NORMAL;
 
         // Servo Default Position
-=======
-        driveMode = DriveMode.NORMAL_SPEED;
-    }
-/*        // Servo Default Position
->>>>>>> Stashed changes
         armPosition = 1;
 
         robot.releaseLeft.setPosition(armPosition);
@@ -116,17 +110,12 @@ public class TankOp extends OpMode {
         robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
-<<<<<<< Updated upstream
 
 
-=======
-*/
->>>>>>> Stashed changes
     @Override
     public void loop() {
 
         drive();
-<<<<<<< Updated upstream
 
         particleLaunch();
 
@@ -139,19 +128,10 @@ public class TankOp extends OpMode {
     }
 
 
-=======
- //       particleLaunch();
- //       particleCollector();
- //       servos();
- //       extender();
-
-    }
-/*
->>>>>>> Stashed changes
     private void feedback() {
 
         // Feedback Data
-        telemetry.addData("Feedback Data for", "TankOp");
+        telemetry.addData("Feedback Data for", "Tank_Op");
 
         telemetry.addData("Left Motor", robot.leftDrive.getPower());
         telemetry.addData("Right Motor", robot.rightDrive.getPower());
@@ -172,12 +152,8 @@ public class TankOp extends OpMode {
         telemetry.addData("Button Pusher", robot.btnPush.getPosition());
 
     }
-<<<<<<< Updated upstream
 
 
-=======
-*/
->>>>>>> Stashed changes
     private void drive() {
 
         // Drive Code
@@ -228,12 +204,8 @@ public class TankOp extends OpMode {
         }
 
     }
-<<<<<<< Updated upstream
 
 
-=======
-/*
->>>>>>> Stashed changes
     private void particleLaunch() {
 
         // Launching Code
@@ -446,18 +418,14 @@ public class TankOp extends OpMode {
 
     }
 
-*/
+
     @Override
     public void stop() {
 
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
-<<<<<<< Updated upstream
 
         robot.leftLaunch.setPower(0);
-=======
-/*        robot.leftLaunch.setPower(0);
->>>>>>> Stashed changes
         robot.rightLaunch.setPower(0);
 
         robot.beltMotor.setPower(0);
@@ -465,13 +433,9 @@ public class TankOp extends OpMode {
         robot.collectMotor.setPower(0);
 
         robot.extendMotor.setPower(0);
-<<<<<<< Updated upstream
 
     }
 
-=======
-*/    }
->>>>>>> Stashed changes
 }
 
 

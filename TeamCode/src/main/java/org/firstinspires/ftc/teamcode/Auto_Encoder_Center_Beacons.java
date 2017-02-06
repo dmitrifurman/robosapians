@@ -26,7 +26,7 @@ import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerA
  RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
  RISHI AND MATTHEW WHATEVER YOU DO, DO NOT, I REPEAT, DO NOT, CHANGE THIS CODE!!!!!!!!!
  */
-/*@Autonomous(name = "AutoEncoder: Without Gyro", group = "Linear OpModes")
+@Autonomous(name = "AutoEncoder: Without Gyro", group = "Linear OpModes")
 public class Auto_Encoder_Center_Beacons extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
@@ -251,4 +251,3 @@ public class Auto_Encoder_Center_Beacons extends LinearOpMode {
     }
 
 }
-*/

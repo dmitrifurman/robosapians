@@ -32,7 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 package org.firstinspires.ftc.teamcode;
 
 
-//@TeleOp(name = "TankOp", group = "Linear Opmode")
+//@TeleOp(name = "Tank_Op", group = "Linear Opmode")
 /*
 
 PLEASE DO NOT USE THIS TELEOP CODE YET SINCE I MUST STILL EDIT IT FOR USABILITY.
@@ -108,7 +108,7 @@ public class AlternateTankOp extends OpMode {
     private void feedback() {
 
         // Feedback Data
-        telemetry.addData("Feedback Data for", "TankOp");
+        telemetry.addData("Feedback Data for", "Tank_Op");
         telemetry.addData("Left Motor", robot.leftDrive.getPower());
         telemetry.addData("Right Motor", robot.rightDrive.getPower());
         telemetry.addData("Left Launch Power", (robot.leftLaunch.getPower() * -1));
