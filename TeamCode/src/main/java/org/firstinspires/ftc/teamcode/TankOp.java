@@ -88,15 +88,14 @@ public class TankOp extends OpMode {
         robot.init(hardwareMap);
 
         // Sets Default Drive Mode
-<<<<<<< Updated upstream
         drive = driveMode.NORMAL;
 
         // Servo Default Position
-=======
-        driveMode = DriveMode.NORMAL_SPEED;
+
+        //driveMode = driveMode.NORMAL_SPEED;
     }
 /*        // Servo Default Position
->>>>>>> Stashed changes
+
         armPosition = 1;
 
         robot.releaseLeft.setPosition(armPosition);
@@ -121,63 +120,60 @@ public class TankOp extends OpMode {
 
 =======
 */
->>>>>>> Stashed changes
+
     @Override
     public void loop() {
 
         drive();
-<<<<<<< Updated upstream
 
-        particleLaunch();
+        //particleLaunch();
 
-        particleCollector();
+        //particleCollector();
 
-        servos();
+        //servos();
 
-        extender();
-
-    }
-
-
-=======
- //       particleLaunch();
- //       particleCollector();
- //       servos();
- //       extender();
+        //extender();
 
     }
-/*
->>>>>>> Stashed changes
-    private void feedback() {
-
-        // Feedback Data
-        telemetry.addData("Feedback Data for", "TankOp");
-
-        telemetry.addData("Left Motor", robot.leftDrive.getPower());
-        telemetry.addData("Right Motor", robot.rightDrive.getPower());
-
-        telemetry.addData("Left Launch Power", (robot.leftLaunch.getPower() * -1));
-        telemetry.addData("Right Launch Power", (robot.rightLaunch.getPower() * -1));
-
-        telemetry.addData("Belt Speed", robot.beltMotor.getPower());
-        telemetry.addData("Belt Pos", robot.beltMotor.getCurrentPosition());
-
-        telemetry.addData("Collector Speed", robot.collectMotor.getPower());
-
-        telemetry.addData("Extend Speed", robot.extendMotor.getPower());
-        telemetry.addData("Extend Pos", robot.extendMotor.getCurrentPosition());
-
-        telemetry.addData("Servos 1/2 Pos", robot.releaseLeft.getPosition());
-
-        telemetry.addData("Button Pusher", robot.btnPush.getPosition());
-
-    }
-<<<<<<< Updated upstream
 
 
-=======
-*/
->>>>>>> Stashed changes
+    //       particleLaunch();
+    //       particleCollector();
+    //       servos();
+    //       extender();
+
+
+    /*
+
+        private void feedback() {
+
+            // Feedback Data
+            telemetry.addData("Feedback Data for", "TankOp");
+
+            telemetry.addData("Left Motor", robot.leftDrive.getPower());
+            telemetry.addData("Right Motor", robot.rightDrive.getPower());
+
+            telemetry.addData("Left Launch Power", (robot.leftLaunch.getPower() * -1));
+            telemetry.addData("Right Launch Power", (robot.rightLaunch.getPower() * -1));
+
+            telemetry.addData("Belt Speed", robot.beltMotor.getPower());
+            telemetry.addData("Belt Pos", robot.beltMotor.getCurrentPosition());
+
+            telemetry.addData("Collector Speed", robot.collectMotor.getPower());
+
+            telemetry.addData("Extend Speed", robot.extendMotor.getPower());
+            telemetry.addData("Extend Pos", robot.extendMotor.getCurrentPosition());
+
+            telemetry.addData("Servos 1/2 Pos", robot.releaseLeft.getPosition());
+
+            telemetry.addData("Button Pusher", robot.btnPush.getPosition());
+
+        }
+
+
+
+
+    */
     private void drive() {
 
         // Drive Code
@@ -228,234 +224,232 @@ public class TankOp extends OpMode {
         }
 
     }
-<<<<<<< Updated upstream
 
 
-=======
-/*
->>>>>>> Stashed changes
-    private void particleLaunch() {
+    /*
 
-        // Launching Code
+        private void particleLaunch() {
 
-        if (extend == extendMode.STATIC) {
+            // Launching Code
 
-            robot.leftLaunch.setPower(0.3);
-            robot.rightLaunch.setPower(0.3);
+            if (extend == extendMode.STATIC) {
 
-        } else {
+                robot.leftLaunch.setPower(0.3);
+                robot.rightLaunch.setPower(0.3);
 
-            robot.leftLaunch.setPower(0);
-            robot.rightLaunch.setPower(0);
+            } else {
 
-        }
-
-
-        // Belt Mode Update
-        if (belt == beltMode.STATIC) {
-
-            if (gamepad2.a) {
-
-                belt = beltMode.BACKWARD;
-
-            } else if (gamepad2.b) {
-
-                belt = beltMode.FORWARD;
+                robot.leftLaunch.setPower(0);
+                robot.rightLaunch.setPower(0);
 
             }
 
-        }
 
-        if (!gamepad2.a && !gamepad2.b) {
+            // Belt Mode Update
+            if (belt == beltMode.STATIC) {
 
-            switch (belt) {
+                if (gamepad2.a) {
 
-                case BACKWARD:
-                    robot.beltMotor.setPower(-1);
-                    break;
+                    belt = beltMode.BACKWARD;
 
-                case FORWARD:
-                    robot.beltMotor.setPower(1);
-                    break;
+                } else if (gamepad2.b) {
 
-            }
+                    belt = beltMode.FORWARD;
 
-        }
-
-        beltReset();
-
-    }
-
-
-    private void servos() {
-
-        //Servo Position Updater
-        if (gamepad1.a) {
-
-            armPosition += armChange;
-
-        }
-
-        if (gamepad1.b) {
-
-            armPosition -= armChange;
-
-        }
-
-        // Updates Servos
-        robot.releaseLeft.setPosition(armPosition);
-        robot.releaseRight.setPosition(1 - armPosition);
-
-    }
-
-
-    private void particleCollector() {
-
-        // Collect Code
-        switch (collect) {
-
-            case STATIC:
-                robot.collectMotor.setPower(0);
-                break;
-
-            case IN:
-                robot.collectMotor.setPower(1);
-                break;
-
-            case OUT:
-                robot.collectMotor.setPower(-1);
-                break;
-
-        }
-
-        // Collector Mode Updater
-        if (gamepad2.x || gamepad2.y) {
-
-            if (collect == collectMode.STATIC && gamepad2.x) {
-
-                collect = collectMode.STATIC_TO_OUT;
-
-            } else if (collect == collectMode.STATIC && gamepad2.y) {
-
-                collect = collectMode.STATIC_TO_IN;
-
-            } else if (collect == collectMode.IN || collect == collectMode.OUT) {
-
-                collect = collectMode.MOVING_TO_STATIC;
+                }
 
             }
 
+            if (!gamepad2.a && !gamepad2.b) {
+
+                switch (belt) {
+
+                    case BACKWARD:
+                        robot.beltMotor.setPower(-1);
+                        break;
+
+                    case FORWARD:
+                        robot.beltMotor.setPower(1);
+                        break;
+
+                }
+
+            }
+
+            beltReset();
+
         }
 
-        if (!gamepad2.x && !gamepad2.y) {
 
+        private void servos() {
+
+            //Servo Position Updater
+            if (gamepad1.a) {
+
+                armPosition += armChange;
+
+            }
+
+            if (gamepad1.b) {
+
+                armPosition -= armChange;
+
+            }
+
+            // Updates Servos
+            robot.releaseLeft.setPosition(armPosition);
+            robot.releaseRight.setPosition(1 - armPosition);
+
+        }
+
+
+        private void particleCollector() {
+
+            // Collect Code
             switch (collect) {
 
-                case STATIC_TO_IN:
-                    collect = collectMode.IN;
+                case STATIC:
+                    robot.collectMotor.setPower(0);
                     break;
 
-                case STATIC_TO_OUT:
-                    collect = collectMode.OUT;
+                case IN:
+                    robot.collectMotor.setPower(1);
                     break;
 
-                case MOVING_TO_STATIC:
-                    collect = collectMode.STATIC;
+                case OUT:
+                    robot.collectMotor.setPower(-1);
                     break;
+
+            }
+
+            // Collector Mode Updater
+            if (gamepad2.x || gamepad2.y) {
+
+                if (collect == collectMode.STATIC && gamepad2.x) {
+
+                    collect = collectMode.STATIC_TO_OUT;
+
+                } else if (collect == collectMode.STATIC && gamepad2.y) {
+
+                    collect = collectMode.STATIC_TO_IN;
+
+                } else if (collect == collectMode.IN || collect == collectMode.OUT) {
+
+                    collect = collectMode.MOVING_TO_STATIC;
+
+                }
+
+            }
+
+            if (!gamepad2.x && !gamepad2.y) {
+
+                switch (collect) {
+
+                    case STATIC_TO_IN:
+                        collect = collectMode.IN;
+                        break;
+
+                    case STATIC_TO_OUT:
+                        collect = collectMode.OUT;
+                        break;
+
+                    case MOVING_TO_STATIC:
+                        collect = collectMode.STATIC;
+                        break;
+
+                }
 
             }
 
         }
 
-    }
 
+        private void extender() {
 
-    private void extender() {
-
-        // Extend Code
-        switch (extend) {
-
-            case STATIC:
-                robot.extendMotor.setPower(0);
-                break;
-
-            case UP:
-                robot.extendMotor.setPower(1);
-                break;
-
-            case DOWN:
-                robot.extendMotor.setPower(-1);
-                break;
-
-        }
-
-
-        // Automatic Extension
-        if (gamepad2.left_bumper || gamepad2.right_bumper) {
-
-            if (extend == extendMode.STATIC && gamepad2.left_bumper) {
-
-                extend = extendMode.STATIC_TO_UP;
-
-            } else if (extend == extendMode.STATIC && gamepad2.right_bumper) {
-
-                extend = extendMode.STATIC_TO_DOWN;
-
-            } else if (extend == extendMode.UP || extend == extendMode.DOWN) {
-
-                extend = extendMode.MOVING_TO_STATIC;
-
-            }
-
-        }
-
-        if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
-
+            // Extend Code
             switch (extend) {
 
-                case STATIC_TO_UP:
-                    extend = extendMode.UP;
+                case STATIC:
+                    robot.extendMotor.setPower(0);
                     break;
 
-                case STATIC_TO_DOWN:
-                    extend = extendMode.DOWN;
+                case UP:
+                    robot.extendMotor.setPower(1);
                     break;
 
-                case MOVING_TO_STATIC:
-                    extend = extendMode.STATIC;
+                case DOWN:
+                    robot.extendMotor.setPower(-1);
                     break;
+
+            }
+
+
+            // Automatic Extension
+            if (gamepad2.left_bumper || gamepad2.right_bumper) {
+
+                if (extend == extendMode.STATIC && gamepad2.left_bumper) {
+
+                    extend = extendMode.STATIC_TO_UP;
+
+                } else if (extend == extendMode.STATIC && gamepad2.right_bumper) {
+
+                    extend = extendMode.STATIC_TO_DOWN;
+
+                } else if (extend == extendMode.UP || extend == extendMode.DOWN) {
+
+                    extend = extendMode.MOVING_TO_STATIC;
+
+                }
+
+            }
+
+            if (!gamepad2.left_bumper && !gamepad2.right_bumper) {
+
+                switch (extend) {
+
+                    case STATIC_TO_UP:
+                        extend = extendMode.UP;
+                        break;
+
+                    case STATIC_TO_DOWN:
+                        extend = extendMode.DOWN;
+                        break;
+
+                    case MOVING_TO_STATIC:
+                        extend = extendMode.STATIC;
+                        break;
+
+                }
 
             }
 
         }
 
-    }
+        private void beltReset() {
 
-    private void beltReset() {
+            if (robot.beltMotor.getCurrentPosition() < BeltInterval * -1 || robot.beltMotor.getCurrentPosition() > BeltInterval) {
 
-        if (robot.beltMotor.getCurrentPosition() < BeltInterval * -1 || robot.beltMotor.getCurrentPosition() > BeltInterval) {
+                belt = beltMode.STATIC;
 
-            belt = beltMode.STATIC;
+                robot.beltMotor.setPower(0);
 
-            robot.beltMotor.setPower(0);
+                robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
 
         }
 
-    }
-
-*/
+    */
     @Override
     public void stop() {
 
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
-<<<<<<< Updated upstream
 
-        robot.leftLaunch.setPower(0);
-=======
+
+        //robot.leftLaunch.setPower(0);
+
 /*        robot.leftLaunch.setPower(0);
 >>>>>>> Stashed changes
         robot.rightLaunch.setPower(0);
@@ -465,14 +459,15 @@ public class TankOp extends OpMode {
         robot.collectMotor.setPower(0);
 
         robot.extendMotor.setPower(0);
-<<<<<<< Updated upstream
+
 
     }
 
 =======
-*/    }
->>>>>>> Stashed changes
+*/
+    }
 }
+
 
 
 
