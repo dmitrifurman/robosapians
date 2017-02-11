@@ -2,12 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import java.util.Objects;
-
-import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
 
 @Autonomous(name = "Testing", group = "Linear OpModes")
@@ -19,10 +14,6 @@ public class Auto_Gyro extends LinearOpMode {
 
     static final double rtTwo = Math.sqrt(2);
 
-    java.lang.String Left = "LEFT";
-    java.lang.String Right = "RIGHT";
-    double LoR = 0;
-
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -33,27 +24,9 @@ public class Auto_Gyro extends LinearOpMode {
         telemetry.addData("Status", "Initializing");
         telemetry.update();
 
-        robot.gyroSensor.calibrate();
+        Auto.Encoder_Init();
 
-        robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        if (Objects.equals(TeamColor, "Blue")) {
-            Left = "LEFT";
-            Right = "RIGHT";
-        } else if (Objects.equals(TeamColor, "Red")) {
-            Left = "RIGHT";
-            Right = "LEFT";
-        }
-
-        while (robot.gyroSensor.isCalibrating()) {
-            idle();
-        }
+        Auto.Gyro_Init();
 
         telemetry.addData("Status: ", "Ready");
         telemetry.update();
