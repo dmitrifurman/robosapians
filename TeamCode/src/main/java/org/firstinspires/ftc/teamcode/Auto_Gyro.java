@@ -21,7 +21,6 @@ public class Auto_Gyro extends LinearOpMode {
 
     java.lang.String Left = "LEFT";
     java.lang.String Right = "RIGHT";
-    double LoR = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -35,19 +34,11 @@ public class Auto_Gyro extends LinearOpMode {
 
         robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        if (Objects.equals(TeamColor, "Blue")) {
-            Left = "LEFT";
-            Right = "RIGHT";
-        } else if (Objects.equals(TeamColor, "Red")) {
-            Left = "RIGHT";
-            Right = "LEFT";
-        }
+        //robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         while (robot.gyroSensor.isCalibrating()) {
             idle();
@@ -63,7 +54,7 @@ public class Auto_Gyro extends LinearOpMode {
 
         //Move(1, 2, 3, 0.5);
 
-        Auto.gyroTurn(45, Left, 6, 0.5);
+        Auto.gyroTurn(90, "LEFT", 6, 0.5);
 
         //Move(1, rtTwo, 3, 0.5);
 

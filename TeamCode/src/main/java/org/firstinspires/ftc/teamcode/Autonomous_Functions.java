@@ -59,35 +59,36 @@ public class Autonomous_Functions extends LinearOpMode {
         sleep((int) (1000 * pause));
     }
 
-    public void launch(double balls) throws InterruptedException {
+    /*  public void launch(double balls) throws InterruptedException {
 
-        runtime.reset();
+          runtime.reset();
 
-        robot.leftLaunch.setPower(-0.2);
-        robot.rightLaunch.setPower(-0.2);
+          robot.leftLaunch.setPower(-0.2);
+          robot.rightLaunch.setPower(-0.2);
 
-        while (opModeIsActive() && (runtime.seconds() < 3)) {
-            idle();
-        }
+          while (opModeIsActive() && (runtime.seconds() < 3)) {
+              idle();
+          }
 
-        robot.beltMotor.setPower(0.25);
+          robot.beltMotor.setPower(0.25);
 
-        while ((robot.beltMotor.getCurrentPosition() < 600 * balls) && (robot.beltMotor.getCurrentPosition() > -600 * balls)) {
-            idle();
-        }
+          while ((robot.beltMotor.getCurrentPosition() < 600 * balls) && (robot.beltMotor.getCurrentPosition() > -600 * balls)) {
+              idle();
+          }
 
-        robot.beltMotor.setPower(0);
+          robot.beltMotor.setPower(0);
 
-        robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
-        robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
+          robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER); // Reset belt encoder
+          robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER); // Reset mode to use encoder
 
-        runtime.reset();
+          runtime.reset();
 
-        robot.leftLaunch.setPower(0);
-        robot.rightLaunch.setPower(0);
+          robot.leftLaunch.setPower(0);
+          robot.rightLaunch.setPower(0);
 
-    }
+      }
 
+    */
     public void turn(double speed, double distance, double time, double pause) throws InterruptedException {
 
         if (Objects.equals(TeamColor, "Blue")) {
@@ -190,8 +191,8 @@ public class Autonomous_Functions extends LinearOpMode {
 
         sleep((int) (1000 * pause));
     }
-
-    public void sensorTest() {
+}
+    /*public void sensorTest() {
 
         if (opModeIsActive()) {
             robot.colorSensor.enableLed(false);
@@ -228,3 +229,4 @@ public class Autonomous_Functions extends LinearOpMode {
     }
 
 }
+*/
