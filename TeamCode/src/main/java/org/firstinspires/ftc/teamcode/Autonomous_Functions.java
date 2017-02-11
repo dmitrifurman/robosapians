@@ -15,6 +15,10 @@ public class Autonomous_Functions extends LinearOpMode {
         RED, BLUE, NONE
     }
 
+    public enum Direction {
+        LEFT, RIGHT, NONE
+    }
+
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -110,8 +114,12 @@ public class Autonomous_Functions extends LinearOpMode {
 
     public void turn(double speed, double distance, double time, double pause) throws InterruptedException {
 
-        if (Objects.equals(TeamColor, "Blue")) {
-            distance = distance * -1;
+        switch (Team_Color) {
+
+            case BLUE:
+                distance = distance * -1;
+                break;
+
         }
 
         int target;
@@ -142,9 +150,9 @@ public class Autonomous_Functions extends LinearOpMode {
         sleep((int) (1000 * pause));
     }
 
-    public void gyroTurn(int angle, String direction, double time, double pause) throws InterruptedException {
+    public void gyroTurn(int angle, Direction dir, double time, double pause) throws InterruptedException {
 
-        int gyroAngle = 0;
+        int gyroAngle;
 
         gyroAngle = angle - 5;
 
@@ -153,12 +161,18 @@ public class Autonomous_Functions extends LinearOpMode {
 
         runtime.reset();
 
-        if (direction.equals("LEFT")) {
-            robot.leftDrive.setPower(-0.25);
-            robot.rightDrive.setPower(0.25);
-        } else if (direction.equals("RIGHT")) {
-            robot.leftDrive.setPower(0.25);
-            robot.rightDrive.setPower(-0.25);
+        switch (dir) {
+
+            case LEFT:
+                robot.leftDrive.setPower(-0.25);
+                robot.rightDrive.setPower(0.25);
+                break;
+
+            case RIGHT:
+                robot.leftDrive.setPower(0.25);
+                robot.rightDrive.setPower(-0.25);
+                break;
+
         }
 
         while (runtime.seconds() < time) {

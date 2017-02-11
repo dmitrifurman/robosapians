@@ -65,7 +65,7 @@ public class Auto_Gyro extends LinearOpMode {
 
         //Move(1, 2, 3, 0.5);
 
-        Auto.gyroTurn(45, Left, 6, 0.5);
+        Auto.gyroTurn(45, Autonomous_Functions.Direction.LEFT, 6, 0.5);
 
         //Move(1, rtTwo, 3, 0.5);
 
