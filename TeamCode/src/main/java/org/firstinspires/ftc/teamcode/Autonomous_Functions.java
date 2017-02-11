@@ -172,11 +172,11 @@ public class Autonomous_Functions extends LinearOpMode {
         sleep((int) (1000 * pause));
     }
 
-    public void gyroTurn(int angle, Direction dir, double time, double pause) throws InterruptedException {
+    public void gyroTurn(int angle, Direction dir, double speed, double time, double pause) throws InterruptedException {
 
-        int gyroAngle;
+        int gyroAngleTarget;
 
-        gyroAngle = angle - 5;
+        gyroAngleTarget = angle - 5;
 
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -186,22 +186,26 @@ public class Autonomous_Functions extends LinearOpMode {
         switch (dir) {
 
             case LEFT:
-                robot.leftDrive.setPower(-0.25);
-                robot.rightDrive.setPower(0.25);
+                robot.leftDrive.setPower(-speed);
+                robot.rightDrive.setPower(speed);
                 break;
 
             case RIGHT:
-                robot.leftDrive.setPower(0.25);
-                robot.rightDrive.setPower(-0.25);
+                robot.leftDrive.setPower(speed);
+                robot.rightDrive.setPower(-speed);
                 break;
 
         }
 
         while (runtime.seconds() < time) {
 
-            if ((robot.gyroSensor.getHeading() <= (gyroAngle + 2) && robot.gyroSensor.getHeading() >= (gyroAngle - 2))) {
+            if ((robot.gyroSensor.getHeading() <= (gyroAngleTarget + 3) && robot.gyroSensor.getHeading() >= (gyroAngleTarget - 3))) {
                 break;
             }
+
+            telemetry.addData("Current Angle", robot.gyroSensor.getHeading());
+            telemetry.addData("Target Angle", angle);
+            telemetry.update();
 
         }
 
