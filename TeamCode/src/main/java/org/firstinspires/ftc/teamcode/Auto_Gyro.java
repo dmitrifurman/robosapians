@@ -28,6 +28,8 @@ public class Auto_Gyro extends LinearOpMode {
 
         robot.init(hardwareMap);
 
+        Auto.Team_Alliance();
+
         telemetry.addData("Status", "Initializing");
         telemetry.update();
 

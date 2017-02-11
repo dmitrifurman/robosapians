@@ -11,6 +11,10 @@ import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerA
 
 public class Autonomous_Functions extends LinearOpMode {
 
+    public enum Alliance {
+        RED, BLUE, NONE
+    }
+
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -27,8 +31,24 @@ public class Autonomous_Functions extends LinearOpMode {
     final double DDL = pi * rtTwo;
     final double DDR = ((3 * pi * rtTwo) / 4);
 
+    public Alliance Team_Color = Alliance.NONE;
+
     @Override
     public void runOpMode() throws InterruptedException {
+    }
+
+    public void Team_Alliance() {
+
+        if (Objects.equals(TeamColor, "Red")) {
+
+            Team_Color = Alliance.RED;
+
+        } else if (Objects.equals(TeamColor, "Blue")) {
+
+            Team_Color = Alliance.BLUE;
+
+        }
+
     }
 
     public void move(double speed, double distance, double time, double pause) throws InterruptedException {
@@ -194,23 +214,45 @@ public class Autonomous_Functions extends LinearOpMode {
     public void sensorTest() {
 
         if (opModeIsActive()) {
+
             robot.colorSensor.enableLed(false);
+
             if (robot.colorSensor.red() >= 1 && robot.colorSensor.blue() == 0) {
-                if (Objects.equals(TeamColor, "Red")) {
-                    robot.btnPush.setPosition(0.75);
-                } else if (Objects.equals(TeamColor, "Blue")) {
-                    robot.btnPush.setPosition(0);
+
+                switch (Team_Color) {
+
+                    case RED:
+                        robot.btnPush.setPosition(0.75);
+                        break;
+
+                    case BLUE:
+                        robot.btnPush.setPosition(0);
+                        break;
+
                 }
+
             } else if (robot.colorSensor.blue() >= 1 && robot.colorSensor.red() == 0) {
-                if (Objects.equals(TeamColor, "Red")) {
-                    robot.btnPush.setPosition(0.75);
-                } else if (Objects.equals(TeamColor, "Blue")) {
-                    robot.btnPush.setPosition(0);
+
+                switch (Team_Color) {
+
+                    case RED:
+                        robot.btnPush.setPosition(0);
+                        break;
+
+                    case BLUE:
+                        robot.btnPush.setPosition(0.75);
+                        break;
+
                 }
+
             } else {
+
                 robot.btnPush.setPosition(0.35);
+
             }
+
         }
+
     }
 
     public void beaconPress() throws InterruptedException {

@@ -23,6 +23,8 @@ public class Auto_Encoder_Beacons extends LinearOpMode {
 
         robot.init(hardwareMap);
 
+        Auto.Team_Alliance();
+
         telemetry.addData("Status", "Initializing");
         telemetry.update();
 

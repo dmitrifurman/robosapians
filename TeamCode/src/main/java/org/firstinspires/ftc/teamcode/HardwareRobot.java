@@ -38,6 +38,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class HardwareRobot {
+
     public DcMotor leftDrive = null,
             rightDrive = null,
             leftLaunch = null,
@@ -52,13 +53,16 @@ public class HardwareRobot {
     public GyroSensor gyroSensor = null;
     private HardwareMap hwMap = null;
 
+
     public HardwareRobot() {
+
 
     }
 
         public void init(HardwareMap hwMap) {
             // save reference to HW Map
             this.hwMap = hwMap;
+
 
             // Assigns Names to Motors
             leftDrive = hwMap.dcMotor.get("Left Motor");
@@ -84,7 +88,5 @@ public class HardwareRobot {
             gyroSensor = hwMap.gyroSensor.get("Gyro Sensor");
 
     }
-
-
 
 }
