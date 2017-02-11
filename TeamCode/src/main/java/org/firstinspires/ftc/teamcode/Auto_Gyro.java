@@ -65,12 +65,13 @@ public class Auto_Gyro extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        //Move(1, 2, 3, 0.5);
+        Move(0.4, 0.5, 3, 0.5);
 
-        gyroTurn(90, "LEFT", 6, 0.5);
+        gyroTurn(45, "LEFT", 6, 0.5);
 
-        //Move(1, rtTwo, 3, 0.5);
+        Move(0.5, 5, 3, 0.5);
 
+        gyroTurn(0, "RIGHT", 6, 0.5);
         //Launch(2);
 
         /*Move(1, 5 * rtTwo, 6, 0.5);
@@ -185,8 +186,15 @@ public class Auto_Gyro extends LinearOpMode {
 
         int gyroAngle = 0;
 
-        gyroAngle = angle-10;
+        if(direction.equals("RIGHT"))
+        {
+            gyroAngle = angle-10;
+        }
 
+        if(direction.equals("LEFT"))
+        {
+            gyroAngle = 360-(angle-10);
+        }
 
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -196,11 +204,11 @@ public class Auto_Gyro extends LinearOpMode {
         runtime.reset();
 
         if (direction.equals("LEFT")) {
-            robot.leftDrive.setPower(-0.25);
-            robot.rightDrive.setPower(0.25);
-        } else if (direction.equals("RIGHT")) {
             robot.leftDrive.setPower(0.25);
             robot.rightDrive.setPower(-0.25);
+        } else if (direction.equals("RIGHT")) {
+            robot.leftDrive.setPower(-0.25);
+            robot.rightDrive.setPower(0.25);
         }
 
         while (runtime.seconds() < time) {

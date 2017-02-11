@@ -85,7 +85,7 @@ public class HardwareRobot {
 
             // Assigns Names to Sensors
             colorSensor = hwMap.colorSensor.get("Color Sensor");*/
-            //gyroSensor = hwMap.gyroSensor.get("Gyro Sensor");
+            gyroSensor = hwMap.gyroSensor.get("Gyro Sensor");
 
     }
 
