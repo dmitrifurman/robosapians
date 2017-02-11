@@ -55,6 +55,28 @@ public class Autonomous_Functions extends LinearOpMode {
 
     }
 
+    public void Gyro_Init() throws InterruptedException {
+
+        robot.gyroSensor.calibrate();
+
+        while (robot.gyroSensor.isCalibrating()) {
+            idle();
+        }
+
+    }
+
+    public void Encoder_Init() {
+
+        robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+    }
+
     public void move(double speed, double distance, double time, double pause) throws InterruptedException {
         int target;
 
@@ -176,9 +198,6 @@ public class Autonomous_Functions extends LinearOpMode {
         }
 
         while (runtime.seconds() < time) {
-
-            telemetry.addData("Gyro: ", robot.gyroSensor.getHeading());
-            telemetry.update();
 
             if ((robot.gyroSensor.getHeading() <= (gyroAngle + 2) && robot.gyroSensor.getHeading() >= (gyroAngle - 2))) {
                 break;

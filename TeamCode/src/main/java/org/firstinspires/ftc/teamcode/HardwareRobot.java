@@ -39,19 +39,19 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class HardwareRobot {
 
-    public DcMotor leftDrive = null,
-            rightDrive = null,
-            leftLaunch = null,
-            rightLaunch = null,
-            beltMotor = null,
-            collectMotor = null,
-            extendMotor = null;
-    public Servo releaseLeft = null,
-            releaseRight = null,
-            btnPush = null;
-    public ColorSensor colorSensor = null;
-    public GyroSensor gyroSensor = null;
-    private HardwareMap hwMap = null;
+    public DcMotor leftDrive,
+            rightDrive,
+            leftLaunch,
+            rightLaunch,
+            beltMotor,
+            collectMotor,
+            extendMotor;
+    public Servo releaseLeft,
+            releaseRight,
+            btnPush;
+    public ColorSensor colorSensor;
+    public GyroSensor gyroSensor;
+    private HardwareMap hwMap;
 
 
     public HardwareRobot() {
