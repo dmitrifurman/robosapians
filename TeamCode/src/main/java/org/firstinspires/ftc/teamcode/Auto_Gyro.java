@@ -69,14 +69,17 @@ public class Auto_Gyro extends LinearOpMode {
 
         gyroTurn(45, "LEFT", 6, 0.5);
 
-        Move(0.5, 5, 3, 0.5);
+        Move(0.4, 4.7, 3, 0.5);
 
-        gyroTurn(0, "RIGHT", 6, 0.5);
+        robot.gyroSensor.calibrate();
+        sleep(3000);
+
+        gyroTurn(39, "RIGHT", 6, 0.5);
         //Launch(2);
 
-        /*Move(1, 5 * rtTwo, 6, 0.5);
+        Move(0.5, 5.5, 6, 0.5);
 
-        gyroTurn(90, Left, 6, 0.5);
+        /*gyroTurn(90, Left, 6, 0.5);
 
         beaconPress();
 
@@ -182,9 +185,9 @@ public class Auto_Gyro extends LinearOpMode {
     }
 
 */
-    public void gyroTurn(int angle, String direction, double time, double pause) throws InterruptedException {
+    public void gyroTurn(double angle, String direction, double time, double pause) throws InterruptedException {
 
-        int gyroAngle = 0;
+        double gyroAngle = 0;
 
         if(direction.equals("RIGHT"))
         {
@@ -204,11 +207,11 @@ public class Auto_Gyro extends LinearOpMode {
         runtime.reset();
 
         if (direction.equals("LEFT")) {
-            robot.leftDrive.setPower(0.25);
-            robot.rightDrive.setPower(-0.25);
+            robot.leftDrive.setPower(0.5);
+            robot.rightDrive.setPower(-0.5);
         } else if (direction.equals("RIGHT")) {
-            robot.leftDrive.setPower(-0.25);
-            robot.rightDrive.setPower(0.25);
+            robot.leftDrive.setPower(-0.5);
+            robot.rightDrive.setPower(0.5);
         }
 
         while (runtime.seconds() < time) {
