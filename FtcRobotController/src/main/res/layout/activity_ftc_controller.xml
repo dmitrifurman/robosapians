@@ -142,7 +142,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             android:layout_height="wrap_content"
             android:text=""
             android:visibility="invisible"
-            android:textColor="#990000"
+            android:textColor="#b71c1c"
             android:textStyle="bold"/>
 
     </FrameLayout>
