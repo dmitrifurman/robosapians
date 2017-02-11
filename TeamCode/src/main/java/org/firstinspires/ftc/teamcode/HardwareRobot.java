@@ -40,16 +40,16 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class HardwareRobot {
     public DcMotor leftDrive = null,
             rightDrive = null;
-/*            leftLaunch = null,
-            rightLaunch = null,
-            beltMotor = null,
-            collectMotor = null,
-            extendMotor = null;
-    public Servo releaseLeft = null,
-            releaseRight = null,
-            btnPush = null;
-    public ColorSensor colorSensor = null;
-*/    public GyroSensor gyroSensor = null;
+            //leftLaunch = null,
+            //rightLaunch = null,
+            //beltMotor = null,
+            //collectMotor = null,
+            //extendMotor = null;
+   // public Servo releaseLeft = null,
+            //releaseRight = null,
+                   // btnPush = null;
+    //public ColorSensor colorSensor = null;
+    public GyroSensor gyroSensor = null;
     private HardwareMap hwMap = null;
 
     public HardwareRobot() {
@@ -71,17 +71,21 @@ public class HardwareRobot {
 
             // Reverse Motors
             leftDrive.setDirection(DcMotor.Direction.REVERSE);
-            //leftLaunch.setDirection(DcMotor.Direction.REVERSE);
-            //extendMotor.setDirection(DcMotor.Direction.REVERSE);
+            /*leftLaunch.setDirection(DcMotor.Direction.REVERSE);
+            extendMotor.setDirection(DcMotor.Direction.REVERSE);
+
+            /*leftLaunch.setDirection(DcMotor.Direction.REVERSE);
+            collectMotor.setDirection(DcMotor.Direction.REVERSE);*/
+
 
             // Assigns Names to Servos
-            //releaseLeft = hwMap.servo.get("Release Left");
-            //releaseRight = hwMap.servo.get("Release Right");
-           // btnPush = hwMap.servo.get("Button Push");
+            /*releaseLeft = hwMap.servo.get("Release Left");
+            releaseRight = hwMap.servo.get("Release Right");
+            btnPush = hwMap.servo.get("Button Push");
 
             // Assigns Names to Sensors
-            //colorSensor = hwMap.colorSensor.get("Color Sensor");
-            gyroSensor = hwMap.gyroSensor.get("Gyro Sensor");
+            colorSensor = hwMap.colorSensor.get("Color Sensor");*/
+            //gyroSensor = hwMap.gyroSensor.get("Gyro Sensor");
 
     }
 

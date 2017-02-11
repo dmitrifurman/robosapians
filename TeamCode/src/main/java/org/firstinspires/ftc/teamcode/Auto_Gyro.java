@@ -27,6 +27,8 @@ public class Auto_Gyro extends LinearOpMode {
 
         robot.init(hardwareMap);
 
+        Auto.Team_Alliance();
+
         telemetry.addData("Status", "Initializing");
         telemetry.update();
 
@@ -54,7 +56,7 @@ public class Auto_Gyro extends LinearOpMode {
 
         //Move(1, 2, 3, 0.5);
 
-        Auto.gyroTurn(90, "LEFT", 6, 0.5);
+        Auto.gyroTurn(90, Autonomous_Functions.Direction.LEFT, 6, 0.5);
 
         //Move(1, rtTwo, 3, 0.5);
 
