@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
@@ -24,9 +25,19 @@ public class Auto_Gyro extends LinearOpMode {
         telemetry.addData("Status", "Initializing");
         telemetry.update();
 
-        Auto.Encoder_Init();
+        //Auto.Encoder_Init();
+        robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        Auto.Gyro_Init();
+        robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        //Auto.Gyro_Init();
+        robot.gyroSensor.calibrate();
+
+        while (robot.gyroSensor.isCalibrating()) {
+            idle();
+        }
 
         telemetry.addData("Status: ", "Ready");
         telemetry.update();
@@ -38,7 +49,7 @@ public class Auto_Gyro extends LinearOpMode {
 
         //Move(1, 2, 3, 0.5);
 
-        Auto.gyroTurn(45, Autonomous_Functions.Direction.LEFT, 0.25, 6, 0.5);
+        gyroTurn(90, Autonomous_Functions.Direction.LEFT, 0.12, 15, 0.5);
 
         //Move(1, rtTwo, 3, 0.5);
 
@@ -65,4 +76,46 @@ public class Auto_Gyro extends LinearOpMode {
         telemetry.update();
     }
 
+    public void gyroTurn(int angle, Autonomous_Functions.Direction dir, double speed, double time, double pause) throws InterruptedException {
+
+        int gyroAngleTarget;
+
+        gyroAngleTarget = angle - 8;
+
+        robot.leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        runtime.reset();
+
+        switch (dir) {
+
+            case LEFT:
+                robot.leftDrive.setPower(-speed);
+                robot.rightDrive.setPower(speed);
+                break;
+
+            case RIGHT:
+                robot.leftDrive.setPower(speed);
+                robot.rightDrive.setPower(-speed);
+                break;
+
+        }
+
+        while (runtime.seconds() < time) {
+
+            if ((robot.gyroSensor.getHeading() <= (gyroAngleTarget + 2) && robot.gyroSensor.getHeading() >= (gyroAngleTarget - 2))) {
+                break;
+            }
+
+            telemetry.addData("Current Angle", robot.gyroSensor.getHeading());
+            telemetry.addData("Target Angle", angle);
+            telemetry.update();
+
+        }
+
+        robot.leftDrive.setPower(0);
+        robot.rightDrive.setPower(0);
+
+        sleep((int) (pause * 1000));
+    }
 }
