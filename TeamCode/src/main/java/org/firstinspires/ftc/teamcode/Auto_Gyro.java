@@ -49,7 +49,7 @@ public class Auto_Gyro extends LinearOpMode {
 
         //Move(1, 2, 3, 0.5);
 
-        gyroTurn(90, Autonomous_Functions.Direction.LEFT, 0.12, 15, 0.5);
+        gyroTurn(90, Autonomous_Functions.Direction.RIGHT, 0.12, 15, 0.5);
 
         //Move(1, rtTwo, 3, 0.5);
 
@@ -95,6 +95,7 @@ public class Auto_Gyro extends LinearOpMode {
                 break;
 
             case RIGHT:
+                gyroAngleTarget = 360-gyroAngleTarget;
                 robot.leftDrive.setPower(speed);
                 robot.rightDrive.setPower(-speed);
                 break;
