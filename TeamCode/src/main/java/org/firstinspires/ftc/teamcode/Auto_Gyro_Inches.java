@@ -13,7 +13,7 @@ import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerA
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.timeDelay;
 
 
-@Autonomous(name = "Autonomous Backup", group = "Linear OpModes")
+@Autonomous(name = "Autonomous Inches", group = "Linear OpModes")
 public class Auto_Gyro_Inches extends LinearOpMode {
 
     private enum Alliance {
@@ -86,15 +86,15 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        Move(0.75, 16, 3, 0.5);
+        Move(0.75, 9, 3, 0.5);
 
         GyroTurn(0.5, 45, Direction.LEFT, 3, 0.5);
 
-        Move(0.75, 50, 5, 0.5);
+        Move(0.75, 45, 5, 0.5);
 
         GyroTurn(0.5, 0, Direction.RIGHT, 3, 0.5);
 
-        Move(0.75, 54, 3, 0.5);
+        Move(0.75, 50, 3, 0.5);
 
         BeaconTest();
 
