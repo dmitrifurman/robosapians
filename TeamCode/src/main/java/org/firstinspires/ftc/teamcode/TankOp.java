@@ -164,13 +164,13 @@ public class TankOp extends OpMode {
         switch (drive) {
 
             case NORMAL:
-                robot.leftDrive.setPower(gamepad1.left_stick_y);
-                robot.rightDrive.setPower(gamepad1.right_stick_y);
+                robot.leftDrive.setPower(gamepad1.left_stick_y* 1.2);
+                robot.rightDrive.setPower(gamepad1.right_stick_y * 1.2);
                 break;
 
             case SLOW:
-                robot.leftDrive.setPower(gamepad1.left_stick_y * 0.32);
-                robot.rightDrive.setPower(gamepad1.right_stick_y * 0.32);
+                robot.leftDrive.setPower(gamepad1.left_stick_y * 0.75);
+                robot.rightDrive.setPower(gamepad1.right_stick_y * 0.75);
                 break;
 
         }
