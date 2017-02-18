@@ -90,12 +90,7 @@ public class TankOp extends OpMode {
         // Sets intialize Drive Mode
         drive = driveMode.NORMAL;
 
-
-        // Servo initialize Position value
-        drive = driveMode.NORMAL;
-
         // Servo Default Position
-
         armPosition = 0;
 
         //Servo set position to initialize value
@@ -175,8 +170,8 @@ public class TankOp extends OpMode {
                 break;
 
             case SLOW:
-                robot.leftDrive.setPower(gamepad1.left_stick_y * 0.75);
-                robot.rightDrive.setPower(gamepad1.right_stick_y * 0.75);
+                robot.leftDrive.setPower(gamepad1.left_stick_y * 0.6);
+                robot.rightDrive.setPower(gamepad1.right_stick_y * 0.6);
                 break;
 
         }
