@@ -11,7 +11,7 @@ import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerA
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.timeDelay;
 
 
-@Autonomous(name = "Autonomous w/Gyro", group = "Linear OpModes")
+@Autonomous(name = "Autonomous", group = "Linear OpModes")
 public class Auto_Gyro extends LinearOpMode {
 
     private enum Alliance {

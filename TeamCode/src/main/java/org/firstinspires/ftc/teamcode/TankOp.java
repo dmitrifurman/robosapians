@@ -87,12 +87,13 @@ public class TankOp extends OpMode {
 
         robot.init(hardwareMap);
 
-        // Sets Default Drive Mode
+        // Sets intialize Drive Mode
         drive = driveMode.NORMAL;
 
         // Servo Default Position
         armPosition = 0;
 
+        //Servo set position to initialize value
         robot.release.setPosition(armPosition);
 
         // Set Belt Mode
@@ -213,7 +214,6 @@ public class TankOp extends OpMode {
     private void particleLaunch() {
 
         // Launching Code
-
         if (extend == extendMode.STATIC) {
 
             robot.leftLaunch.setPower(0.6);
