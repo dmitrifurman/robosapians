@@ -86,11 +86,11 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        Move(1, 16, 3, 0.5);
+        Move(1, 16, 3, 1);
 
         GyroTurn(0.5, 45, Direction.LEFT, 3, 0.5);
 
-        Move(1, 50, 5, 0.5);
+        Move(1, 50, 5, 1);
 
         GyroTurn(0.5, 0, Direction.RIGHT, 3, 0.5);
 
@@ -99,6 +99,8 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         BeaconTest();
 
         Move(1, 30, 3, 0.5);
+
+        BeaconTest();
 
         GyroTurn(0.5, 90, Direction.RIGHT, 3, 0.5);
 
