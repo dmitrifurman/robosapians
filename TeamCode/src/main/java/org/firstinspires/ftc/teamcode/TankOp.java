@@ -214,7 +214,6 @@ public class TankOp extends OpMode {
     private void particleLaunch() {
 
         // Launching Code
-
         if (extend == extendMode.STATIC) {
 
             robot.leftLaunch.setPower(0.6);
