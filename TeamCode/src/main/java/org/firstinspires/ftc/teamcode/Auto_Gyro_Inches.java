@@ -310,7 +310,7 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         sleep((int) (pause * 1000));
     }
 
-    double getBatteryVoltage() {
+    /*double getBatteryVoltage() {
         double result = Double.POSITIVE_INFINITY;
         for (VoltageSensor sensor : hardwareMap.voltageSensor) {
             double voltage = sensor.getVoltage();
@@ -319,7 +319,7 @@ public class Auto_Gyro_Inches extends LinearOpMode {
             }
         }
         return result;
-    }
+    }*/
 
 }
 

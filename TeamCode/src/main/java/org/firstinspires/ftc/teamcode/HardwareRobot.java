@@ -93,7 +93,7 @@ public class HardwareRobot {
         // Assigns Names to Sensors
         colorSensorLeft = hwMap.colorSensor.get("Color Sensor Left");
         colorSensorRight = hwMap.colorSensor.get("Color Sensor Right");
-        voltageSensor = hwMap.voltageSensor.get("VoltageSensor");
+//        voltageSensor = hwMap.voltageSensor.get("VoltageSensor");
 
         gyroSensor = hwMap.gyroSensor.get("Gyro Sensor");
 
