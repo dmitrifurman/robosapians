@@ -76,6 +76,7 @@ public class HardwareRobot {
         extendMotor = hwMap.dcMotor.get("Extend");
 
         // Reverse Motors
+        leftDrive.setDirection(DcMotor.Direction.REVERSE);
         leftLaunch.setDirection(DcMotor.Direction.REVERSE);
         collectMotor.setDirection(DcMotor.Direction.REVERSE);
         extendMotor.setDirection(DcMotor.Direction.REVERSE);
