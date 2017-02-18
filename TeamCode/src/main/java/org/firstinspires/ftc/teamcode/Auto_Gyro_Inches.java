@@ -13,7 +13,7 @@ import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerA
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.timeDelay;
 
 
-@Autonomous(name = "Autonomous Backup", group = "Linear OpModes")
+@Autonomous(name = "Autonomous Inches", group = "Linear OpModes")
 public class Auto_Gyro_Inches extends LinearOpMode {
 
     private enum Alliance {
