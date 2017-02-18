@@ -81,7 +81,7 @@ public class Auto_Gyro extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        Move(1, (16 / 12), 3, 0.5);
+        Move(1, 1.333, 3, 0.5);
 
         GyroTurn(45, Direction.LEFT, 3, 0.5);
 
@@ -125,6 +125,12 @@ public class Auto_Gyro extends LinearOpMode {
         robot.rightDrive.setPower(speed);
 
         while (opModeIsActive() && (runtime.seconds() < time) && (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())) {
+
+            telemetry.addData("Path2", "Running at %7d :%7d",
+                    robot.leftDrive.getCurrentPosition(),
+                    robot.rightDrive.getCurrentPosition());
+            telemetry.update();
+
             idle();
         }
 
