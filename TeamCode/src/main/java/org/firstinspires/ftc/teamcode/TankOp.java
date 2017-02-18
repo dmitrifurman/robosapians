@@ -96,7 +96,7 @@ public class TankOp extends OpMode {
 
         // Servo Default Position
 
-        armPosition = 0;
+        armPosition = 1;
 
         robot.release.setPosition(armPosition);
 
