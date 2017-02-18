@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 public class HardwareRobot {
     public DcMotor
@@ -56,6 +57,8 @@ public class HardwareRobot {
             colorSensorRight = null;
     public GyroSensor
             gyroSensor = null;
+    public VoltageSensor
+            voltageSensor = null;
     private HardwareMap hwMap = null;
 
     public HardwareRobot() {
@@ -90,6 +93,7 @@ public class HardwareRobot {
         // Assigns Names to Sensors
         colorSensorLeft = hwMap.colorSensor.get("Color Sensor Left");
         colorSensorRight = hwMap.colorSensor.get("Color Sensor Right");
+        voltageSensor = hwMap.voltageSensor.get("VoltageSensor");
 
         gyroSensor = hwMap.gyroSensor.get("Gyro Sensor");
 

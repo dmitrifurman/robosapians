@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.Objects;
@@ -12,7 +14,7 @@ import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerA
 
 
 @Autonomous(name = "Autonomous", group = "Linear OpModes")
-public class Auto_Gyro extends LinearOpMode {
+public class Auto_Gyro_Inches extends LinearOpMode {
 
     private enum Alliance {
         RED, BLUE, NONE
@@ -31,7 +33,7 @@ public class Auto_Gyro extends LinearOpMode {
 
     private static final double DRIVE_GEAR_REDUCTION = 1.0;
     private static final double WHEEL_DIAMETER_INCHES = 4.0;
-    private static final double COUNTS_PER_FOOT = (12 * (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * (Math.PI)));
+    private static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * (Math.PI));
 
     private static final double rtTwo = Math.sqrt(2);
 
@@ -65,6 +67,7 @@ public class Auto_Gyro extends LinearOpMode {
         robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         while (robot.gyroSensor.isCalibrating()) {
+            Thread.sleep(50);
             idle();
         }
 
@@ -83,29 +86,29 @@ public class Auto_Gyro extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        Move(1, 1.333, 3, 0.5);
+        Move(1, 16, 3, 0.5);
 
-        GyroTurn(45, Direction.LEFT, 3, 0.5);
+        GyroTurn(0.5, 45, Direction.LEFT, 3, 0.5);
 
-        Move(1, 3 * rtTwo, 5, 0.5);
+        Move(1, 36 * rtTwo, 5, 0.5);
 
-        GyroTurn(0, Direction.RIGHT, 3, 0.5);
+        GyroTurn(0.5, 0, Direction.RIGHT, 3, 0.5);
 
-        Move(1, 4.5, 3, 0.5);
+        Move(1, 54, 3, 0.5);
 
         BeaconTest();
 
-        Move(1, 2.5, 3, 0.5);
+        Move(1, 30, 3, 0.5);
 
-        GyroTurn(90, Direction.RIGHT, 3, 0.5);
+        GyroTurn(0.5, 90, Direction.RIGHT, 3, 0.5);
 
-        Move(1, 2, 3, 0.5);
+        Move(1, 24, 3, 0.5);
 
-        GyroTurn(60, Direction.RIGHT, 3, 0.5);
+        GyroTurn(0.5, 60, Direction.RIGHT, 3, 0.5);
 
         Launch(2);
 
-        Move(1, 1.5, 3, 0.5);
+        Move(1, 18, 3, 0.5);
 
         telemetry.addData("Status: ", "Complete");
         telemetry.update();
@@ -114,7 +117,7 @@ public class Auto_Gyro extends LinearOpMode {
     private void Move(double speed, double distance, double time, double pause) throws InterruptedException {
         int target;
 
-        target = (int) (distance * COUNTS_PER_FOOT);
+        target = (int) (distance * COUNTS_PER_INCH);
 
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -128,7 +131,7 @@ public class Auto_Gyro extends LinearOpMode {
 
         while (opModeIsActive() && (runtime.seconds() < time) && (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())) {
 
-            telemetry.addData("MoveAction", "Running at %7d :%7d",
+            telemetry.addData("Move Action", "Running at %7d :%7d",
                     robot.leftDrive.getCurrentPosition(),
                     robot.rightDrive.getCurrentPosition());
             telemetry.update();
@@ -192,8 +195,8 @@ public class Auto_Gyro extends LinearOpMode {
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        robot.leftDrive.setTargetPosition((int) (-1.5 * COUNTS_PER_FOOT));
-        robot.rightDrive.setTargetPosition((int) (-1.5 * COUNTS_PER_FOOT));
+        robot.leftDrive.setTargetPosition((int) (-18 * COUNTS_PER_INCH));
+        robot.rightDrive.setTargetPosition((int) (-18 * COUNTS_PER_INCH));
 
         robot.leftDrive.setPower(0.5);
         robot.rightDrive.setPower(0.5);
@@ -206,7 +209,7 @@ public class Auto_Gyro extends LinearOpMode {
                 robot.colorSensorRight.enableLed(false);
                 while (runtime.seconds() > 4) {
                     if (robot.colorSensorRight.blue() >= 1 && robot.colorSensorRight.red() == 0) {
-                        robot.btnPushRight.setPosition(0);
+                        robot.btnPushRight.setPosition(Servo.MIN_POSITION);
                         break;
                     }
                 }
@@ -216,7 +219,7 @@ public class Auto_Gyro extends LinearOpMode {
                 robot.colorSensorLeft.enableLed(false);
                 while (runtime.seconds() > 4) {
                     if (robot.colorSensorLeft.red() >= 1 && robot.colorSensorLeft.blue() == 0) {
-                        robot.btnPushLeft.setPosition(0.8);
+                        robot.btnPushLeft.setPosition(Servo.MAX_POSITION);
                         break;
                     }
                 }
@@ -239,9 +242,9 @@ public class Auto_Gyro extends LinearOpMode {
     }
 
 
-    private void GyroTurn(double angle, Direction dir, double time, double pause) throws InterruptedException {
+    private void GyroTurn(double speed, double angle, Direction dir, double time, double pause) throws InterruptedException {
 
-        double gyroAngle = 0;
+        double gyroAngle = 0; //Simple initialization of gyro turn target angle
 
         if (Color == Alliance.BLUE) {
             switch (dir) {
@@ -259,7 +262,7 @@ public class Auto_Gyro extends LinearOpMode {
         switch (dir) {
 
             case LEFT:
-                gyroAngle = 360 - (angle - 10);
+                gyroAngle = 370 - angle;
                 break;
 
             case RIGHT:
@@ -278,13 +281,13 @@ public class Auto_Gyro extends LinearOpMode {
         switch (dir) {
 
             case LEFT:
-                robot.leftDrive.setPower(0.5);
-                robot.rightDrive.setPower(-0.5);
+                robot.leftDrive.setPower(speed);
+                robot.rightDrive.setPower(-speed);
                 break;
 
             case RIGHT:
-                robot.leftDrive.setPower(-0.5);
-                robot.rightDrive.setPower(0.5);
+                robot.leftDrive.setPower(-speed);
+                robot.rightDrive.setPower(speed);
                 break;
         }
 
@@ -295,6 +298,7 @@ public class Auto_Gyro extends LinearOpMode {
             telemetry.update();
 
             if ((robot.gyroSensor.getHeading() <= (gyroAngle + 2) && robot.gyroSensor.getHeading() >= (gyroAngle - 2))) {
+                //These 2 degrees on either side are because MR sensor does not update angle every time it changes
                 break;
             }
 
@@ -304,6 +308,17 @@ public class Auto_Gyro extends LinearOpMode {
         robot.rightDrive.setPower(0);
 
         sleep((int) (pause * 1000));
+    }
+
+    double getBatteryVoltage() {
+        double result = Double.POSITIVE_INFINITY;
+        for (VoltageSensor sensor : hardwareMap.voltageSensor) {
+            double voltage = sensor.getVoltage();
+            if (voltage > 0) {
+                result = Math.min(result, voltage);
+            }
+        }
+        return result;
     }
 
 }
