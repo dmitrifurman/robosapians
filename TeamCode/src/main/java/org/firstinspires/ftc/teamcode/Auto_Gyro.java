@@ -65,6 +65,7 @@ public class Auto_Gyro extends LinearOpMode {
         robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         while (robot.gyroSensor.isCalibrating()) {
+            Thread.sleep(50);
             idle();
         }
 
