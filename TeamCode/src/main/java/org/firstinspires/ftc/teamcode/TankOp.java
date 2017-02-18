@@ -41,25 +41,25 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name = "Tank Op", group = "Linear Opmode")
 public class TankOp extends OpMode {
 
-    public enum driveMode {
+    private enum driveMode {
 
         NORMAL, SLOW, SLOW_TO_NORMAL, NORMAL_TO_SLOW
 
     }
 
-    public enum beltMode {
+    private enum beltMode {
 
         FORWARD, BACKWARD, STATIC
 
     }
 
-    public enum collectMode {
+    private enum collectMode {
 
         IN, OUT, STATIC, STATIC_TO_IN, STATIC_TO_OUT, MOVING_TO_STATIC
 
     }
 
-    public enum extendMode {
+    private enum extendMode {
 
         UP, DOWN, STATIC, STATIC_TO_UP, STATIC_TO_DOWN, MOVING_TO_STATIC
 
@@ -122,6 +122,8 @@ public class TankOp extends OpMode {
     @Override
     public void loop() {
 
+        feedback();
+
         drive();
 
         particleLaunch();
@@ -153,7 +155,10 @@ public class TankOp extends OpMode {
         telemetry.addData("Extend Speed", robot.extendMotor.getPower());
         telemetry.addData("Extend Pos", robot.extendMotor.getCurrentPosition());
 
-        telemetry.addData("Servos 1/2 Pos", robot.release.getPosition());
+        telemetry.addData("Release Pos", robot.release.getPosition());
+
+        telemetry.addData("Button Push Left", robot.btnPushLeft.getPosition());
+        telemetry.addData("Button Push Right", robot.btnPushRight.getPosition());
 
     }
 

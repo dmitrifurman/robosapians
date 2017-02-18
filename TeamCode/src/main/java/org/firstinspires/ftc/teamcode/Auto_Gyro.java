@@ -196,11 +196,13 @@ public class Auto_Gyro extends LinearOpMode {
         robot.leftDrive.setPower(0.3);
         robot.rightDrive.setPower(0.3);
 
+        runtime.reset();
+
         switch (Color) {
 
             case BLUE:
                 robot.colorSensorRight.enableLed(false);
-                while (true) {
+                while (runtime.seconds() > 4) {
                     if (robot.colorSensorRight.blue() >= 1 && robot.colorSensorRight.red() == 0) {
                         robot.btnPushRight.setPosition(0);
                         break;
@@ -210,7 +212,7 @@ public class Auto_Gyro extends LinearOpMode {
 
             case RED:
                 robot.colorSensorLeft.enableLed(false);
-                while (true) {
+                while (runtime.seconds() > 4) {
                     if (robot.colorSensorLeft.red() >= 1 && robot.colorSensorLeft.blue() == 0) {
                         robot.btnPushLeft.setPosition(0.8);
                         break;
