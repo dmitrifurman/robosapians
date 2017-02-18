@@ -51,6 +51,7 @@ public class Auto_Gyro extends LinearOpMode {
         robot.init(hardwareMap);
 
         telemetry.addData("Status", "Initializing");
+        telemetry.addData("Notice", "Do NOT click START!");
         telemetry.update();
 
         robot.gyroSensor.calibrate();
@@ -67,7 +68,8 @@ public class Auto_Gyro extends LinearOpMode {
             idle();
         }
 
-        telemetry.addData("Status: ", "Ready");
+        telemetry.addData("Status: ", "READY");
+        telemetry.addData("Start", "OK!");
         telemetry.update();
 
         waitForStart();

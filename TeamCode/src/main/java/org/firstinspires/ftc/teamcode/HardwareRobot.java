@@ -57,40 +57,39 @@ public class HardwareRobot {
 
     }
 
-        public void init(HardwareMap hwMap) {
-            // save reference to HW Map
-            this.hwMap = hwMap;
+    public void init(HardwareMap hwMap) {
+        // save reference to HW Map
+        this.hwMap = hwMap;
 
-            // Assigns Names to Motors
-            leftDrive = hwMap.dcMotor.get("Left Drive");
-            rightDrive = hwMap.dcMotor.get("Right Drive");
-            leftLaunch = hwMap.dcMotor.get("Left Launch");
-            rightLaunch = hwMap.dcMotor.get("Right Launch");
-            beltMotor = hwMap.dcMotor.get("Belt");
-            collectMotor = hwMap.dcMotor.get("Collect");
-            extendMotor = hwMap.dcMotor.get("Extend");
+        // Assigns Names to Motors
+        leftDrive = hwMap.dcMotor.get("Left Drive");
+        rightDrive = hwMap.dcMotor.get("Right Drive");
+        leftLaunch = hwMap.dcMotor.get("Left Launch");
+        rightLaunch = hwMap.dcMotor.get("Right Launch");
+        beltMotor = hwMap.dcMotor.get("Belt");
+        collectMotor = hwMap.dcMotor.get("Collect");
+        extendMotor = hwMap.dcMotor.get("Extend");
 
-            // Reverse Motors
-            rightDrive.setDirection(DcMotor.Direction.REVERSE);
-            leftLaunch.setDirection(DcMotor.Direction.REVERSE);
-            extendMotor.setDirection(DcMotor.Direction.REVERSE);
-            leftLaunch.setDirection(DcMotor.Direction.REVERSE);
-            collectMotor.setDirection(DcMotor.Direction.REVERSE);
+        // Reverse Motors
+        rightDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftLaunch.setDirection(DcMotor.Direction.REVERSE);
+        extendMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftLaunch.setDirection(DcMotor.Direction.REVERSE);
+        collectMotor.setDirection(DcMotor.Direction.REVERSE);
 
 
-            // Assigns Names to Servos
-            release = hwMap.servo.get("Release");
-            btnPushLeft = hwMap.servo.get("Button Push Left");
-            btnPushRight = hwMap.servo.get("Button Push Right");
+        // Assigns Names to Servos
+        release = hwMap.servo.get("Release");
+        btnPushLeft = hwMap.servo.get("Button Push Left");
+        btnPushRight = hwMap.servo.get("Button Push Right");
 
-            // Assigns Names to Sensors
-            colorSensorLeft = hwMap.colorSensor.get("Color Sensor Left");
-            colorSensorRight = hwMap.colorSensor.get("Color Sensor Right");
+        // Assigns Names to Sensors
+        colorSensorLeft = hwMap.colorSensor.get("Color Sensor Left");
+        colorSensorRight = hwMap.colorSensor.get("Color Sensor Right");
 
-            gyroSensor = hwMap.gyroSensor.get("Gyro Sensor");
+        gyroSensor = hwMap.gyroSensor.get("Gyro Sensor");
 
     }
-
 
 
 }
