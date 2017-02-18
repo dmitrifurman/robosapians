@@ -91,11 +91,6 @@ public class TankOp extends OpMode {
         drive = driveMode.NORMAL;
 
         // Servo Default Position
-
-        drive = driveMode.NORMAL;
-
-        // Servo Default Position
-
         armPosition = 0;
 
         robot.release.setPosition(armPosition);
