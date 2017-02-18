@@ -9,26 +9,41 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import java.util.Objects;
 
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
+import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.timeDelay;
 
 
-@Autonomous(name = "Autonomous Blue", group = "Linear OpModes")
-public class Auto_Gyro_Blue extends LinearOpMode {
+@Autonomous(name = "Autonomous w/Gyro", group = "Linear OpModes")
+public class Auto_Gyro extends LinearOpMode {
+
+    private enum Alliance {
+        RED, BLUE, NONE
+    }
+
+    private Alliance Color = Alliance.NONE;
 
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
 
-    static final double COUNTS_PER_MOTOR_REV = 1120;    // eg: TETRIX Motor Encoder
-    static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
-    static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
-    static final double COUNTS_PER_FOOT = (12 * (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * (Math.PI)));
+    private static final double COUNTS_PER_MOTOR_REV = 1120;
 
-    static final double rtTwo = Math.sqrt(2);
+    private static final double DRIVE_GEAR_REDUCTION = 1.0;
+    private static final double WHEEL_DIAMETER_INCHES = 4.0;
+    private static final double COUNTS_PER_FOOT = (12 * (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * (Math.PI)));
 
-    //java.lang.String Left = "LEFT";
-    //java.lang.String Right = "RIGHT";
+    private static final double rtTwo = Math.sqrt(2);
 
     @Override
     public void runOpMode() throws InterruptedException {
+
+        if (Objects.equals(TeamColor, "Blue")) {
+
+            Color = Alliance.BLUE;
+
+        } else if (Objects.equals(TeamColor, "Red")) {
+
+            Color = Alliance.RED;
+
+        }
 
         robot.init(hardwareMap);
 
@@ -39,19 +54,11 @@ public class Auto_Gyro_Blue extends LinearOpMode {
 
         robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-       /* if (Objects.equals(TeamColor, "Red")) {
-            Left = "LEFT";
-            Right = "RIGHT";
-        } else if (Objects.equals(TeamColor, "Blue")) {
-            Left = "RIGHT";
-            Right = "LEFT";
-        }*/
 
         while (robot.gyroSensor.isCalibrating()) {
             idle();
@@ -62,43 +69,21 @@ public class Auto_Gyro_Blue extends LinearOpMode {
 
         waitForStart();
 
+        runtime.reset();
+
+        while(runtime.seconds() < timeDelay){
+            idle();
+        }
+
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        Move(0.4, 0.625, 3, 0.5);
-
-        gyroTurn(45, "RIGHT", 6, 0.5);
-
-        //Move(0.4, 4.7, 3, 0.5);
-
-        //robot.gyroSensor.calibrate();
-        //sleep(3000);
-
-        //gyroTurn(39, "RIGHT", 6, 0.5);
-        //Launch(2);
-
-        //Move(0.5, 5.5, 6, 0.5);
-
-        /*gyroTurn(90, Left, 6, 0.5);
-
-        beaconPress();
-
-        gyroTurn(180, Left, 8, 0.5);
-
-        Move(1, 4, 6, 0.5);
-
-        gyroTurn(270, Right, 8, 0.5);
-
-        beaconPress();
-
-        Move(1, -4.5, 6, 0.5);
-*/
 
         telemetry.addData("Status: ", "Complete");
         telemetry.update();
     }
 
-    public void Move(double speed, double distance, double time, double pause) throws InterruptedException {
+    private void Move(double speed, double distance, double time, double pause) throws InterruptedException {
         int target;
 
         target = (int) (distance * COUNTS_PER_FOOT);
@@ -160,48 +145,75 @@ public class Auto_Gyro_Blue extends LinearOpMode {
     }
 
 
-    public void sensorTest() {
+    private void beaconTest() throws InterruptedException{
 
-        telemetry.addData("In Sensor Test", "NOW");
+        telemetry.addData("Beacon Test:", "NOW");
 
-        if (opModeIsActive()) {
-            robot.colorSensorLeft.enableLed(false);
-            if (robot.colorSensorLeft.red() >= 1 && robot.colorSensorLeft.blue() == 0) {
-                if (Objects.equals(TeamColor, "Red")) {
-                    robot.btnPushLeft.setPosition(Servo.MAX_POSITION);
-                } else if (Objects.equals(TeamColor, "Blue")) {
-                    robot.btnPushLeft.setPosition(Servo.MIN_POSITION);
+        robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        robot.leftDrive.setTargetPosition((int)(-1.5*COUNTS_PER_FOOT));
+        robot.rightDrive.setTargetPosition((int)(-1.5*COUNTS_PER_FOOT));
+
+        robot.leftDrive.setPower(0.3);
+        robot.rightDrive.setPower(0.3);
+
+        switch (Color) {
+
+            case BLUE:
+                robot.colorSensorRight.enableLed(false);
+                while (true) {
+                    if (robot.colorSensorRight.blue() >= 1 && robot.colorSensorRight.red() == 0) {
+                        robot.btnPushRight.setPosition(1);
+                        break;
+                    }
                 }
-            } else if (robot.colorSensorLeft.blue() >= 1 && robot.colorSensorLeft.red() == 0) {
-                if (Objects.equals(TeamColor, "Red")) {
-                    robot.btnPushLeft.setPosition(Servo.MAX_POSITION);
-                } else if (Objects.equals(TeamColor, "Blue")) {
-                    robot.btnPushLeft.setPosition(Servo.MIN_POSITION);
+                break;
+
+            case RED:
+                robot.colorSensorLeft.enableLed(false);
+                while (true) {
+                    if (robot.colorSensorLeft.red() >= 1 && robot.colorSensorLeft.blue() == 0) {
+                        robot.btnPushLeft.setPosition(1);
+                        break;
+                    }
                 }
-            } else {
-                robot.btnPushLeft.setPosition(Servo.MAX_POSITION / 2);
-            }
+                break;
+
         }
+
+        while (robot.leftDrive.isBusy() && robot.rightDrive.isBusy()) {
+            idle();
+        }
+
+        robot.leftDrive.setPower(0);
+        robot.rightDrive.setPower(0);
+        robot.btnPushLeft.setPosition(0);
+        robot.btnPushRight.setPosition(0);
+
+        robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
     }
 
 
-    public void gyroTurn(double angle, String direction, double time, double pause) throws InterruptedException {
+    private void gyroTurn(double angle, Enum direction, double time, double pause) throws InterruptedException {
 
         double gyroAngle = 0;
 
-        if(direction.equals("RIGHT"))
-        {
-            gyroAngle = angle-10;
+        if (direction.equals("RIGHT")) {
+            gyroAngle = angle - 10;
         }
 
-        if(direction.equals("LEFT"))
-        {
-            gyroAngle = 360-(angle-10);
+        if (direction.equals("LEFT")) {
+            gyroAngle = 360 - (angle - 10);
         }
 
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
 
 
         runtime.reset();
@@ -231,19 +243,5 @@ public class Auto_Gyro_Blue extends LinearOpMode {
         sleep((int) (pause * 1000));
     }
 
-
-    public void beaconPress() throws InterruptedException {
-
-        //sensorTest();
-
-        Move(0.5, 0.3, 3, 0.5);
-
-        Move(0.5, -0.3, 3, 0.5);
-
-        Move(0.5, 0.3, 3, 0.5);
-
-        Move(0.5, -0.3, 3, 0.5);
-
-    }
-
 }
+

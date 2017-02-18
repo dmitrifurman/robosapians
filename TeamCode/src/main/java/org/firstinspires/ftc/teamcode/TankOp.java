@@ -38,7 +38,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 
-@TeleOp(name = "Tank Op Simple", group = "Linear Opmode")
+@TeleOp(name = "Tank Op", group = "Linear Opmode")
 public class TankOp extends OpMode {
 
     public enum driveMode {
