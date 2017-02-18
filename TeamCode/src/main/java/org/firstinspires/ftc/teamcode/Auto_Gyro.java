@@ -54,6 +54,8 @@ public class Auto_Gyro extends LinearOpMode {
         telemetry.addData("Notice", "Do NOT click START!");
         telemetry.update();
 
+        sleep(3000);
+
         robot.gyroSensor.calibrate();
 
         robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -88,7 +90,7 @@ public class Auto_Gyro extends LinearOpMode {
 
         GyroTurn(45, Direction.LEFT, 3, 0.5);
 
-        Move(1, 3 * rtTwo, 5, 0.5);
+        Move(1, 4.1667, 5, 0.5);
 
         GyroTurn(0, Direction.RIGHT, 3, 0.5);
 
