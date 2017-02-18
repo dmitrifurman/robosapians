@@ -78,6 +78,9 @@ public class Auto_Gyro extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
+        Move(0.5,(5/12), 3.0, 0.5);
+
+
 
         telemetry.addData("Status: ", "Complete");
         telemetry.update();
