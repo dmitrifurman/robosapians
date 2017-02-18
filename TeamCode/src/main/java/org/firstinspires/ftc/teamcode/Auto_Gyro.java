@@ -189,14 +189,14 @@ public class Auto_Gyro extends LinearOpMode {
         robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         robot.leftDrive.setTargetPosition((int) (-1.5 * COUNTS_PER_FOOT));
         robot.rightDrive.setTargetPosition((int) (-1.5 * COUNTS_PER_FOOT));
 
-        robot.leftDrive.setPower(0.3);
-        robot.rightDrive.setPower(0.3);
+        robot.leftDrive.setPower(0.6);
+        robot.rightDrive.setPower(0.6);
 
         runtime.reset();
 
