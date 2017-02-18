@@ -152,6 +152,9 @@ public class Auto_Gyro extends LinearOpMode {
 
         telemetry.addData("Beacon Test:", "NOW");
 
+        robot.btnPushLeft.setPosition(0.3);
+        robot.btnPushRight.setPosition(0.7);
+
         robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -170,7 +173,7 @@ public class Auto_Gyro extends LinearOpMode {
                 robot.colorSensorRight.enableLed(false);
                 while (true) {
                     if (robot.colorSensorRight.blue() >= 1 && robot.colorSensorRight.red() == 0) {
-                        robot.btnPushRight.setPosition(1);
+                        robot.btnPushRight.setPosition(0);
                         break;
                     }
                 }
@@ -180,7 +183,7 @@ public class Auto_Gyro extends LinearOpMode {
                 robot.colorSensorLeft.enableLed(false);
                 while (true) {
                     if (robot.colorSensorLeft.red() >= 1 && robot.colorSensorLeft.blue() == 0) {
-                        robot.btnPushLeft.setPosition(1);
+                        robot.btnPushLeft.setPosition(0.8);
                         break;
                     }
                 }
@@ -194,8 +197,8 @@ public class Auto_Gyro extends LinearOpMode {
 
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
-        robot.btnPushLeft.setPosition(0);
-        robot.btnPushRight.setPosition(0);
+        robot.btnPushLeft.setPosition(0.3);
+        robot.btnPushRight.setPosition(0.7);
 
         robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

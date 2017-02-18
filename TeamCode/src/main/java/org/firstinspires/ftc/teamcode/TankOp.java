@@ -216,8 +216,8 @@ public class TankOp extends OpMode {
 
         if (extend == extendMode.STATIC) {
 
-            robot.leftLaunch.setPower(0.3);
-            robot.rightLaunch.setPower(0.3);
+            robot.leftLaunch.setPower(0.6);
+            robot.rightLaunch.setPower(0.6);
 
         } else {
 
