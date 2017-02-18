@@ -98,8 +98,7 @@ public class TankOp extends OpMode {
 
         armPosition = 1;
 
-        robot.releaseLeft.setPosition(armPosition);
-        robot.releaseRight.setPosition(1 - armPosition);
+        robot.release.setPosition(armPosition);
 
         // Set Belt Mode
         belt = beltMode.STATIC;
@@ -150,7 +149,7 @@ public class TankOp extends OpMode {
         telemetry.addData("Extend Speed", robot.extendMotor.getPower());
         telemetry.addData("Extend Pos", robot.extendMotor.getCurrentPosition());
 
-        telemetry.addData("Servos 1/2 Pos", robot.releaseLeft.getPosition());
+        telemetry.addData("Servos 1/2 Pos", robot.release.getPosition());
 
     }
 
@@ -276,8 +275,7 @@ public class TankOp extends OpMode {
         }
 
         // Updates Servos
-        robot.releaseLeft.setPosition(armPosition);
-        robot.releaseRight.setPosition(1 - armPosition);
+        robot.release.setPosition(armPosition);
 
     }
 

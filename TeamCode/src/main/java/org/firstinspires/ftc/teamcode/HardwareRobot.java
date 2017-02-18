@@ -45,8 +45,7 @@ public class HardwareRobot {
             beltMotor = null,
             collectMotor = null,
             extendMotor = null;
-    public Servo releaseLeft = null,
-            releaseRight = null,
+    public Servo release = null,
             btnPushLeft = null,
             btnPushRight = null;
     public ColorSensor colorSensorLeft = null,
@@ -80,8 +79,7 @@ public class HardwareRobot {
 
 
             // Assigns Names to Servos
-            releaseLeft = hwMap.servo.get("Release Left");
-            releaseRight = hwMap.servo.get("Release Right");
+            release = hwMap.servo.get("Release");
             btnPushLeft = hwMap.servo.get("Button Push Left");
             btnPushRight = hwMap.servo.get("Button Push Right");
 
