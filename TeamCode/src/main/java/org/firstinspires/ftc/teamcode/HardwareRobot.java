@@ -33,6 +33,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -75,9 +76,10 @@ public class HardwareRobot {
         extendMotor = hwMap.dcMotor.get("Extend");
 
         // Reverse Motors
+        leftDrive.setDirection(DcMotor.Direction.REVERSE);
         leftLaunch.setDirection(DcMotor.Direction.REVERSE);
-        extendMotor.setDirection(DcMotor.Direction.REVERSE);
         collectMotor.setDirection(DcMotor.Direction.REVERSE);
+        extendMotor.setDirection(DcMotor.Direction.REVERSE);
 
 
         // Assigns Names to Servos
