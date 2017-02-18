@@ -96,7 +96,7 @@ public class TankOp extends OpMode {
 
         // Servo Default Position
 
-        armPosition = 1;
+        armPosition = 0;
 
         robot.release.setPosition(armPosition);
 
@@ -108,6 +108,10 @@ public class TankOp extends OpMode {
 
         // Set Extend Mode
         extend = extendMode.STATIC;
+
+        // Button Pusher
+        robot.btnPushLeft.setPosition(1);
+        robot.btnPushRight.setPosition(0);
 
         // Reset belt encoder
         robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
