@@ -63,8 +63,8 @@ public class HardwareRobot {
             this.hwMap = hwMap;
 
             // Assigns Names to Motors
-            leftDrive = hwMap.dcMotor.get("Left Motor");
-            rightDrive = hwMap.dcMotor.get("Right Motor");
+            leftDrive = hwMap.dcMotor.get("Left Drive");
+            rightDrive = hwMap.dcMotor.get("Right Drive");
             leftLaunch = hwMap.dcMotor.get("Left Launch");
             rightLaunch = hwMap.dcMotor.get("Right Launch");
             beltMotor = hwMap.dcMotor.get("Belt");
