@@ -90,7 +90,7 @@ public class Auto_Gyro_Inches extends LinearOpMode {
 
         GyroTurn(0.5, 45, Direction.LEFT, 3, 0.5);
 
-        Move(1, 36 * rtTwo, 5, 0.5);
+        Move(1, 50, 5, 0.5);
 
         GyroTurn(0.5, 0, Direction.RIGHT, 3, 0.5);
 
