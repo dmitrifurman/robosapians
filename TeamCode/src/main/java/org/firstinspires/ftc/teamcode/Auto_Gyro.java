@@ -81,9 +81,29 @@ public class Auto_Gyro extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        Move(0.5,(5/12), 3.0, 0.5);
+        Move(1, (16 / 12), 3, 0.5);
 
+        GyroTurn(45, Direction.LEFT, 3, 0.5);
 
+        Move(1, 3 * rtTwo, 5, 0.5);
+
+        GyroTurn(0, Direction.RIGHT, 3, 0.5);
+
+        Move(1, 4.5, 3, 0.5);
+
+        BeaconTest();
+
+        Move(1, 2.5, 3, 0.5);
+
+        GyroTurn(90, Direction.RIGHT, 3, 0.5);
+
+        Move(1, 2, 3, 0.5);
+
+        GyroTurn(60, Direction.RIGHT, 3, 0.5);
+
+        Launch(2);
+
+        Move(1, 1.5, 3, 0.5);
 
         telemetry.addData("Status: ", "Complete");
         telemetry.update();
@@ -123,8 +143,8 @@ public class Auto_Gyro extends LinearOpMode {
 
         runtime.reset();
 
-        robot.leftLaunch.setPower(-0.4);
-        robot.rightLaunch.setPower(-0.4);
+        robot.leftLaunch.setPower(0.6);
+        robot.rightLaunch.setPower(0.6);
 
         for (int l = 1; l <= balls; l++) {
 
@@ -151,9 +171,12 @@ public class Auto_Gyro extends LinearOpMode {
     }
 
 
-    private void beaconTest() throws InterruptedException {
+    private void BeaconTest() throws InterruptedException {
 
         telemetry.addData("Beacon Test:", "NOW");
+
+        robot.btnPushLeft.setPosition(0.3);
+        robot.btnPushRight.setPosition(0.7);
 
         robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -173,7 +196,7 @@ public class Auto_Gyro extends LinearOpMode {
                 robot.colorSensorRight.enableLed(false);
                 while (true) {
                     if (robot.colorSensorRight.blue() >= 1 && robot.colorSensorRight.red() == 0) {
-                        robot.btnPushRight.setPosition(1);
+                        robot.btnPushRight.setPosition(0);
                         break;
                     }
                 }
@@ -183,7 +206,7 @@ public class Auto_Gyro extends LinearOpMode {
                 robot.colorSensorLeft.enableLed(false);
                 while (true) {
                     if (robot.colorSensorLeft.red() >= 1 && robot.colorSensorLeft.blue() == 0) {
-                        robot.btnPushLeft.setPosition(1);
+                        robot.btnPushLeft.setPosition(0.8);
                         break;
                     }
                 }
@@ -197,8 +220,8 @@ public class Auto_Gyro extends LinearOpMode {
 
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
-        robot.btnPushLeft.setPosition(0);
-        robot.btnPushRight.setPosition(0);
+        robot.btnPushLeft.setPosition(0.3);
+        robot.btnPushRight.setPosition(0.7);
 
         robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -206,7 +229,7 @@ public class Auto_Gyro extends LinearOpMode {
     }
 
 
-    private void gyroTurn(double angle, Direction dir, double time, double pause) throws InterruptedException {
+    private void GyroTurn(double angle, Direction dir, double time, double pause) throws InterruptedException {
 
         double gyroAngle = 0;
 
