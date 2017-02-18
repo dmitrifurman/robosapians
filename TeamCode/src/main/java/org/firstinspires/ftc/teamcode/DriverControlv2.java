@@ -95,7 +95,7 @@ public class DriverControlv2 extends OpMode {
 
         // Servo positioning
         armPosition = Servo.MAX_POSITION; // Set initialized position to maximum position (holding ball raiser lift in stowed position)
-        robot.releaseLeft.setPosition(armPosition); //Release 1 is set to stowed
+        robot.release.setPosition(armPosition); //Release 1 is set to stowed
         //The direction of release 2 is upside-down so all positions must be opposite of release 1
         robot.releaseRight.setPosition(Servo.MAX_POSITION - armPosition); //Release 2 is set to stowed
         robot.btnPush.setPosition(buttonPosition);
@@ -153,7 +153,7 @@ public class DriverControlv2 extends OpMode {
             telemetry.addData("Collector Speed", robot.collectMotor.getPower());
             telemetry.addData("Extend Speed", robot.extendMotor.getPower());
             telemetry.addData("Extend Pos", robot.extendMotor.getCurrentPosition());
-            telemetry.addData("Servos 1/2 Pos", robot.releaseLeft.getPosition());
+            telemetry.addData("Servos 1/2 Pos", robot.release.getPosition());
             telemetry.addData("Button Pusher", robot.btnPush.getPosition());
 
         }
@@ -294,7 +294,7 @@ public class DriverControlv2 extends OpMode {
         buttonPosition = Range.clip(buttonPosition, 0, 0.75);
 
         // Updates Servos
-        robot.releaseLeft.setPosition(armPosition);
+        robot.release.setPosition(armPosition);
         robot.releaseRight.setPosition(1 - armPosition);
         robot.btnPush.setPosition(buttonPosition);
 
