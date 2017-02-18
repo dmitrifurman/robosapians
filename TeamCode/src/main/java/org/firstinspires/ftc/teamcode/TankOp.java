@@ -92,9 +92,9 @@ public class TankOp extends OpMode {
 
         // Servo Default Position
 
-        driveMode = DriveMode.NORMAL_SPEED;
-    }
-       // Servo Default Position
+        drive = driveMode.NORMAL;
+
+        // Servo Default Position
 
         armPosition = 1;
 
@@ -131,15 +131,6 @@ public class TankOp extends OpMode {
 
     }
 
-
- //       particleLaunch();
- //       particleCollector();
- //       servos();
- //       extender();
-
-    }
-
-
     private void feedback() {
 
         // Feedback Data
@@ -161,12 +152,7 @@ public class TankOp extends OpMode {
 
         telemetry.addData("Servos 1/2 Pos", robot.releaseLeft.getPosition());
 
-        telemetry.addData("Button Pusher", robot.btnPush.getPosition());
-
     }
-
-
-
 
 
     private void drive() {
@@ -219,10 +205,6 @@ public class TankOp extends OpMode {
         }
 
     }
-
-
-
-
 
 
     private void particleLaunch() {
@@ -447,7 +429,7 @@ public class TankOp extends OpMode {
 
         robot.leftLaunch.setPower(0);
 
-      robot.leftLaunch.setPower(0);
+        robot.leftLaunch.setPower(0);
 
         robot.rightLaunch.setPower(0);
 
@@ -461,9 +443,9 @@ public class TankOp extends OpMode {
     }
 
 
-    }
-
 }
+
+
 
 
 
