@@ -87,17 +87,18 @@ public class TankOp extends OpMode {
 
         robot.init(hardwareMap);
 
-        // Sets Default Drive Mode
+        // Sets intialize Drive Mode
         drive = driveMode.NORMAL;
 
-        // Servo Default Position
 
+        // Servo initialize Position value
         drive = driveMode.NORMAL;
 
         // Servo Default Position
 
         armPosition = 0;
 
+        //Servo set position to initialize value
         robot.release.setPosition(armPosition);
 
         // Set Belt Mode
