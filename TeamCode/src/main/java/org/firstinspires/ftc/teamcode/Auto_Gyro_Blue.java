@@ -11,8 +11,8 @@ import java.util.Objects;
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 
 
-@Autonomous(name = "Testing", group = "Linear OpModes")
-public class Auto_Gyro_Left extends LinearOpMode {
+@Autonomous(name = "Autonomous Blue", group = "Linear OpModes")
+public class Auto_Gyro_Blue extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
@@ -43,7 +43,7 @@ public class Auto_Gyro_Left extends LinearOpMode {
 
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-       // robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
        /* if (Objects.equals(TeamColor, "Red")) {
             Left = "LEFT";
@@ -67,7 +67,7 @@ public class Auto_Gyro_Left extends LinearOpMode {
 
         Move(0.4, 0.625, 3, 0.5);
 
-        gyroTurn(45, "LEFT", 6, 0.5);
+        gyroTurn(45, "RIGHT", 6, 0.5);
 
         //Move(0.4, 4.7, 3, 0.5);
 
@@ -165,26 +165,26 @@ public class Auto_Gyro_Left extends LinearOpMode {
         telemetry.addData("In Sensor Test", "NOW");
 
         if (opModeIsActive()) {
-            robot.colorSensor.enableLed(false);
-            if (robot.colorSensor.red() >= 1 && robot.colorSensor.blue() == 0) {
+            robot.colorSensorLeft.enableLed(false);
+            if (robot.colorSensorLeft.red() >= 1 && robot.colorSensorLeft.blue() == 0) {
                 if (Objects.equals(TeamColor, "Red")) {
-                    robot.btnPush.setPosition(Servo.MAX_POSITION);
+                    robot.btnPushLeft.setPosition(Servo.MAX_POSITION);
                 } else if (Objects.equals(TeamColor, "Blue")) {
-                    robot.btnPush.setPosition(Servo.MIN_POSITION);
+                    robot.btnPushLeft.setPosition(Servo.MIN_POSITION);
                 }
-            } else if (robot.colorSensor.blue() >= 1 && robot.colorSensor.red() == 0) {
+            } else if (robot.colorSensorLeft.blue() >= 1 && robot.colorSensorLeft.red() == 0) {
                 if (Objects.equals(TeamColor, "Red")) {
-                    robot.btnPush.setPosition(Servo.MAX_POSITION);
+                    robot.btnPushLeft.setPosition(Servo.MAX_POSITION);
                 } else if (Objects.equals(TeamColor, "Blue")) {
-                    robot.btnPush.setPosition(Servo.MIN_POSITION);
+                    robot.btnPushLeft.setPosition(Servo.MIN_POSITION);
                 }
             } else {
-                robot.btnPush.setPosition(Servo.MAX_POSITION / 2);
+                robot.btnPushLeft.setPosition(Servo.MAX_POSITION / 2);
             }
         }
     }
 
-*/
+
     public void gyroTurn(double angle, String direction, double time, double pause) throws InterruptedException {
 
         double gyroAngle = 0;
