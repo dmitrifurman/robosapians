@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.Objects;
@@ -17,6 +16,10 @@ public class Auto_Gyro extends LinearOpMode {
 
     private enum Alliance {
         RED, BLUE, NONE
+    }
+
+    private enum Direction {
+        LEFT, RIGHT, NONE
     }
 
     private Alliance Color = Alliance.NONE;
@@ -71,7 +74,7 @@ public class Auto_Gyro extends LinearOpMode {
 
         runtime.reset();
 
-        while(runtime.seconds() < timeDelay){
+        while (runtime.seconds() < timeDelay) {
             idle();
         }
 
@@ -145,7 +148,7 @@ public class Auto_Gyro extends LinearOpMode {
     }
 
 
-    private void beaconTest() throws InterruptedException{
+    private void beaconTest() throws InterruptedException {
 
         telemetry.addData("Beacon Test:", "NOW");
 
@@ -155,8 +158,8 @@ public class Auto_Gyro extends LinearOpMode {
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        robot.leftDrive.setTargetPosition((int)(-1.5*COUNTS_PER_FOOT));
-        robot.rightDrive.setTargetPosition((int)(-1.5*COUNTS_PER_FOOT));
+        robot.leftDrive.setTargetPosition((int) (-1.5 * COUNTS_PER_FOOT));
+        robot.rightDrive.setTargetPosition((int) (-1.5 * COUNTS_PER_FOOT));
 
         robot.leftDrive.setPower(0.3);
         robot.rightDrive.setPower(0.3);
@@ -200,17 +203,35 @@ public class Auto_Gyro extends LinearOpMode {
     }
 
 
-    private void gyroTurn(double angle, Enum direction, double time, double pause) throws InterruptedException {
+    private void gyroTurn(double angle, Direction dir, double time, double pause) throws InterruptedException {
 
         double gyroAngle = 0;
 
-        if (direction.equals("RIGHT")) {
-            gyroAngle = angle - 10;
+        if (Color == Alliance.BLUE) {
+            switch (dir) {
+
+                case LEFT:
+                    dir = Direction.RIGHT;
+                    break;
+
+                case RIGHT:
+                    dir = Direction.LEFT;
+                    break;
+            }
         }
 
-        if (direction.equals("LEFT")) {
-            gyroAngle = 360 - (angle - 10);
+        switch (dir) {
+
+            case LEFT:
+                gyroAngle = 360 - (angle - 10);
+                break;
+
+            case RIGHT:
+                gyroAngle = angle - 10;
+                break;
+
         }
+
 
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -218,13 +239,19 @@ public class Auto_Gyro extends LinearOpMode {
 
         runtime.reset();
 
-        if (direction.equals("LEFT")) {
-            robot.leftDrive.setPower(0.5);
-            robot.rightDrive.setPower(-0.5);
-        } else if (direction.equals("RIGHT")) {
-            robot.leftDrive.setPower(-0.5);
-            robot.rightDrive.setPower(0.5);
+        switch (dir) {
+
+            case LEFT:
+                robot.leftDrive.setPower(0.5);
+                robot.rightDrive.setPower(-0.5);
+                break;
+
+            case RIGHT:
+                robot.leftDrive.setPower(-0.5);
+                robot.rightDrive.setPower(0.5);
+                break;
         }
+
 
         while (runtime.seconds() < time) {
 
