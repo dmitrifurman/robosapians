@@ -12,7 +12,7 @@ import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerA
 
 
 @Autonomous(name = "Testing", group = "Linear OpModes")
-public class Auto_Gyro extends LinearOpMode {
+public class Auto_Gyro_Left extends LinearOpMode {
 
     private HardwareRobot robot = new HardwareRobot();
     private ElapsedTime runtime = new ElapsedTime();
@@ -65,19 +65,19 @@ public class Auto_Gyro extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        Move(0.4, 0.5, 3, 0.5);
+        Move(0.4, 0.625, 3, 0.5);
 
         gyroTurn(45, "LEFT", 6, 0.5);
 
-        Move(0.4, 4.7, 3, 0.5);
+        //Move(0.4, 4.7, 3, 0.5);
 
-        robot.gyroSensor.calibrate();
-        sleep(3000);
+        //robot.gyroSensor.calibrate();
+        //sleep(3000);
 
-        gyroTurn(39, "RIGHT", 6, 0.5);
+        //gyroTurn(39, "RIGHT", 6, 0.5);
         //Launch(2);
 
-        Move(0.5, 5.5, 6, 0.5);
+        //Move(0.5, 5.5, 6, 0.5);
 
         /*gyroTurn(90, Left, 6, 0.5);
 
@@ -128,7 +128,7 @@ public class Auto_Gyro extends LinearOpMode {
     }
 
 
-   /* private void Launch(double balls) throws InterruptedException {
+    private void Launch(double balls) throws InterruptedException {
 
         runtime.reset();
 
