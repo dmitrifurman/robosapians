@@ -81,6 +81,29 @@ public class Auto_Gyro extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
+        Move(1, (16 / 12), 3, 0.5);
+
+        GyroTurn(45, Direction.LEFT, 3, 0.5);
+
+        Move(1, 3 * rtTwo, 5, 0.5);
+
+        GyroTurn(0, Direction.RIGHT, 3, 0.5);
+
+        Move(1, 4.5, 3, 0.5);
+
+        BeaconTest();
+
+        Move(1, 2.5, 3, 0.5);
+
+        GyroTurn(90, Direction.RIGHT, 3, 0.5);
+
+        Move(1, 2, 3, 0.5);
+
+        GyroTurn(60, Direction.RIGHT, 3, 0.5);
+
+        Launch(2);
+
+        Move(1, 1.5, 3, 0.5);
 
         telemetry.addData("Status: ", "Complete");
         telemetry.update();
@@ -120,8 +143,8 @@ public class Auto_Gyro extends LinearOpMode {
 
         runtime.reset();
 
-        robot.leftLaunch.setPower(-0.4);
-        robot.rightLaunch.setPower(-0.4);
+        robot.leftLaunch.setPower(0.6);
+        robot.rightLaunch.setPower(0.6);
 
         for (int l = 1; l <= balls; l++) {
 
@@ -148,7 +171,7 @@ public class Auto_Gyro extends LinearOpMode {
     }
 
 
-    private void beaconTest() throws InterruptedException {
+    private void BeaconTest() throws InterruptedException {
 
         telemetry.addData("Beacon Test:", "NOW");
 
@@ -206,7 +229,7 @@ public class Auto_Gyro extends LinearOpMode {
     }
 
 
-    private void gyroTurn(double angle, Direction dir, double time, double pause) throws InterruptedException {
+    private void GyroTurn(double angle, Direction dir, double time, double pause) throws InterruptedException {
 
         double gyroAngle = 0;
 
