@@ -38,19 +38,23 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class HardwareRobot {
-    public DcMotor leftDrive = null,
+    public DcMotor
+            leftDrive = null,
             rightDrive = null,
             leftLaunch = null,
             rightLaunch = null,
             beltMotor = null,
             collectMotor = null,
             extendMotor = null;
-    public Servo release = null,
+    public Servo
+            release = null,
             btnPushLeft = null,
             btnPushRight = null;
-    public ColorSensor colorSensorLeft = null,
+    public ColorSensor
+            colorSensorLeft = null,
             colorSensorRight = null;
-    public GyroSensor gyroSensor = null;
+    public GyroSensor
+            gyroSensor = null;
     private HardwareMap hwMap = null;
 
     public HardwareRobot() {
