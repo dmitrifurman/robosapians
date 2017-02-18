@@ -51,6 +51,7 @@ public class Auto_Gyro extends LinearOpMode {
         robot.init(hardwareMap);
 
         telemetry.addData("Status", "Initializing");
+        telemetry.addData("Notice", "Do NOT click START!");
         telemetry.update();
 
         robot.gyroSensor.calibrate();
@@ -67,7 +68,8 @@ public class Auto_Gyro extends LinearOpMode {
             idle();
         }
 
-        telemetry.addData("Status: ", "Ready");
+        telemetry.addData("Status: ", "READY");
+        telemetry.addData("Start", "OK!");
         telemetry.update();
 
         waitForStart();
@@ -81,7 +83,7 @@ public class Auto_Gyro extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        Move(1, (16 / 12), 3, 0.5);
+        Move(1, 1.333, 3, 0.5);
 
         GyroTurn(45, Direction.LEFT, 3, 0.5);
 
@@ -125,6 +127,12 @@ public class Auto_Gyro extends LinearOpMode {
         robot.rightDrive.setPower(speed);
 
         while (opModeIsActive() && (runtime.seconds() < time) && (robot.leftDrive.isBusy() && robot.rightDrive.isBusy())) {
+
+            telemetry.addData("Path2", "Running at %7d :%7d",
+                    robot.leftDrive.getCurrentPosition(),
+                    robot.rightDrive.getCurrentPosition());
+            telemetry.update();
+
             idle();
         }
 
@@ -190,11 +198,13 @@ public class Auto_Gyro extends LinearOpMode {
         robot.leftDrive.setPower(0.3);
         robot.rightDrive.setPower(0.3);
 
+        runtime.reset();
+
         switch (Color) {
 
             case BLUE:
                 robot.colorSensorRight.enableLed(false);
-                while (true) {
+                while (runtime.seconds() > 4) {
                     if (robot.colorSensorRight.blue() >= 1 && robot.colorSensorRight.red() == 0) {
                         robot.btnPushRight.setPosition(0);
                         break;
@@ -204,7 +214,7 @@ public class Auto_Gyro extends LinearOpMode {
 
             case RED:
                 robot.colorSensorLeft.enableLed(false);
-                while (true) {
+                while (runtime.seconds() > 4) {
                     if (robot.colorSensorLeft.red() >= 1 && robot.colorSensorLeft.blue() == 0) {
                         robot.btnPushLeft.setPosition(0.8);
                         break;
