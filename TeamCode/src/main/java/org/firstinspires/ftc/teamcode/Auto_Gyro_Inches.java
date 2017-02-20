@@ -56,6 +56,8 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         telemetry.addData("Notice", "Do NOT click START!");
         telemetry.update();
 
+        sleep(3000);
+
         robot.gyroSensor.calibrate();
 
         robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -86,7 +88,7 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        Move(1, 16, 3, 1);
+        Move(1, 9, 3, 1);
 
         GyroTurn(0.5, 45, Direction.LEFT, 3, 0.5);
 
@@ -104,7 +106,7 @@ public class Auto_Gyro_Inches extends LinearOpMode {
 
         GyroTurn(0.5, 90, Direction.RIGHT, 3, 0.5);
 
-        Move(1, 24, 3, 0.5);
+        Move(1, 24, 3, 1);
 
         GyroTurn(0.5, 60, Direction.RIGHT, 3, 0.5);
 

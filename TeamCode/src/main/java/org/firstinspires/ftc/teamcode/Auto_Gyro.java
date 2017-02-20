@@ -104,6 +104,8 @@ public class Auto_Gyro extends LinearOpMode {
 
         Move(1, 2, 3, 0.5);
 
+        BeaconTest();
+
         GyroTurn(60, Direction.RIGHT, 3, 0.5);
 
         Launch(2);
