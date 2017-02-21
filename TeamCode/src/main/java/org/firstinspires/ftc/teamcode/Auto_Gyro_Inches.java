@@ -56,8 +56,6 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         telemetry.addData("Notice", "Do NOT click START!");
         telemetry.update();
 
-        robot.gyroSensor.calibrate();
-
         robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.beltMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -65,11 +63,6 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.beltMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        while (robot.gyroSensor.isCalibrating()) {
-            Thread.sleep(50);
-            idle();
-        }
 
         telemetry.addData("Status: ", "READY");
         telemetry.addData("Start", "OK!");
@@ -85,7 +78,7 @@ public class Auto_Gyro_Inches extends LinearOpMode {
 
         telemetry.addData("Status: ", "Running");
         telemetry.update();
-
+/*
         Move(0.75, 9, 3, 0.5);
 
         GyroTurn(0.5, 45, Direction.LEFT, 3, 0.5);
@@ -95,9 +88,9 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         GyroTurn(0.5, 0, Direction.RIGHT, 3, 0.5);
 
         Move(0.75, 50, 3, 0.5);
-
+*/
         BeaconTest();
-
+/*
         Move(0.75, 30, 3, 0.5);
 
         GyroTurn(0.5, 90, Direction.RIGHT, 3, 0.5);
@@ -111,7 +104,7 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         Launch(2);
 
         Move(0.75, 18, 3, 0.5);
-
+*/
         telemetry.addData("Status: ", "Complete");
         telemetry.update();
     }
@@ -200,8 +193,8 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         robot.leftDrive.setTargetPosition((int) (-18 * COUNTS_PER_INCH));
         robot.rightDrive.setTargetPosition((int) (-18 * COUNTS_PER_INCH));
 
-        robot.leftDrive.setPower(0.5);
-        robot.rightDrive.setPower(0.5);
+        robot.leftDrive.setPower(0.1);
+        robot.rightDrive.setPower(0.1);
 
         runtime.reset();
 
@@ -209,9 +202,9 @@ public class Auto_Gyro_Inches extends LinearOpMode {
 
             case BLUE:
                 robot.colorSensorRight.enableLed(false);
-                while (runtime.seconds() > 4) {
-                    if (robot.colorSensorRight.blue() >= 1 && robot.colorSensorRight.red() == 0) {
-                        robot.btnPushRight.setPosition(Servo.MIN_POSITION);
+                while (true) {
+                    if (robot.colorSensorRight.blue() >= 2 && robot.colorSensorLeft.red() <= 1) {
+                        robot.btnPushRight.setPosition(0);
                         break;
                     }
                 }
@@ -219,9 +212,9 @@ public class Auto_Gyro_Inches extends LinearOpMode {
 
             case RED:
                 robot.colorSensorLeft.enableLed(false);
-                while (runtime.seconds() > 4) {
-                    if (robot.colorSensorLeft.red() >= 1 && robot.colorSensorLeft.blue() == 0) {
-                        robot.btnPushLeft.setPosition(Servo.MAX_POSITION);
+                while (true) {
+                    if (robot.colorSensorLeft.red() >= 2 && robot.colorSensorLeft.blue() <= 1) {
+                        robot.btnPushLeft.setPosition(0.8);
                         break;
                     }
                 }

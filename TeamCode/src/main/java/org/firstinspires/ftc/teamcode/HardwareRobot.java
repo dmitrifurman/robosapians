@@ -32,6 +32,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.CompassSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.GyroSensor;
@@ -57,8 +58,8 @@ public class HardwareRobot {
             colorSensorRight = null;
     public GyroSensor
             gyroSensor = null;
-    public VoltageSensor
-            voltageSensor = null;
+    public CompassSensor
+            compass = null;
     private HardwareMap hwMap = null;
 
     public HardwareRobot() {
@@ -93,9 +94,9 @@ public class HardwareRobot {
         // Assigns Names to Sensors
         colorSensorLeft = hwMap.colorSensor.get("Color Sensor Left");
         colorSensorRight = hwMap.colorSensor.get("Color Sensor Right");
-//        voltageSensor = hwMap.voltageSensor.get("VoltageSensor");
 
         gyroSensor = hwMap.gyroSensor.get("Gyro Sensor");
+        //compass = hwMap.compassSensor.get("Compass")
 
     }
 
