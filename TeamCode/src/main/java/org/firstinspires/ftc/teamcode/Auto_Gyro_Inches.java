@@ -85,23 +85,23 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        Move(0.2, 36, 20, 0.75);
+        Move(0.1, 40, 20, 0.75);
 
-        Turn(0.2, 4.15, Direction.LEFT, 30, 0.75);
+        Turn(0.1, 4.15, Direction.LEFT, 30, 0.75);
 
-        Move(0.2, 47, 30, 0.75);
-
-        BeaconTest();
-
-        Move(0.2, 15, 30, 0.75);
+        Move(0.1, 47, 30, 0.75);
 
         BeaconTest();
 
-        Turn(0.2, 6, Direction.LEFT, 30, 0.75);
+        Move(0.1, 15, 30, 0.75);
 
-        Move(0.2, 20, 30, 0.75);
+        BeaconTest();
 
-        Turn(0.2, 1, Direction.RIGHT, 20, 0.75);
+        Turn(0.1, 6, Direction.LEFT, 30, 0.75);
+
+        Move(0.1, 20, 30, 0.75);
+
+        Turn(0.1, 1, Direction.RIGHT, 20, 0.75);
 
         //Launch(2);
 
