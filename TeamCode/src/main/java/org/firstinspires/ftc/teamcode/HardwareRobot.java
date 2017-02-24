@@ -31,6 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.CompassSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -60,6 +61,8 @@ public class HardwareRobot {
             gyroSensor = null;
     public CompassSensor
             compass = null;
+    public ModernRoboticsI2cRangeSensor
+            range = null;
     private HardwareMap hwMap = null;
 
     public HardwareRobot() {
@@ -97,6 +100,7 @@ public class HardwareRobot {
 
         gyroSensor = hwMap.gyroSensor.get("Gyro Sensor");
         //compass = hwMap.compassSensor.get("Compass")
+        range = hwMap.get(ModernRoboticsI2cRangeSensor.class, "Range Sensor");
 
     }
 
