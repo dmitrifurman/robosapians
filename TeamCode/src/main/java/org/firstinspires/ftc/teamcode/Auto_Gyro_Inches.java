@@ -3,9 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 import java.util.Objects;
 
@@ -70,10 +70,15 @@ public class Auto_Gyro_Inches extends LinearOpMode {
             idle();
         }
 
-        telemetry.addData("Status: ", "READY");
-        telemetry.addData("Start", "OK!");
-        telemetry.update();
+        while (true) {
 
+            telemetry.addData("Status: ", "READY");
+            telemetry.addData("Start", "OK!");
+            telemetry.addData("", robot.compass.getDirection());
+            telemetry.update();
+
+        }
+       /*
         waitForStart();
 
         runtime.reset();
@@ -85,23 +90,23 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        Move(0.2, 36, 20, 0.75);
+        MoveToRange(0.3, 10, 2, 0.75);
+/*
+        Turn(0.1, 4.15, Direction.LEFT, 30, 0.75);
 
-        Turn(0.2, 4.15, Direction.LEFT, 30, 0.75);
-
-        Move(0.2, 47, 30, 0.75);
-
-        BeaconTest();
-
-        Move(0.2, 15, 30, 0.75);
+        Move(0.1, 47, 30, 0.75);
 
         BeaconTest();
 
-        Turn(0.2, 6, Direction.LEFT, 30, 0.75);
+        Move(0.1, 15, 30, 0.75);
 
-        Move(0.2, 20, 30, 0.75);
+        BeaconTest();
 
-        Turn(0.2, 1, Direction.RIGHT, 20, 0.75);
+        Turn(0.1, 6, Direction.LEFT, 30, 0.75);
+
+        Move(0.1, 20, 30, 0.75);
+
+        Turn(0.1, 1, Direction.RIGHT, 20, 0.75);
 
         //Launch(2);
 
@@ -109,6 +114,8 @@ public class Auto_Gyro_Inches extends LinearOpMode {
 
         telemetry.addData("Status: ", "Complete");
         telemetry.update();
+*/
+
     }
 
     private void Move(double speed, double distance, double time, double pause) throws InterruptedException {
@@ -134,6 +141,31 @@ public class Auto_Gyro_Inches extends LinearOpMode {
             telemetry.update();
 
             idle();
+        }
+
+        robot.leftDrive.setPower(0);
+        robot.rightDrive.setPower(0);
+
+        robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+        sleep((int) (1000 * pause));
+    }
+
+    private void MoveToRange(double speed, double waitTime, double distance, double pause) throws InterruptedException {
+
+        robot.leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        runtime.reset();
+        robot.leftDrive.setPower(speed);
+        robot.rightDrive.setPower(speed);
+
+        while (robot.range.getDistance(DistanceUnit.CM) >= distance || robot.range.getDistance(DistanceUnit.CM) < 5 || runtime.seconds() <= waitTime) {
+
+            idle();
+
         }
 
         robot.leftDrive.setPower(0);
@@ -261,9 +293,9 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         switch (Color) {
 
             case BLUE:
-                robot.colorSensorRight.enableLed(false);
+                robot.colorSensor.enableLed(false);
                 while (true) {
-                    if (robot.colorSensorRight.blue() >= 2 && robot.colorSensorLeft.red() <= 1) {
+                    if (robot.colorSensor.blue() >= 2 && robot.colorSensor.red() <= 1) {
                         robot.btnPushRight.setPosition(0);
                         break;
                     }
@@ -271,9 +303,9 @@ public class Auto_Gyro_Inches extends LinearOpMode {
                 break;
 
             case RED:
-                robot.colorSensorLeft.enableLed(false);
+                robot.colorSensor.enableLed(false);
                 while (true) {
-                    if (robot.colorSensorLeft.red() >= 2 && robot.colorSensorLeft.blue() <= 1) {
+                    if (robot.colorSensor.red() >= 2 && robot.colorSensor.blue() <= 1) {
                         robot.btnPushLeft.setPosition(0.8);
                         break;
                     }

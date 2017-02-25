@@ -31,14 +31,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cCompassSensor;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.CompassSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
 
 public class HardwareRobot {
     public DcMotor
@@ -54,12 +54,14 @@ public class HardwareRobot {
             btnPushLeft = null,
             btnPushRight = null;
     public ColorSensor
-            colorSensorLeft = null,
-            colorSensorRight = null;
+            //colorSensor = null,
+            colorSensor = null;
     public GyroSensor
             gyroSensor = null;
     public CompassSensor
             compass = null;
+    public ModernRoboticsI2cRangeSensor
+            range = null;
     private HardwareMap hwMap = null;
 
     public HardwareRobot() {
@@ -92,11 +94,12 @@ public class HardwareRobot {
         btnPushRight = hwMap.servo.get("Button Push Right");
 
         // Assigns Names to Sensors
-        colorSensorLeft = hwMap.colorSensor.get("Color Sensor Left");
-        colorSensorRight = hwMap.colorSensor.get("Color Sensor Right");
+        colorSensor = hwMap.colorSensor.get("Color Sensor");
+        //colorSensor = hwMap.colorSensor.get("Color Sensor Right");
 
-        gyroSensor = hwMap.gyroSensor.get("Gyro Sensor");
-        //compass = hwMap.compassSensor.get("Compass")
+        //gyroSensor = hwMap.gyroSensor.get("Gyro Sensor");
+        compass = hwMap.get(ModernRoboticsI2cCompassSensor.class, "Compass");
+        range = hwMap.get(ModernRoboticsI2cRangeSensor.class, "Range Sensor");
 
     }
 
