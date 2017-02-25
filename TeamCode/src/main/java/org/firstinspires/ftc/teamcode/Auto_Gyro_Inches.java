@@ -417,6 +417,67 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         sleep((int) (pause * 1000));
     }
 
+    private void compassTurn(double speed, double angle, Direction dir, double time, double pause) throws InterruptedException{
+
+        double Offset, CompassAngle;
+
+        Offset = robot.compass.getDirection();
+
+        if (Color == Alliance.BLUE) {
+            switch (dir) {
+
+                case LEFT:
+                    dir = Direction.RIGHT;
+                    break;
+
+                case RIGHT:
+                    dir = Direction.LEFT;
+                    break;
+            }
+        }
+
+        if(dir == Direction.LEFT){
+            angle = angle * -1;
+        }
+
+        CompassAngle= Offset + angle;
+
+        if(CompassAngle >= 360){
+            CompassAngle-=360;
+        }
+
+        switch (dir) {
+
+            case LEFT:
+                robot.leftDrive.setPower(speed);
+                robot.rightDrive.setPower(-speed);
+                break;
+
+            case RIGHT:
+                robot.leftDrive.setPower(-speed);
+                robot.rightDrive.setPower(speed);
+                break;
+        }
+
+        while (runtime.seconds() < time) {
+
+            telemetry.addData("Compass: ", robot.compass.getDirection());
+            telemetry.update();
+
+            if ((robot.compass.getDirection() <= (CompassAngle + 2) && robot.compass.getDirection() >= (CompassAngle - 2))) {
+                //These 2 degrees on either side are because MR sensor does not update angle every time it changes
+                break;
+            }
+
+        }
+
+        robot.leftDrive.setPower(0);
+        robot.rightDrive.setPower(0);
+
+        sleep((int) (pause * 1000));
+
+    }
+
     /*double getBatteryVoltage() {
         double result = Double.POSITIVE_INFINITY;
         for (VoltageSensor sensor : hardwareMap.voltageSensor) {
@@ -430,3 +491,4 @@ public class Auto_Gyro_Inches extends LinearOpMode {
 
 }
 
+//Compass.getDirection
