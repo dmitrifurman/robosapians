@@ -13,8 +13,8 @@ import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerA
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.timeDelay;
 
 
-@Autonomous(name = "Simple Auto", group = "Linear OpModes")
-public class Simple_Auto extends LinearOpMode {
+@Autonomous(name = "Simple Auto Far", group = "Linear OpModes")
+public class Simple_Auto_Far extends LinearOpMode {
 
     private enum Alliance {
         RED, BLUE, NONE
@@ -85,11 +85,11 @@ public class Simple_Auto extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        Move(0.4, 20, 3, 1);
+        Move(0.4, 25, 3, 1);
 
         Launch(2);
 
-        Move(0.4, 5, 3, 1);
+        Move(0.4, 10, 3, 1);
 
         telemetry.addData("Status: ", "Complete");
         telemetry.update();

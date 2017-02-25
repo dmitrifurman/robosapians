@@ -94,7 +94,7 @@ public class TankOp extends OpMode {
         armPosition = 0;
 
         //Servo set position to initialize value
-        robot.release.setPosition(armPosition);
+        //robot.release.setPosition(armPosition);
 
         // Set Belt Mode
         belt = beltMode.STATIC;
@@ -183,8 +183,8 @@ public class TankOp extends OpMode {
                 break;
 
             case SLOW:
-                robot.leftDrive.setPower(gamepad1.left_stick_y * 0.6);
-                robot.rightDrive.setPower(gamepad1.right_stick_y * 0.6);
+                robot.leftDrive.setPower(gamepad1.left_stick_y * 0.7);
+                robot.rightDrive.setPower(gamepad1.right_stick_y * 0.7);
                 break;
 
         }
@@ -229,8 +229,8 @@ public class TankOp extends OpMode {
         // Launching Code
         if (extend == extendMode.STATIC) {
 
-            robot.leftLaunch.setPower(0.6);
-            robot.rightLaunch.setPower(0.6);
+            robot.leftLaunch.setPower(0.55);
+            robot.rightLaunch.setPower(0.55);
 
         } else {
 
