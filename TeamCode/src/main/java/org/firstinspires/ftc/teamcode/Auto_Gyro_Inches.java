@@ -70,15 +70,10 @@ public class Auto_Gyro_Inches extends LinearOpMode {
             idle();
         }
 
-        while (true) {
+        telemetry.addData("Status: ", "READY");
+        telemetry.addData("Start", "OK!");
+        telemetry.update();
 
-            telemetry.addData("Status: ", "READY");
-            telemetry.addData("Start", "OK!");
-            telemetry.addData("", robot.compass.getDirection());
-            telemetry.update();
-
-        }
-       /*
         waitForStart();
 
         runtime.reset();
@@ -111,10 +106,10 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         //Launch(2);
 
         Move(0.5, 18, 3, 0.75);
-
+*/
         telemetry.addData("Status: ", "Complete");
         telemetry.update();
-*/
+
 
     }
 
@@ -162,8 +157,10 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         robot.leftDrive.setPower(speed);
         robot.rightDrive.setPower(speed);
 
-        while (robot.range.getDistance(DistanceUnit.CM) >= distance || robot.range.getDistance(DistanceUnit.CM) < 5 || runtime.seconds() <= waitTime) {
+        while (robot.range.getDistance(DistanceUnit.CM) >= distance) {
 
+            telemetry.addData("Distance", robot.range.getDistance(DistanceUnit.CM));
+            telemetry.update();
             idle();
 
         }
