@@ -88,6 +88,24 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
+        // Matthew Please try this code. It should turn the robot 45 degrees to the right
+
+        // If it does work, change the rest of the code to compass turns
+        // If it doesnt work, use the turns I have below and just tweak the values
+
+        // Obviously, if the compass turn is close to working, try to fix it because it is more accurate
+
+        // The calibrator is located as follows:
+        // FtcRobotController/java/org.firstinspires.ftc.robotcontroller/external.samples/SensorMRCompass
+
+        // The file is pretty self-explainitory
+
+        // GOOD LUCK
+        // - Thomas
+
+        CompassTurn(45, Direction.RIGHT, 0.5);
+
+/*
         MoveToRange(7, 0.75);
 
         Turn(0.3, -5, Direction.RIGHT, 10, 0.5);
@@ -109,7 +127,7 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         Launch(2);
 
         Move(0.5, 18, 3, 0.75);
-
+*/
         telemetry.addData("Status: ", "Complete");
         telemetry.update();
 
