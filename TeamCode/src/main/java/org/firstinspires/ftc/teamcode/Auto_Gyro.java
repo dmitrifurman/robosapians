@@ -9,7 +9,7 @@ import java.util.Objects;
 
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TeamColor;
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.timeDelay;
-
+/*
 
 @Autonomous(name = "Autonomous", group = "Linear OpModes")
 public class Auto_Gyro extends LinearOpMode {
@@ -312,4 +312,4 @@ public class Auto_Gyro extends LinearOpMode {
     }
 
 }
-
+*/
