@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -72,10 +70,15 @@ public class Auto_Gyro_Inches extends LinearOpMode {
             idle();
         }
 
-        telemetry.addData("Status: ", "READY");
-        telemetry.addData("Start", "OK!");
-        telemetry.update();
+        while (true) {
 
+            telemetry.addData("Status: ", "READY");
+            telemetry.addData("Start", "OK!");
+            telemetry.addData("", robot.compass.getDirection());
+            telemetry.update();
+
+        }
+       /*
         waitForStart();
 
         runtime.reset();
@@ -88,7 +91,7 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         telemetry.update();
 
         MoveToRange(0.3, 10, 2, 0.75);
-
+/*
         Turn(0.1, 4.15, Direction.LEFT, 30, 0.75);
 
         Move(0.1, 47, 30, 0.75);
@@ -111,7 +114,7 @@ public class Auto_Gyro_Inches extends LinearOpMode {
 
         telemetry.addData("Status: ", "Complete");
         telemetry.update();
-
+*/
 
     }
 
@@ -290,9 +293,9 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         switch (Color) {
 
             case BLUE:
-                robot.colorSensorRight.enableLed(false);
+                robot.colorSensor.enableLed(false);
                 while (true) {
-                    if (robot.colorSensorRight.blue() >= 2 && robot.colorSensorLeft.red() <= 1) {
+                    if (robot.colorSensor.blue() >= 2 && robot.colorSensor.red() <= 1) {
                         robot.btnPushRight.setPosition(0);
                         break;
                     }
@@ -300,9 +303,9 @@ public class Auto_Gyro_Inches extends LinearOpMode {
                 break;
 
             case RED:
-                robot.colorSensorLeft.enableLed(false);
+                robot.colorSensor.enableLed(false);
                 while (true) {
-                    if (robot.colorSensorLeft.red() >= 2 && robot.colorSensorLeft.blue() <= 1) {
+                    if (robot.colorSensor.red() >= 2 && robot.colorSensor.blue() <= 1) {
                         robot.btnPushLeft.setPosition(0.8);
                         break;
                     }
