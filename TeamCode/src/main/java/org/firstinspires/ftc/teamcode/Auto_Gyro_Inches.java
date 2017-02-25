@@ -88,7 +88,7 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        // Matthew please try this code. It should turn the robot 45 degrees to the right
+        // Matthew please try this code. It should turn the robot 45 degrees to the right...
 
         // If it does work, change the rest of the code to compass turns
         // If it doesnt work, use the turns I have below and just tweak the values
