@@ -85,7 +85,7 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        MoveToRange(0.3, 10, 2, 0.75);
+        MoveToRange(0.3, 20, 0.75);
 /*
         Turn(0.1, 4.15, Direction.LEFT, 30, 0.75);
 
@@ -148,7 +148,9 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         sleep((int) (1000 * pause));
     }
 
-    private void MoveToRange(double speed, double waitTime, double distance, double pause) throws InterruptedException {
+    private void MoveToRange(double speed, double distance, double pause) throws InterruptedException {
+
+        double Direction = robot.compass.getDirection();
 
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -157,7 +159,28 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         robot.leftDrive.setPower(speed);
         robot.rightDrive.setPower(speed);
 
-        while (robot.range.getDistance(DistanceUnit.CM) >= distance) {
+        while (true) {
+
+            if (robot.range.getDistance(DistanceUnit.CM) <= distance) {
+                break;
+            }
+
+            if (robot.compass.getDirection() < Direction - 1) {
+
+                robot.leftDrive.setPower(speed + 0.05);
+                robot.rightDrive.setPower(speed - 0.05);
+
+            } else if (robot.compass.getDirection() > Direction + 1) {
+
+                robot.leftDrive.setPower(speed - 0.05);
+                robot.rightDrive.setPower(speed + 0.05);
+
+            } else {
+
+                robot.leftDrive.setPower(speed);
+                robot.rightDrive.setPower(speed);
+
+            }
 
             telemetry.addData("Distance", robot.range.getDistance(DistanceUnit.CM));
             telemetry.update();
