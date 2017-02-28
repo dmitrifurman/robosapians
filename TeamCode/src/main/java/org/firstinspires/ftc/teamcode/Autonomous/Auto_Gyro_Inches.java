@@ -1,11 +1,13 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CompassSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.HardwareRobot;
 
 import java.util.Objects;
 
@@ -13,8 +15,8 @@ import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerA
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.timeDelay;
 
 
-@Autonomous(name = "Simple Auto", group = "Linear OpModes")
-public class Simple_Auto extends LinearOpMode {
+@Autonomous(name = "Autonomous Inches", group = "Linear OpModes")
+public class Auto_Gyro_Inches extends LinearOpMode {
 
     private enum Alliance {
         RED, BLUE, NONE
@@ -52,6 +54,8 @@ public class Simple_Auto extends LinearOpMode {
 
         robot.init(hardwareMap);
 
+        robot.compass.setMode(CompassSensor.CompassMode.MEASUREMENT_MODE);
+
         telemetry.addData("Status", "Initializing");
         telemetry.addData("Notice", "Do NOT click START!");
         telemetry.update();
@@ -85,12 +89,31 @@ public class Simple_Auto extends LinearOpMode {
         telemetry.addData("Status: ", "Running");
         telemetry.update();
 
-        Move(0.4, 20, 3, 1);
+        CompassTurn(45, Direction.RIGHT, 0.5);
+
+/*
+        MoveToRange(7, 0.75);
+
+        Turn(0.3, -5, Direction.RIGHT, 10, 0.5);
+
+        MoveToRange(20, 0.75);
+
+        BeaconTest();
+
+        Move(0.3, -15, 30, 0.75);
+
+        BeaconTest();
+
+        Turn(0.1, -10, Direction.RIGHT, 30, 0.75);
+
+        Move(0.1, 20, 30, 0.75);
+
+        Turn(0.1, -3, Direction.LEFT, 20, 0.75);
 
         Launch(2);
 
-        Move(0.4, 5, 3, 1);
-
+        Move(0.5, 18, 3, 0.75);
+*/
         telemetry.addData("Status: ", "Complete");
         telemetry.update();
 
@@ -132,18 +155,43 @@ public class Simple_Auto extends LinearOpMode {
         sleep((int) (1000 * pause));
     }
 
-    /*private void MoveToRange(double speed, double waitTime, double distance, double pause) throws InterruptedException {
+    private void MoveToRange(double distance, double pause) throws InterruptedException {
+
+        distance = distance + 1;
+
+        double Direction = robot.compass.getDirection();
 
         robot.leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         runtime.reset();
-        robot.leftDrive.setPower(speed);
-        robot.rightDrive.setPower(speed);
+        robot.leftDrive.setPower(0.5);
+        robot.rightDrive.setPower(0.5);
 
-        while (robot.range.getDistance(DistanceUnit.CM) >= distance) {
+        while (true) {
 
-            telemetry.addData("Distance", robot.range.getDistance(DistanceUnit.CM));
+            if (robot.range.getDistance(DistanceUnit.INCH) <= distance) {
+                break;
+            }
+
+            if (robot.compass.getDirection() < Direction - 1) {
+
+                robot.leftDrive.setPower(0.7);
+                robot.rightDrive.setPower(0.3);
+
+            } else if (robot.compass.getDirection() > Direction + 1) {
+
+                robot.leftDrive.setPower(0.3);
+                robot.rightDrive.setPower(0.7);
+
+            } else {
+
+                robot.leftDrive.setPower(0.5);
+                robot.rightDrive.setPower(0.5);
+
+            }
+
+            telemetry.addData("Distance", robot.range.getDistance(DistanceUnit.INCH));
             telemetry.update();
             idle();
 
@@ -217,13 +265,13 @@ public class Simple_Auto extends LinearOpMode {
 
         sleep((int) (1000 * pause));
     }
-*/
+
     private void Launch(double balls) throws InterruptedException {
 
         runtime.reset();
 
-        robot.leftLaunch.setPower(0.5);
-        robot.rightLaunch.setPower(0.5);
+        robot.leftLaunch.setPower(0.6);
+        robot.rightLaunch.setPower(0.6);
 
         for (int l = 1; l <= balls; l++) {
 
@@ -250,7 +298,7 @@ public class Simple_Auto extends LinearOpMode {
     }
 
 
-   /* private void BeaconTest() throws InterruptedException {
+    private void BeaconTest() throws InterruptedException {
 
         telemetry.addData("Beacon Test:", "NOW");
 
@@ -378,7 +426,7 @@ public class Simple_Auto extends LinearOpMode {
         sleep((int) (pause * 1000));
     }
 
-    private void compassTurn(double speed, double angle, Direction dir, double time, double pause) throws InterruptedException{
+    private void CompassTurn(double angle, Direction dir, double pause) throws InterruptedException {
 
         double Offset, CompassAngle;
 
@@ -397,38 +445,41 @@ public class Simple_Auto extends LinearOpMode {
             }
         }
 
-        if(dir == Direction.LEFT){
+        if (dir == Direction.LEFT) {
             angle = angle * -1;
         }
 
-        CompassAngle= Offset + angle;
+        CompassAngle = Offset + angle;
 
-        if(CompassAngle >= 360){
-            CompassAngle-=360;
+        if (CompassAngle >= 360) {
+            CompassAngle -= 360;
+        } else if (CompassAngle < 0) {
+            CompassAngle += 360;
         }
 
         switch (dir) {
 
             case LEFT:
-                robot.leftDrive.setPower(speed);
-                robot.rightDrive.setPower(-speed);
+                robot.leftDrive.setPower(0.1);
+                robot.rightDrive.setPower(-0.1);
                 break;
 
             case RIGHT:
-                robot.leftDrive.setPower(-speed);
-                robot.rightDrive.setPower(speed);
+                robot.leftDrive.setPower(-0.1);
+                robot.rightDrive.setPower(0.1);
                 break;
         }
 
-        while (runtime.seconds() < time) {
+        while (true) {
 
             telemetry.addData("Compass: ", robot.compass.getDirection());
             telemetry.update();
 
-            if ((robot.compass.getDirection() <= (CompassAngle + 2) && robot.compass.getDirection() >= (CompassAngle - 2))) {
-                //These 2 degrees on either side are because MR sensor does not update angle every time it changes
+            if ((robot.compass.getDirection() <= (CompassAngle + 3) && robot.compass.getDirection() >= (CompassAngle - 3))) {
                 break;
             }
+
+            idle();
 
         }
 
@@ -439,17 +490,4 @@ public class Simple_Auto extends LinearOpMode {
 
     }
 
-    /*double getBatteryVoltage() {
-        double result = Double.POSITIVE_INFINITY;
-        for (VoltageSensor sensor : hardwareMap.voltageSensor) {
-            double voltage = sensor.getVoltage();
-            if (voltage > 0) {
-                result = Math.min(result, voltage);
-            }
-        }
-        return result;
-    }*/
-
 }
-
-//Compass.getDirection
