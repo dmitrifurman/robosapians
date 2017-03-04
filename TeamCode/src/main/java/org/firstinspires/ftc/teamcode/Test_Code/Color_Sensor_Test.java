@@ -76,8 +76,11 @@ public class Color_Sensor_Test extends LinearOpMode {
             telemetry.addData("1 #A", ColorACache[0] & 0xFF);
             telemetry.addData("2 #C", ColorCCache[0] & 0xFF);
 
-            telemetry.addData("", "");
-            telemetry.addData("", "");
+            telemetry.addData("3 A", ColorAReader.getI2cAddress().get8Bit());
+            telemetry.addData("4 C", ColorCReader.getI2cAddress().get8Bit());
+
+            MLeft.setPower(gamepad1.left_stick_y);
+            MRight.setPower(gamepad1.right_stick_y);
         }
 
 
