@@ -53,7 +53,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
  * @see <a href="http://www.modernroboticsinc.com/compass">MR Compass Sensor</a>
  */
 @Autonomous(name = "Sensor: MR compass", group = "Sensor")
-@Disabled   // comment out or remove this line to enable this opmode
+// comment out or remove this line to enable this opmode
 public class SensorMRCompass extends LinearOpMode {
 
     ModernRoboticsI2cCompassSensor compass;
@@ -63,7 +63,7 @@ public class SensorMRCompass extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         // get a reference to our compass
-        compass = hardwareMap.get(ModernRoboticsI2cCompassSensor.class, "compass");
+        compass = hardwareMap.get(ModernRoboticsI2cCompassSensor.class, "Compass");
 
         telemetry.log().setCapacity(20);
         telemetry.log().add("The compass sensor operates quite well out-of-the");
