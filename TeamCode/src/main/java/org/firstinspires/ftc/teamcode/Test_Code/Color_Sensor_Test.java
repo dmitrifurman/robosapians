@@ -1,13 +1,10 @@
 package org.firstinspires.ftc.teamcode.Test_Code;
 
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cColorSensor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.I2cAddr;
 import com.qualcomm.robotcore.hardware.I2cDevice;
-import com.qualcomm.robotcore.hardware.I2cDeviceReader;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynch;
 import com.qualcomm.robotcore.hardware.I2cDeviceSynchImpl;
 
@@ -18,19 +15,23 @@ import com.qualcomm.robotcore.hardware.I2cDeviceSynchImpl;
 @Autonomous(name = "Color Concept", group = "Linear OpModes")
 public class Color_Sensor_Test extends LinearOpMode {
 
-    byte[] ColorACache,
+    private byte[]
+            ColorACache,
             ColorCCache;
 
-    DcMotor MLeft,
+    private DcMotor
+            MLeft,
             MRight;
 
-    I2cDevice ColorA,
+    private I2cDevice
+            ColorA,
             ColorC;
 
-    I2cDeviceSynch ColorAReader,
+    private I2cDeviceSynch
+            ColorAReader,
             ColorCReader;
 
-    int LED = 0;
+    private int LED = 0;
 
     @Override
     public void runOpMode() throws InterruptedException {
