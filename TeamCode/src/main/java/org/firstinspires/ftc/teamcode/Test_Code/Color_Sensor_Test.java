@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Test_Code;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.I2cAddr;
@@ -13,6 +14,7 @@ import com.qualcomm.robotcore.hardware.I2cDeviceSynchImpl;
  */
 
 @Autonomous(name = "Color Concept", group = "Linear OpModes")
+@Disabled
 public class Color_Sensor_Test extends LinearOpMode {
 
     private byte[]
@@ -55,13 +57,13 @@ public class Color_Sensor_Test extends LinearOpMode {
 
             if (LED == 0) {
 
-                ColorAReader.write8(3, 0);
-                ColorCReader.write8(3, 0);
+                ColorAReader.write8(3, 1);
+                ColorCReader.write8(3, 1);
 
             } else if (LED == 1) {
 
-                ColorAReader.write8(3, 1);
-                ColorCReader.write8(3, 1);
+                ColorAReader.write8(3, 0);
+                ColorCReader.write8(3, 0);
 
             }
 
@@ -74,11 +76,13 @@ public class Color_Sensor_Test extends LinearOpMode {
             ColorACache = ColorAReader.read(0x04, 1);
             ColorCCache = ColorCReader.read(0x04, 1);
 
-            telemetry.addData("1 #A", ColorACache[0] & 0xFF);
-            telemetry.addData("2 #C", ColorCCache[0] & 0xFF);
+            telemetry.addData("ColorA Color#", ColorACache[0] & 0xFF);
+            telemetry.addData("ColorC Color#", ColorCCache[0] & 0xFF);
 
-            telemetry.addData("3 A", ColorAReader.getI2cAddress().get8Bit());
-            telemetry.addData("4 C", ColorCReader.getI2cAddress().get8Bit());
+            telemetry.addData("ColorA Address", ColorAReader.getI2cAddress().get8Bit());
+            telemetry.addData("ColorC Address", ColorCReader.getI2cAddress().get8Bit());
+
+            telemetry.update();
 
             MLeft.setPower(gamepad1.left_stick_y);
             MRight.setPower(gamepad1.right_stick_y);

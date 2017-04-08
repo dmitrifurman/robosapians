@@ -94,12 +94,12 @@ public class HardwareRobot {
         btnPushRight = hwMap.servo.get("Button Push Right");
 
         // Assigns Names to Sensors
-        colorSensor = hwMap.colorSensor.get("Color Sensor");
+        //colorSensor = hwMap.colorSensor.get("Color Sensor");
         //colorSensor = hwMap.colorSensor.get("Color Sensor Right");
 
         //gyroSensor = hwMap.gyroSensor.get("Gyro Sensor");
-        compass = hwMap.get(ModernRoboticsI2cCompassSensor.class, "Compass");
-        range = hwMap.get(ModernRoboticsI2cRangeSensor.class, "Range Sensor");
+        //compass = hwMap.get(ModernRoboticsI2cCompassSensor.class, "Compass");
+        //range = hwMap.get(ModernRoboticsI2cRangeSensor.class, "Range Sensor");
 
     }
 

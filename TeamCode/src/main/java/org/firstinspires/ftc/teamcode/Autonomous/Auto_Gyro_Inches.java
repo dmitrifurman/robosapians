@@ -91,7 +91,6 @@ public class Auto_Gyro_Inches extends LinearOpMode {
 
         CompassTurn(45, Direction.RIGHT, 0.5);
 
-/*
         MoveToRange(7, 0.75);
 
         Turn(0.3, -5, Direction.RIGHT, 10, 0.5);
@@ -113,7 +112,7 @@ public class Auto_Gyro_Inches extends LinearOpMode {
         Launch(2);
 
         Move(0.5, 18, 3, 0.75);
-*/
+
         telemetry.addData("Status: ", "Complete");
         telemetry.update();
 
