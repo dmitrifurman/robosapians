@@ -158,17 +158,17 @@ public class TankOp extends OpMode {
         telemetry.addData("Button Push Left", robot.btnPushLeft.getPosition());
         telemetry.addData("Button Push Right", robot.btnPushRight.getPosition());
 
-        robot.colorSensor.enableLed(false);
-        robot.colorSensor.enableLed(false);
+        //robot.colorSensor.enableLed(false);
+        //robot.colorSensor.enableLed(false);
 
-        telemetry.addData("L Hue", robot.colorSensor.argb());
-        telemetry.addData("R Hue", robot.colorSensor.argb());
+        //telemetry.addData("L Hue", robot.colorSensor.argb());
+        //telemetry.addData("R Hue", robot.colorSensor.argb());
 
-        telemetry.addData("L Red", robot.colorSensor.red());
-        telemetry.addData("L Blue", robot.colorSensor.blue());
+        //telemetry.addData("L Red", robot.colorSensor.red());
+        //telemetry.addData("L Blue", robot.colorSensor.blue());
 
-        telemetry.addData("R Red", robot.colorSensor.red());
-        telemetry.addData("R Blue", robot.colorSensor.blue());
+        //telemetry.addData("R Red", robot.colorSensor.red());
+        //telemetry.addData("R Blue", robot.colorSensor.blue());
 
 
     }
